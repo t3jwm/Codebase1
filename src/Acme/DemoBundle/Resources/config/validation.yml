@@ -1,0 +1,6 @@
+# src/Acme/DemoBundle/Resources/config/validation.yml
+Acme\DemoBundle\Entity\Document:
+    properties:
+        file:
+            - File:
+                maxSize: 6000000

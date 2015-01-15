@@ -1,0 +1,406 @@
+/* SKETCH API
+--------------------------------------------------------------------------------*/
+
+.sketchapi,
+.sketchapi .sk-viewport {
+  width: inherit;
+  height: inherit;
+  position: relative;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* CANVAS SETTINGS
+--------------------------------------------------------------------------------*/
+
+.sketchapi .sk-dummy-canvas,
+.sketchapi .sk-canvas,
+.sketchapi #sk-canvas {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  -webkit-user-select: none;
+}
+
+.sketchapi .sk-canvas canvas,
+.sketchapi #sk-canvas canvas {
+  -ms-touch-action: none;
+  /* prevent default IE10+ */
+  cursor: default;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.sketchapi #bitmap,
+.sketchapi #cache {
+  display: none;
+}
+
+/* TEXT AREA 
+-------------------------------------------------------------------*/
+
+.sketchapi .sk-textarea-wrap {
+  opacity: 1;
+  display: none;
+  z-index: 100;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid rgba(210,220,255,0.25);
+  position: absolute;
+  background: rgba(210,220,255,0.25);
+  font-size: normal;
+  line-height: normal;
+  overflow: hidden;
+}
+
+.sketchapi .sk-textarea-wrap .textarea {
+  z-index: 0;
+  height: inherit;
+  padding: 0;
+  margin: 0,
+	word-wrap: break-word;
+  white-space: pre-wrap;
+  position: static;
+  outline: none;
+  border: 0;
+  color: rgba(255, 0, 0, 1);
+  cursor: text;
+  width: 100%;
+  font: inherit;
+  /* keep this */
+  -webkit-user-select: text;
+}
+
+.sketchapi .sk-textarea-wrap .textarea:after {
+  content: attr(data-content);
+  text-shadow: none;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  width: inherit;
+  height: inherit;
+  padding: inherit;
+  position: absolute;
+  z-index: -1;
+  left: -4px;
+  top: 0;
+}
+
+/* SketchAPI - Slider 
+-------------------------------------------------------------------*/
+
+.sketchapi .sk-slider {
+  padding: 5px 8px 0px;
+}
+
+.sketchapi .sk-slider .sk-title {
+  float: left;
+  font-weight: bold;
+  cursor: default;
+}
+
+.sketchapi .sk-slider .values {
+  float: right;
+  color: #444;
+  cursor: default;
+}
+
+.sketchapi .sk-slider .values input {
+  font-family: Capriola, Futura, arial, sans-serif;
+  color: #888;
+  background: none;
+  border: none;
+  text-align: center;
+  max-width: 40px;
+}
+
+.sketchapi .sk-slider .value0 {
+  color: #888;
+  padding-right: 3px;
+  cursor: text;
+}
+
+.sketchapi .sk-slider .value1 {
+  color: #888;
+  padding-left: 3px;
+  cursor: text;
+}
+
+/* SketchAPI : Scroller
+-------------------------------------------------------------------*/
+
+.sketchapi .scroller {
+  clear: both;
+  margin-bottom: 4px;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+  background: #111;
+  background: -webkit-linear-gradient(270deg, #111 0%, #222 100%);
+  background: linear-gradient(180deg, #111 0%, #222 100%);
+  padding: 0;
+  /* compensate for selected element expansion */
+  /*    padding-right: 6px;*/
+  margin-bottom: 0;
+}
+
+.sketchapi .scroller::-webkit-scrollbar {
+  width: 17px;
+  background: #111;
+  border-radius: 0;
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+
+.sketchapi .scroller::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 0;
+}
+
+.sketchapi .scroller::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, right top, from(#888), to(#666));
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  border: 1px solid #000;
+}
+
+.sketchapi .scroller canvas.text,
+.sketchapi .scroller canvas.stamp,
+.sketchapi .scroller canvas.clipart {
+  background: #111;
+  background: -webkit-linear-gradient(315deg, #111 0%, #272727 100%);
+  background: linear-gradient(135deg, #111 0%, #272727 100%);
+  float: left;
+  border-bottom: none;
+  border-right: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.sketchapi .scroller canvas.stamp,
+.sketchapi .scroller canvas.clipart {
+  width: 20%;
+  height: 20%;
+}
+
+.sketchapi .scroller canvas.text {
+  width: 200px;
+}
+
+.sketchapi .scroller canvas.text.selected {
+  border-bottom: 1px solid rgba(0,0,0,0);
+}
+
+.sketchapi .scroller div.noItemsAdded {
+  padding: 10px;
+}
+
+.sketchapi .scroller canvas.selected {
+  z-index: 1;
+  position: relative;
+  background: rgba(58, 145, 255, 0.7);
+  background-image: -webkit-linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0,0) 100%);
+  background-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0,0) 100%);
+}
+
+.sketchapi .sk-break {
+  border-top: 1px solid #161616;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.sketchapi .sk-configure-credits {
+  clear: both;
+  color: #666;
+  font-style: italic;
+  padding: 6px 0 4px 9px;
+  position: relative;
+  top: -2px;
+  cursor: default;
+}
+
+.sketchapi .sk-configure-credits a,
+.sketchapi .sk-configure-credits a:visited {
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  color: #FD903B;
+  font-weight: bold;
+  margin-left: 3px;
+}
+
+.sketchapi .sk-configure-credits a:hover {
+  color: #FF3DBD;
+}
+
+.sketchapi .content {
+  overflow: auto;
+  overflow-x: hidden;
+  color: #BBB;
+  clear: both;
+}
+
+.sketchapi .sk-error {
+  display: none;
+}
+
+/* Snapshot animation
+------------------------------------*/
+
+#snapshot {
+  -webkit-transition: opacity 200ms ease-out;
+  transition: opacity 200ms ease-out;
+  opacity: 0;
+  background: rgba(255,255,255,0.75);
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#snapshot.fadein {
+  -webkit-transition: opacity 50ms ease;
+  transition: opacity 50ms ease;
+  opacity: 1;
+}
+
+/* Orientation
+------------------------------------*/
+
+#sk-orientation {
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.35s;
+  z-index: 999;
+  display: none;
+  cursor: default;
+  border: 1px solid rgba(255,255,255,0.5);
+  background: rgba(0,0,0,0.5);
+  width: 42px;
+  position: fixed;
+  opacity: 1;
+  padding: 5px;
+  border-radius: 5px;
+  right: 20px;
+  top: 68px;
+}
+
+#sk-orientation.sk-opened {
+  display: block;
+}
+
+#sk-orientation div.controller div,
+#sk-orientation div.controller {
+  opacity: 1;
+  cursor: crosshair;
+  width: 5px;
+  height: 150px;
+  left: -3px;
+  background: rgba(170,170,170,1);
+  border-radius: 7px;
+  position: relative;
+  margin: auto;
+}
+
+#sk-orientation div.controller {
+  background: none;
+  width: inherit;
+}
+
+#sk-orientation div.controller span {
+  cursor: move;
+  background: #fff;
+  -webkit-box-shadow: inset -1px -1px 1px rgba(0,0,0,0.25);
+  box-shadow: inset -1px -1px 1px rgba(0,0,0,0.25);
+  border-radius: 3px;
+  display: block;
+  position: relative;
+  left: -7px;
+  width: 19px;
+  height: 7px;
+}
+
+#sk-orientation div[class*="icon-"] {
+  -webkit-transition-property: backgrond;
+  transition-property: backgrond;
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  -webkit-box-shadow: inset -1px -1px 10px rgba(0,0,0,0.15);
+  box-shadow: inset -1px -1px 10px rgba(0,0,0,0.15);
+  text-align: center;
+  border-radius: 3px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  margin: 5px 0 0;
+  background: #eee;
+  color: #71B8DA;
+  line-height: 2em;
+  opacity: 1;
+}
+
+#sk-orientation div:first-child {
+  margin: 0 0 5px;
+}
+
+#sk-orientation div[class*="icon-"]:hover {
+  opacity: 1;
+  background: #fff;
+  color: #80d1f7;
+}
+
+.sketchapi .sk-hide {
+  display: none;
+}
+
+/* Alertify
+------------------------------------*/
+
+.alertify {
+  color: #000;
+}
+
+.alertify .confirm-message {
+  margin: 0 15px;
+  padding: 0;
+  line-height: 2em;
+}
+
+/* PRINT
+-------------------------------------------------------------------*/
+
+html body #print {
+  display: none;
+}
+
+@media print {
+  html * {
+    display: none;
+    visibility: hidden;
+  }
+
+  html body {
+    display: block;
+    visibility: visible;
+    background: none;
+  }
+
+  html body #print,
+  html body #print canvas {
+    display: block;
+    visibility: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+  }
+}

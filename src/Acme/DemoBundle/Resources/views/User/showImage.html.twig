@@ -1,0 +1,33 @@
+  {% if filePaths is defined %}
+                        {% if numImage > 0 %}
+                            {% for i in 0..numImage-1 %}
+
+
+                            <li class="thumbnail">
+                                <a style="background:url({{asset(filePaths[i]~'.jpeg')}} );"
+                                   title="Image 1" href="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}">
+                                   <img src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
+                                </a>
+                                <p style= "text-align: center;">{{ picnames[i] }}</p>
+                                <p class="btn-group">
+
+                                    <button onclick =  "renameImage('{{ imgId[i]}}','{{ id }}')" class="btn btn-xs btn-info" >Rename</button>
+
+                                    <button onclick =  "sendImage('{{ imgId[i]}}')" class="btn btn-success btn-xs" >Send</button>
+
+
+                                    <button onclick =  "deleteImage('{{ imgId[i]}}','{{ id }}')" class="btn btn-danger btn-xs" >Delete</button>
+                                    
+
+                                </p>
+                            </li>
+
+
+
+                            
+
+                            {% endfor %}
+                        {% else %}
+                            <p style="font-style:italic">The gallery is empty !</p>
+                        {% endif %}
+                        {% endif %}

@@ -1,0 +1,145 @@
+/* ===== Album Carousel ===== */
+.carousel-album{
+    position:relative;
+    z-index:1;
+    margin: 3em auto;
+    width:1280px;
+    height:800px;
+    border:15px solid #FFF;
+    -webkit-box-shadow: 0 3px 10px #333;
+    -moz-box-shadow: 0 3px 10px #333;
+    box-shadow: 0 3px 10px #333;
+    overflow:hidden;
+}
+
+/* Carousel Container */
+.carousel-album-container{
+    position:relative;
+    z-index:2;
+    margin:0;
+    padding:0;
+    width:1250px;
+    height:770px;
+    overflow:hidden;
+}
+
+/* Carousel Buttons */
+a.carousel-album-prev-btn:link,a.carousel-album-prev-btn:visited,a.carousel-album-prev-btn:hover,
+a.carousel-album-next-btn:link,a.carousel-album-next-btn:visited,a.carousel-album-next-btn:hover{
+    position:absolute;
+    z-index:3;
+    top:50%;
+    margin:-50px 0 0;
+    width:100px;
+    height:100px;
+    line-height:70px;
+    text-align:center;
+    background-color:#000;
+    color:#939393;
+    opacity:0.7;
+    filter:alpha(opacity=70);
+    text-decoration:none;
+    font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;
+    font-size:140px;
+    overflow:hidden;
+}
+a.carousel-album-prev-btn:link,a.carousel-album-prev-btn:visited,a.carousel-album-prev-btn:hover{
+    left: 0;
+}
+a.carousel-album-next-btn:link,a.carousel-album-next-btn:visited,a.carousel-album-next-btn:hover{
+    right:0;
+}
+a.carousel-album-prev-btn:hover,
+a.carousel-album-next-btn:hover{
+    color:#FFF;
+}
+a.carousel-button-disabled:link,a.carousel-button-disabled:visited,a.carousel-button-disabled:hover{
+    background-color:#EEE;
+    color:#999;
+}
+
+/* Carousel List */
+.carousel-album-list{
+    position:absolute;
+    z-index:3;
+    margin:0;
+    padding:0;
+    width:10000px;
+    height:770px;
+    overflow:hidden;
+}
+
+.carousel-album-list li{
+    position:relative;
+    z-index:1;
+    float:left;
+    margin:0;
+    list-style-type: none;
+    overflow:hidden;
+}
+
+.carousel-album-list p{
+    margin:0 auto;
+    overflow:hidden;
+}
+
+.carousel-album-list,
+.carousel-album-list li,
+.carousel-album-list p,
+.carousel-album-list img{
+    width:1250px;
+    height:770px;
+}
+
+.carousel-album-list h3{
+    position:absolute;
+    z-index:2;
+    bottom:0;
+    left:0;
+    margin:0;
+    width:1250px;
+    height:40px;
+    line-height:40px;
+    font-size:14px;
+    font-weight:normal;
+    background-color:#333;
+    opacity: 0.7;
+    filter:alpha(opacity=70);
+    color:#FFF;
+    text-align:center;
+    overflow:hidden;
+}
+
+.carousel-album-list h3 a:link,.carousel-album-list h3 a:visited,.carousel-album-list h3 a:hover{
+    color:#FFF;
+}
+
+/* Carousel Pagination */
+.carousel-pagination{
+    position:absolute;
+    z-index:2;
+    top: 154px;
+    left: 50%;
+    margin:0 0 0 -60px;
+    padding:0;
+    width:120px;
+    height:10px;
+    overflow:hidden;
+}
+
+.carousel-pagination-tab{
+    float:left;
+    margin:0 5px;
+    display:inline;
+    width:20px;
+    height:10px;
+    list-style-type: none;
+    background-color:#b7b7b7;
+    cursor:pointer;
+    text-indent: -999px;
+    overflow:hidden;
+}
+
+.carousel-pagination-active-tab{
+    background-color: #61B842;
+}

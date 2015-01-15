@@ -1,0 +1,7 @@
+Neu dat trong thu muc htdocs/Test/Symfony thi link tuong ung:
++ http://localhost/Test/Symfony/web/app_dev.php/page1
++ http://localhost/Test/Symfony/web/app_dev.php/app
++ http://localhost/Test/Symfony/web/app_dev.php/login
++ http://localhost/Test/Symfony/web/app_dev.php/register
+
+Cau hinh database nam trong: Symfony/app/config/parameters.yml

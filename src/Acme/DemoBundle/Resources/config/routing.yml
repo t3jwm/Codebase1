@@ -1,0 +1,112 @@
+# src/Acme/DemoBundle/Resources/config/routing.yml
+account_register:
+    path:     /register
+    defaults: { _controller: AcmeDemoBundle:Account:register }
+
+account_create:
+    path:     /register/create
+    defaults: { _controller: AcmeDemoBundle:Account:create }
+    
+page_landing:
+    path:     /
+    defaults: { _controller: AcmeDemoBundle:Welcome:index }
+    
+page_app:
+    path:     /apppage
+    defaults: { _controller: AcmeDemoBundle:Welcome:app }
+    
+login_login_homepage:
+    path:     /login
+    defaults: { _controller: AcmeDemoBundle:Account:login }
+login_login_logout:
+    pattern:  /logout
+    defaults: { _controller: AcmeDemoBundle:Account:logout }   
+upload_image_sever: 
+    pattern:  /upload/
+    defaults: { _controller: AcmeDemoBundle:Default:upload }
+pnc_updown_download:
+    path:     /download
+    defaults: { _controller: AcmeDemoBundle:Default:download }    
+restore: 
+    path:     /restore
+    defaults: { _controller: AcmeDemoBundle:Account:restore }
+  
+restore_confirm:
+    path:     /restore/{code}
+    defaults: { _controller: AcmeDemoBundle:Account:restoreConfirm }
+    requirements:
+        code: '[a-z0-9]{32}'
+        
+        
+        
+        
+pnc_management_admin:
+    resource: "@AcmeDemoBundle/Resources/config/routing/admin.yml"
+    prefix:   /admin
+
+pnc_management_homepage:
+    path:     /dashboard/login
+    defaults: { _controller: AcmeDemoBundle:User:login }
+
+pnc_management_userhome:
+    path:     /user/index
+    defaults: { _controller: AcmeDemoBundle:User:index }
+
+pnc_management_usergallery:
+    path:     /user/gallery
+    defaults: { _controller: AcmeDemoBundle:User:showGallery }
+
+pnc_management_userprofile:
+    path:     user/profile
+    defaults: { _controller: AcmeDemoBundle:User:showProfile }
+
+pnc_management_logout:
+    path:     /manalogout
+    defaults: { _controller: AcmeDemoBundle:User:manalogout }
+
+pnc_management_mypage:
+    path:     /hi
+    defaults: { _controller: AcmeDemoBundle:Default:home }
+
+pnc_management_upload:
+    path:     /upload
+    defaults: { _controller: AcmeDemoBundle:Default:upload }
+
+pnc_management_download:
+    path:     /download
+    defaults: { _controller: AcmeDemoBundle:Default:download }
+
+pnc_management_uploadname: 
+    path:     /uploadname
+    defaults: { _controller: AcmeDemoBundle:Default:uploadname }
+
+mana_change_password:
+    path:     user/{id}/changepwd
+    defaults: { _controller: AcmeDemoBundle:User:changepassword }
+
+
+rename_image_old:
+    path:     user/{id}/{imgid}/rename
+    defaults: { _controller: AcmeDemoBundle:User:renameImg }
+
+rename_image:
+    path:     /renameImage
+    defaults: { _controller: AcmeDemoBundle:User:renameImage}
+
+delete_image:
+    path:     /deleteImage
+    defaults: { _controller: AcmeDemoBundle:User:deleteImage}
+
+send_image:
+    path:     /sendImage
+    defaults: { _controller: AcmeDemoBundle:User:sendImage}
+contact_US: 
+    path:     /contactus
+    defaults: { _controller: AcmeDemoBundle:Welcome:contactus}
+Terms_of_Service: 
+    path:     /terms
+    defaults: { _controller: AcmeDemoBundle:Welcome:terms}
+    
+open_image_Dash: 
+    path:     /apppage/{code}
+    defaults: { _controller: AcmeDemoBundle:Welcome:openImageDash }

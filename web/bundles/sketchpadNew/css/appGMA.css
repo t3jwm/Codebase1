@@ -1,0 +1,71 @@
+* {
+    -moz-box-sizing: border-box;
+         box-sizing: border-box;
+}
+
+html, body {
+	background: #ddd;
+	color: #c5b7a6;
+	font-size: 16px;
+	
+	padding: 0;
+    font-family: Capriola, Futura, arial, sans-serif;
+}
+
+div.sk-content {
+	width: 816px; 
+	height: 1056px;
+	position: relative;
+	top: 40px;
+	-webkit-transition-property: padding;
+	        transition-property: padding;
+	-webkit-transition-duration: .35s;
+	        transition-duration: .35s;
+	padding-left: 0;
+}
+
+div#sk-palette .sk-header {
+	font-size: 0px;
+	padding: 0;
+	line-height: 5px;
+}
+
+.sk-sidebar-active-left div.sk-content {
+	padding-left: 220px;
+}
+
+div.sk-viewport {
+	background: rgba(0,0,0,0.05);
+	border: 0px solid #000;
+	display: block;
+	padding: 0;
+	z-index: 0;
+	position: absolute;
+}
+
+.sk-sidebar {
+    margin-top: 40px;
+    padding-top: 41px;
+    padding-bottom: 40px;
+}
+
+/* Toolset
+-------------------------------------------------- */
+div.sk-toolset {
+	z-index: 0;
+	-webkit-transition-property: padding;
+	        transition-property: padding;
+	-webkit-transition-duration: .35s;
+	        transition-duration: .35s;
+	padding-left: 0;
+}
+
+div.sk-toolset .sk-fileWrapper {
+	display: inline-block;
+	float: left;
+}
+
+div.sk-toolset .sk-tool {
+    box-shadow: inset -1px 0 0 0 #333, inset 1px 0 0 0 #000;
+	width: 45px;
+}

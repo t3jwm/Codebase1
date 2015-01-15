@@ -1,0 +1,105 @@
+{% extends "AcmeDemoBundle::Baselayout.html.twig" %}
+{% block CssPlus %}
+	<link href="{{asset('bundles/acount_page/css/register.css')}}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+{% block linkPlus %}
+	<style>
+		ul li {
+			color: red;
+		}
+	</style>
+{% endblock %}
+{%block body%}
+<div class="row">
+	<div class="col-xs-12" id='col-8' style=" padding-top: 20px;">
+		<section class ="content" style = "padding-top: 10px;">
+		<h1 id="brandRegister">Register</h1>
+		{% if success != ''%}
+			<h4 style = 'test-align: center;'><a style ="color: blue;" href="{{path('login_login_homepage')}}" >Success! Click here to Login</a></h4> 
+	    {% endif %}
+			
+	    {{ form_start(form) }}
+			<div class="form-group">
+			    <label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px;">Login</label>
+			        {{ form_widget(form.user.userName, { 'attr': {'class': 'form-control'} }) }}
+		       					{% if errs['user.userName'] is defined %}
+		                        	  <span style="color: red; font-size: 11px;">  {{ errs['user.userName'] }}</span>
+			                   	{% else %}	
+			                   	 	{% if errs['data.user.userName'] is defined %}
+			                        	 <span style="color: red; font-size: 11px;"> {{ errs['data.user.userName'] }}</span>
+			                   	 	{% endif %}
+		                   	 	{% endif %}
+	    	</div>
+			  
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px;">Password</label> 
+			        {{ form_widget(form.user.password.first, { 'attr': {'class': 'form-control'} }) }}
+	         				{% if errs['data.user.password'] is defined %}
+	                        	 <span style="color: red; font-size: 11px;">  {{ errs['data.user.password'] }}</span>
+	                   	 	{% endif %}		       
+			</div>
+			  
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px;">Confirm</label>
+			        {{ form_widget(form.user.password.second, { 'attr': {'class': 'form-control'} }) }}
+	        			{% if errs['children[user].children[password]'] is defined %}
+	                        <span style="color: red; font-size: 11px;"> {{ errs['children[user].children[password]'] }}</span>
+						{% else %}
+		                   	 	{% if errs['data.user.password'] is defined %}
+		                        	 <span style="color: red; font-size: 11px;">  {{ errs['data.user.password'] }}</span>
+		                   	 	{% endif %}
+		                 {% endif %}    
+			 </div>
+			 <div class="form-group">
+			    <label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px;">First name</label>
+			        {{ form_widget(form.user.firstName, { 'attr': {'class': 'form-control'} }) }}
+			 						{% if errs['data.user.firstName'] is defined %}
+			                        	 <span style="color: red; font-size: 11px;">  {{ errs['data.user.firstName'] }}</span>
+			                   	 	{% endif %}
+			    
+			 </div>
+			  
+			 <div class="form-group">
+			 		<label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px;">Last name</label>  
+			      	{{ form_widget(form.user.lastName, { 'attr': {'class': 'form-control'} }) }}
+			 		{% if errs['data.user.lastName'] is defined %}
+	                 	<span style="color: red; font-size: 11px;">  {{ errs['data.user.firstName'] }} </span>
+			        {% endif %}  
+			  </div>
+			  
+			  <div class="form-group">
+			    <label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px;">Email</label>
+			        {{ form_widget(form.user.email, { 'attr': {'class': 'form-control'} }) }}
+			 		{% if errs['data.user.email'] is defined %}
+	                     <span style="color: red; font-size: 11px;">  {{ errs['data.user.email'] }} </span>
+	                {% endif %}  
+			  </div>
+			  
+			    
+			  <div class="form-group">
+			    <label for="inputEmail3" class="col-sm-2 control-label" style="padding-left: 0px; text-al">Language</label>
+			        {{ form_widget(form.user.language, { 'attr': {'class': 'form-control'} }) }}
+			        {{ form_errors(form.user.language) }} 
+			  </div>
+			   
+			  
+			  <div class="form-group">
+			  
+			 <a href="{{path('Terms_of_Service')}}" style = "color: blue;">Term of service</a>
+			 
+			 </div>
+			  <div class="form-group">
+			  
+			 {{ form_widget(form.terms) }}<span>&nbspI have read and understood the terms of service</span>
+			 
+			 </div>
+		  <button class = 'btn btn-primary btn-lg active' type = 'reset' id ="btnReset" >Reset</button>	
+			   {{ form_widget(form.Register, { 'attr': {'class': 'btn btn-primary btn-lg active btnRegister'} })}}				
+	  	{{ form_end(form) }}
+		</section>
+	</div>
+</div>
+ {%endblock%}
+ 
+ 
+ 

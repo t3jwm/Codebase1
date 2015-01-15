@@ -1,0 +1,122 @@
+/* 
+	SketchAPI Basic Color Palette 
+	-------------------------------------------------------------------
+*/
+
+#sk-palette {
+  z-index: 101;
+}
+
+#sk-palette .tabs {
+  left: -2px;
+  top: 2px;
+}
+
+#sk-palette .tabs canvas {
+  cursor: pointer;
+  border: none;
+  border-radius: 3px;
+  margin-right: 4px;
+  width: 24px;
+  height: 23px;
+}
+
+#sk-palette .tabs canvas.selected {
+  -webkit-box-shadow: 0 0 1px 1px #fff;
+  box-shadow: 0 0 1px 1px #fff;
+}
+
+#sk-palette .scroller {
+  height: 178px;
+  overflow: hidden;
+  overflow-y: scroll;
+  margin-bottom: 5px;
+}
+
+#sk-palette .scroller li {
+  -webkit-transition-property: all;
+  -webkit-transition-duration: .25s;
+  -moz-transition-property: border;
+  -moz-transition-duration: .25s;
+  -webkit-transform: rotate(0);
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform: rotate(0);
+  -moz-transform-origin: 50% 50%;
+  -webkit-box-shadow: 0 0 0 1px rgba(0,0,0,0.5);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.5);
+  display: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  cursor: pointer;
+  position: relative;
+  left: 3px;
+}
+
+#sk-palette .editor {
+  clear: both;
+  padding: 8px 6px 14px;
+}
+
+#sk-palette .scroller.color li.color {
+  display: block;
+}
+
+#sk-palette .scroller.gradient li.gradient {
+  display: block;
+}
+
+#sk-palette .scroller.pattern li.pattern {
+  display: block;
+}
+
+#sk-palette .scroller li.selected {
+  -webkit-transform: rotate(135deg);
+  -webkit-transform-origin: 50% 50%;
+  -moz-transform: rotate(135deg);
+  -moz-transform-origin: 50% 50%;
+  -webkit-box-shadow: 0 0 5px 1px #000;
+  box-shadow: 0 0 5px 1px #000;
+  z-index: 1000;
+}
+
+#sk-palette .scroller li.selected a,
+#sk-palette .scroller li.selected canvas {
+  border-radius: inherit;
+}
+
+#sk-palette .scroller li:hover {
+  -webkit-box-shadow: 0 0 5px 1px #000;
+  box-shadow: 0 0 5px 1px #000;
+  z-index: 1;
+}
+
+#sk-palette .scroller li a,
+#sk-palette .scroller li canvas {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: #FFF;
+  display: block;
+}
+
+#sk-palette .content {
+  padding-top: 2px;
+  overflow: hidden;
+  background: #111;
+  background: -webkit-linear-gradient(270deg, #111, #222);
+  background: linear-gradient(180deg, #111, #222);
+}
+
+#light-mode {
+  position: relative;
+  top: 3px;
+  left: 1px;
+}
+
+#light-mode select {
+  width: 110px;
+}

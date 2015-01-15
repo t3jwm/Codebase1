@@ -1,0 +1,73 @@
+{% extends "AcmeDemoBundle::Baselayout.html.twig" %}
+{% block CssPlus %}
+	<link href="{{asset('bundles/acount_page/css/login.css')}}" type="text/css" rel="stylesheet"/>
+{% endblock %}	
+	
+{%block body%}
+
+<div class="row">
+		
+	<div class="col-xs-12" id='col-8'>
+		<div class="container" style="height: 600px;">
+			<section id="content" style="height: 424px;">
+				<form method="POST" action="{{path('login_login_homepage')}}">
+					<h1>Login Form</h1>
+					<div style="margin-top: 60px;">
+						<input type="text" placeholder="Username" required="" id="username" name = "userName" maxlength="100"/>
+					</div>
+					<div>
+						<input type="password" placeholder="Password" required="" id="password" name ="password"/>
+					</div>
+					<div id = "btnLogin">
+						<input type="submit" value="Log in" style=" margin-bottom: 5px;  margin-top: 10px;"/>
+					</div>
+					<div style='clear: both;'>
+						{% if 	isLoginSuccess != ''%}
+			      			<h4 style = 'color: red;'>UserName or Password don't match, Try a gain!</h4> 
+			      		{% endif %}
+					</div>
+					<a href="{{ path('restore') }}" style="color: blue;">Forgot the password</a>
+				</form><!-- form -->
+				
+				<div class="button" id= "btnRegister">
+					<a style = 'text-align: center;' href="{{path('account_register')}}">Register now</a>
+				</div><!-- button -->
+			</section><!-- content -->
+		</div><!-- container -->
+	</div>
+		
+</div>
+{% block footer %}
+   	<footer class = "footer navbar-fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                     <ul class="list-inline quicklinks" style=" margin-top: 0px;">
+                        <li><a href="#" style='color: white; font-size: 13px;'>Terms of Service </a>
+                        </li>
+                        <li><a href="#" style='color: white; font-size: 13px;'>Privacy Policy </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks" style=" margin-top: 0px;">
+                        <li><a href="#" style='color: white; font-size: 13px;'>About </a>
+                        </li>
+                        <li><a href="#" style='color: white; font-size: 13px;'>Follow </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="col-md-4" >
+                    
+                    <span class="copyright" style='color: white; font-size: 13px;'>&copy 2014 Green Mountain Apps LLC. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+   	
+    
+{% endblock %}
+ {%endblock%}
+ 
+     

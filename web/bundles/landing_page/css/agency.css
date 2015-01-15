@@ -1,0 +1,67 @@
+/* Large desktops and laptops */
+@media (min-width: 1200px) {
+	footer {
+	    padding: 0px 0;
+	    text-align: center;
+	}
+}
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+	footer {
+	    padding: 0px 0;
+	    text-align: center;
+	}	
+}
+
+/* Portrait tablets and small desktops */
+@media (min-width: 768px) and (max-width: 991px) {
+	footer {
+	    padding: 0px 0;
+	    text-align: center;
+	}
+}
+
+/* Landscape phones and portrait tablets */
+@media (min-width: 481px) and (max-width: 767px) {
+	footer {
+	    padding: 0px 0;
+	    text-align: center;
+	}
+}
+
+/* Landscape phones and smaller */
+@media (max-width: 480px) {
+	footer {
+	    padding: 0px 0;
+	    text-align: center;
+	}
+}
+
+
+
+
+
+
+
+footer span.copyright {
+    text-transform: uppercase;
+    text-transform: none;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 40px;
+}
+
+
+
+.portfolio-modal .modal-content ul.list-inline {
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+footer ul.quicklinks {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    text-transform: none;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    line-height: 40px;
+}

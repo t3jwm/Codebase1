@@ -1,0 +1,12 @@
+ {% if filePaths is defined %}
+ {% if numImage >= 0 %}
+{% for i in 0..numImage %}
+
+<div class="img">
+		<img width="100" height="100" onclick = "editImage('{{ filePaths[i] }}.json')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
+	 <div class="desc">{{ nameImages[i] }} </div>
+</div>
+{% endfor %}
+{% endif %}
+{% endif %}
+

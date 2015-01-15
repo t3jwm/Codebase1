@@ -1,0 +1,86 @@
+{% extends "AcmeDemoBundle::Baselayout.html.twig" %}
+{% block CssPlus %}
+	<link href="{{asset('bundles/acount_page/css/restore.css')}}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+{% block linkPlus %}
+	<style>
+	ul li {
+	color: red;
+	}
+	</style>
+	{% endblock %}
+{% block Javascript %}
+
+{% endblock %}
+
+{%block body%}
+<div class="row">
+	
+		<div class="col-xs-12" id='col-8' style=" height: 586px;">
+		<section id="content" style="
+    margin-top: 25px;
+    margin-bottom: 120px;
+    height: 264px;">
+		<h1>Restore</h1>
+		
+	
+	
+		{{ form_start(form) }}
+<div class="form-group">
+    <label for="inputEmail3" class=" control-label" style="
+ 	 text-align: center">Email</label>
+        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+       
+       					
+      
+       
+   
+ 
+   
+
+    
+  </div>
+  
+  
+  
+  
+       {% if  errs is defined %} 
+ 			<span style="color: red;">{{ errs }} </span>
+ {% endif %}
+ {% if  success is defined %} 
+ 			<span style="color: blue;">{{ success }} </span>
+ {% endif %}
+  
+   
+  
+  
+  
+  
+  
+			
+  
+  <div>
+   {{ form_widget(form.save, { 'attr': {'class': 'btn btn-primary btn-lg active btnRestore'} })}}
+</div>
+						
+					
+  {{ form_end(form) }}
+
+
+
+
+
+</section>
+		</div>
+		
+	</div>
+	
+
+
+
+  
+
+ {%endblock%}
+ 
+ 
+ 

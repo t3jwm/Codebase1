@@ -1,0 +1,15 @@
+#Eclipse
+.settings
+.buildpath
+.project
+
+#Netbeans
+/nbproject
+
+#PHPStorm
+/.idea
+
+#Tests
+/phpunit.xml
+/Tests/autoload.php
+/vendor/symfony

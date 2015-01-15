@@ -1,0 +1,29 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: null
+    database_name: sketchapp
+    database_user: root
+    database_password: 
+    mailer_transport: smtp
+    mailer_host: smtp.gmail.com
+    mailer_user: hao
+    mailer_password: tam
+    
+    locale: en
+    secret: ThisTokenIsNotSoSecretChangeIt
+    debug_toolbar: false
+    debug_redirects: false
+    use_assetic_controller: true
+ 
+     
+    site_name: Sketchapp
+    user_class: Acme\DemoBundle\Entity\User
+    site_email: jimmysscentaur@gmail.com
+    user_class: Acme\DemoBundle\Entity\User
+    file_class: Acme\DemoBundle\Entity\File
+    token_class: Acme\DemoBundle\Entity\Token
+    token_ttl: 3 day
+    
+    

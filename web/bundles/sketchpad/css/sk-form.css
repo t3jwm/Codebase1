@@ -1,0 +1,261 @@
+/** SELECT
+-------------------------------------------------------------------*/
+
+select {
+  background: #333 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAADIAAAABACAIAAABXrnrvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABOVJREFUeNrs3T1O41oYBuCxb0SCqOgoqNJR0tBAg8QS2AE9YglQgaBAomAF2QW7oAQJIUI6mhAH8mfnIpBmKJjgOSNZN+c+T2kfH0tf/er9kul0+gMAAAAAAAAAAIA/lxoBAAAAAAAAAABAmJoGLAAAAAAAAAAAIA7Vp6E0YAEAAAAAAAAAAATSgAUAAAAAAAAAAERCAxYAAAAAAAAAAMDc0IAFAAAAAAAAAABEoiiKiv8ogAUAAAAAAAAAAETCCkIAAAAAAAAAAIC5oQELAAAAAAAAAACIhBWEAAAAAAAAAAAAgawgBAAAAAAAAAAAmBsasAAAAAAAAAAAgEhYQQgAAAAAAAAAABCo+jSUABYAAAAAAAAAABAJDVgAAAAAAAAAAACBqk9DpYYOAAAAAAAAAAAQRgMWAAAAAAAAAAAQCSsIAQAAAAAAAAAAAlWfhhLAAgAAAAAAAAAAIiGABQAAAAAAAAAAEMgKQgAAAAAAAAAAgEAasAAAAAAAAAAAAAJpwAIAAAAAAAAAAAikAQsAAAAAAAAAACCQBiwAAAAAAAAAAIBAAlgAAAAAAAAAAACBrCAEAAAAAAAAAAAIJIAFAAAAAAAAAAAQyApCAAAAAAAAAACAQBqwAAAAAAAAAAAAAmnAAgAAAAAAAAAACDQ7DXV7e3t6ejoYDMpf2Gg09vb2Njc38zz/8kDS6XTMHQAAAAAAAAAAiECWZTPeJkkyGAyOj4/v7u7K3La8vHx4eNhsNl9eXkaj0ZfprtTQAQAAAAAAAACA/4PpdLq4uHh2drazs/Pt4fX19Vartba2NplMfld/9SZ5fHw0WQAAAAAAAAAAIAK9Xu/bM2ma1uv1q6urVqv1u3WEu7u7+/v7/X4/y7K3M7MCWO1229wBAAAAAAAAAIAIlAlg/XjfRbiwsNButy8uLjqdzudXjUbj6OhoY2MjezccDr/cPPjrqoeHB3MHAAAAAAAAAAAi8Pz8XPJkmqa1Wm0ymZyfn19fX388XF1dPTk5WVlZ6fV6/X5/PB4XRTH7nn8ODg7MHQAAAAAAAAAAiMBwOCx5cjqd5nmepun29vZoNLq5udna2rq8vKzVat1uN8uyt4ezu68+JPf39+YOAAAAAAAAAABEoHwD1k9pmtbr9W6322w2x+NxlmWvr6/fFl/9VCuT0gIAAAAAAAAAAPjvKx+c+vzJm6WlpaenpzzPy6wd/EwACwAAAAAAAAAAiERYGip/lyRJwOcCWAAAAAAAAAAAQCT+Jg0V9q0AFgAAAAAAAAAAEImAFYR/SQALAAAAAAAAAACIRPVpKAEsAAAAAAAAAAAgEhqwAAAAAAAAAAAAAmnAAgAAAAAAAAAACCSABQAAAAAAAAAAEMgKQgAAAAAAAAAAgEDVp6FSQwcAAAAAAAAAAAijAQsAAAAAAAAAAIiEFYQAAAAAAAAAAACBqk9DCWABAAAAAAAAAACREMACAAAAAAAAAAAIVP0KwtTQAQAAAAAAAAAAwmjAAgAAAAAAAAAAImEFIQAAAAAAAAAAQKDq01BWEAIAAAAAAAAAAATSgAUAAAAAAAAAAESiKIqK/yiABQAAAAAAAAAARMIKQgAAAAAAAAAAgLmhAQsAAAAAAAAAAIiEBiwAAAAAAAAAAIC5oQELAAAAAAAAAACIRFEUFf/xXwEGAG1k4r/JwxnaAAAAAElFTkSuQmCC") no-repeat 0 center;
+  font-size: 14px;
+  font-family: Capriola, Futura, arial, sans-serif;
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+  -webkit-transition-duration: .5s;
+  transition-duration: .5s;
+  width: 210px;
+  max-width: 90%;
+  margin: 0;
+  outline: none;
+  opacity: 0.75;
+  position: relative;
+  top: -5px;
+  border: 1px solid #111;
+  border-radius: 3px;
+  color: #000;
+  cursor: pointer;
+  padding: 0.45em 1em 0.4em 0;
+  height: 30px;
+}
+
+select:hover {
+  opacity: 1;
+}
+
+option {
+  padding: 1px 5px;
+}
+
+optgroup {
+  font-style: normal;
+  font-weight: normal;
+  background: #eee;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;
+  color: #000;
+  padding: 2px 4px;
+}
+
+/** RANGE
+-------------------------------------------------------------------*/
+
+input[type="range"] {
+  visibility: hidden;
+}
+
+.sketchapi .sk-range {
+  clear: both;
+  display: block;
+  top: 0px;
+  background-position: 0 5px;
+  background-repeat: no-repeat;
+  border-radius: 4px;
+  width: 100%;
+  height: 30px;
+  position: relative;
+  z-index: 100;
+  cursor: pointer;
+}
+
+.sketchapi .sk-range div {
+  -webkit-box-shadow: 0px 2px 2px 0px #999);
+  border-radius: 40px;
+  background: #fefefe;
+  /* Old browsers */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefefe), color-stop(100%,#dadada));
+  /* Chrome,Safari4+ */
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  z-index: 1;
+}
+
+.sketchapi .sk-range .sk-range-span {
+  background: #224860;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%,
+		color-stop(0, transparent), 
+		color-stop(.4, #00E110),
+		color-stop(.8, #00E110),
+		color-stop(1, transparent)
+	);
+  border-radius: 2px;
+  width: 20px;
+  height: 6px;
+  left: 50px;
+  top: 13px;
+  z-index: 0;
+}
+
+/** INPUT + TEXTAREA
+-------------------------------------------------------------------*/
+
+form textarea,
+form input[type="text"],
+form input[type="password"] {
+  -webkit-box-shadow: inset 1px 1px 1px #ddd;
+  box-shadow: inset 1px 1px 1px #ddd;
+  width: 230px;
+  max-width: 320px;
+  color: #000;
+  border: 1px solid #aaa;
+  background-image: -webkit-gradient(  linear,  left bottom,  left top,  color-stop(1, rgba(0,0,0, 0.05)),  color-stop(0, rgba(0,0,0,0))  );
+  padding: 10px 10px;
+  margin: 2px 0 5px 0;
+  font-size: inherit;
+  font-family: Capriola, arial, sans-serif;
+  border-radius: 5px;
+}
+
+/** SUBMIT + BUTTON
+-------------------------------------------------------------------*/
+
+.button,
+.sketchapi .fakeInputContainer input,
+.sketchapi .fakeInputContainer div,
+form input[type="submit"],
+form input[type="button"],
+form button {
+  cursor: pointer;
+  -webkit-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+  background-color: rgba(14, 78, 167, 1);
+  border-radius: 6px;
+  border: 1px solid #000;
+  font-family: HelveticaNeue,Helvetica, Arial;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-align: center;
+  outline: none;
+  z-index: 999;
+  left: -2px;
+  padding: 7px 12px;
+  color: #eee;
+  position: relative;
+  text-shadow: 1px 1px 1px #000;
+  background-repeat: repeat-x;
+  -webkit-background-size: 30px 30px;
+  background-size: 30px 30px;
+  background-position: -1px -0.5px;
+  -webkit-box-shadow: 0 -3px 1px -2px rgba(0,0,0,0.2) inset;
+  box-shadow: 0 -3px 1px -2px rgba(0,0,0,0.2) inset;
+  background-image: linear-gradient(
+        0deg,
+        rgba(0,0,0,0) 0%,
+        rgba(0,0,0,0) 50%,
+        rgba(255,255,255,0.1) 50%,
+        rgba(255,255,255,0.3) 100%
+        );
+}
+
+.sketchapi .fakeInputContainer input,
+.sketchapi .fakeInputContainer div,
+.button.grey {
+  background-color: rgba(55,55,55, 1);
+}
+
+.button.green {
+  background-color: rgba(48, 134, 21, 1);
+}
+
+.button.red {
+  background-color: rgba(184, 31, 44, 1);
+}
+
+.button:hover,
+.sketchapi .fakeInputContainer:hover input,
+.sketchapi .fakeInputContainer:hover div,
+form input[type="submit"]:hover,
+form input[type="button"]:hover,
+form button:hover {
+  color: #fff;
+  background-color: rgba(24, 100, 207, 1);
+}
+
+.button:active,
+.sketchapi .fakeInputContainer:active input,
+.sketchapi .fakeInputContainer:active div,
+form input[type="submit"]:active,
+form input[type="button"]:active,
+form button:active {
+  color: #fff;
+  background-color: rgba(45, 81, 131, 1);
+}
+
+#sk-configure .fakeInputContainer {
+  border: none;
+  border-radius: 6px;
+  margin: 5px 0 5px 5px;
+  font-size: 14px;
+  font-size: normal;
+  padding: 0;
+  text-align: center;
+  cursor: pointer;
+  display: block;
+}
+
+/** FLYCATCHER
+-------------------------------------------------------------------*/
+
+form input.flycatcher {
+  display: none;
+}
+
+/** STUFF
+-------------------------------------------------------------------*/
+
+form div.switch {
+  -webkit-user-select: none;
+}
+
+form div.switch a {
+  -webkit-transition-property: background;
+  transition-property: background;
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  color: #fff;
+  padding: 7px 0;
+  width: 130px;
+  text-align: center;
+  border-radius: 5px;
+  display: inline-block;
+  text-decoration: none;
+  color: #eee;
+  background: rgba(0,0,0,0);
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#555), to(#666));
+}
+
+form div.switch a:hover {
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(#333), to(#444));
+}
+
+form div.switch a.selected {
+  color: #fff;
+  background: #41b31a;
+  background: -webkit-gradient(linear, 0 0, 0 100%, from(rgb(127,235,75)), to(#151));
+}
+
+form a {
+  -webkit-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: .25s;
+  transition-duration: .25s;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+input,
+textarea,
+button {
+  outline: none;
+}

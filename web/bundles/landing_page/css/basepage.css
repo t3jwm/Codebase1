@@ -1,0 +1,249 @@
+.row {
+	padding-left: 0;
+	padding-right: 0;
+	margin-left:0;
+	margin-right:0;
+	margin-top:0;
+	margin-bottom:0;
+	padding-top:0;
+	padding-bottom:0;
+}
+
+.navbar-inverse{
+	background-color: #2b65a9;
+	border-color:#2b65a9; 	
+}
+#navbar-nav_head {
+	width: 100%;
+}
+.navbar-nav {
+	background-color: #2b65a9;
+}
+
+.navbar-nav >li>a {
+color: white;
+font-weight: bold;
+font-size: 16px;
+
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+text-decoration: none;
+background-color: #2b65a9;
+color: #ced00f;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+color: white;
+font-size: 14px;	
+font-weight: bold;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+color: #ced00f;
+}
+.container-fluid {
+	height: 105px;
+	width: 100%;
+	
+}
+.container-fluid{
+	background-color: #2b65a9;
+}
+#banner {
+	width: 100%;
+	height: 100%;
+}
+#page1_2 {
+
+}
+#page1_3 {
+	text-align: center; 
+	background-image: url("../img/Beautiful-Image-of-Landscape-Leopard-Aurora-in-the-Blue-Sky-White-Stars-Shinning.jpg");
+	  
+}
+
+.button_page1_3{
+	height: 250px;
+    width: 250px;
+    border-radius: 200px;
+    border: 12px solid #E9E9E9;
+    background-color: #428bca;
+    
+}
+#button1_page1_3 {
+	margin-top: 5%;
+	margin-bottom: 10%;
+
+}
+#button2_page1_3 {
+	margin-top: 5%;
+	margin-bottom: 10%;
+	
+
+}
+#button3_page1_3 {
+	margin-top: 5%;
+	margin-bottom: 10%;
+	
+}
+
+.banner_page1_3 {
+	color: white;
+	font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;
+	font-weight: 590;
+	text-align: center;
+}
+.text_page1_3 {
+	text-align:center; 
+	font-size: 17px;
+	font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;'
+	font-weight: 700;
+	color:#e5edf6;
+}
+#page1_4 {
+	background-image: url("../img/Beautiful-Image-of-Landscape-Leopard-Aurora-in-the-Blue-Sky-White-Stars-Shinning.jpg");
+    background-repeat: no-repeat;
+}
+#page1_6 {
+	background-image: url("../img/Beautiful-Image-of-Landscape-Leopard-Aurora-in-the-Blue-Sky-White-Stars-Shinning.jpg");
+     background-position: bottom;
+    background-repeat: no-repeat;
+}
+
+#image_page1_4 {
+	margin-top: 11%;
+	width: 100%;	
+}
+
+#page1_5 {
+	
+}
+#getStart {
+	text-align: center;
+}
+#getStart:hover {
+	text-decoration:none;
+}
+a{
+	color: white;
+		font-size: 110%;
+}
+a:hover {
+	color: #ced00f;
+	text-decoration:none;
+
+}
+h2,h3 {
+	color: #04356f;
+}
+
+hr.star-light,
+hr.star-primary {
+    margin: 25px auto 30px;
+    padding: 0;
+    max-width: 250px;
+    border: 0;
+    border-top: solid 5px;
+    text-align: center;
+}
+
+hr.star-light:after,
+hr.star-primary:after {
+    content: "\f005";
+    display: inline-block;
+    position: relative;
+    top: -.8em;
+    padding: 0 .25em;
+    font-family: FontAwesome;
+    font-size: 2em;
+}
+
+hr.star-light {
+    border-color: rgba(6, 8, 116, 0.89);;
+}
+
+hr.star-light:after {
+    color: rgba(6, 8, 116, 0.89);;
+    background-color: #fff;
+}
+
+.navbar-inverse .navbar-toggle {
+border-color: #ffffff;
+}
+
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+border-color: #ffffff;
+}
+
+.text-errs {
+	color: red;
+}
+
+
+@media (min-width: 1200px) {
+	#brandImage {
+		width: 100%; 
+		height: 100px;
+	}
+	#rowNarbar {
+		margin-bottom: 40px;
+	}
+	.navbar-header {
+		height:40px;
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	#brandImage {
+		width: 100%; 
+		height: 100px;
+	}
+	#rowNarbar {
+		margin-bottom: 40px;
+	}
+	.navbar-header {
+		height:40px;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	#brandImage {
+		width: 100%; 
+		height: 100px;
+	}
+	#rowNarbar {
+		margin-bottom: 40px;
+	}
+	.navbar-header {
+		height:40px;
+	}
+}
+@media (min-width: 481px) and (max-width: 767px) {
+	#brandImage {
+		width: 100%; 
+		height: 100px;
+	}
+	#rowNarbar {
+		margin-bottom: 40px;
+	}
+	.navbar-header {
+		height:40px;
+	}
+}
+@media (max-width: 480px) {
+	#brandImage {
+		width: 100%; 
+		height: 50px;
+	}
+	.navbar-brand {
+		width: 40px;
+	}
+	#rowNarbar {
+		margin-bottom: 40px;
+	}
+	.navbar-header {
+		height:40px;
+	}
+}
+
+
+

@@ -1,0 +1,175 @@
+<html>
+<head>
+<link rel="shortcut icon" type="image/ico" href="#" />
+{% block linkPlus %}
+	
+	{% endblock %}
+	{% block head %}
+   
+    
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta name="description" content="">
+	    <meta name="author" content="">
+
+	    <title>Patent That</title>
+
+	    <!-- Bootstrap Core CSS -->
+	    
+<link rel="stylesheet" href="{{ asset('bundles/landing_page/css/bootstrap.min.css') }}" />
+	    <!-- Custom CSS -->
+	    
+<link rel="stylesheet" href="{{ asset('bundles/landing_page/css/landing-page.css') }}" />
+	    <!-- Custom Fonts -->
+	    
+	    <link href="{{ asset('bundles/landing_page/font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+	   
+	    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+	         
+	    <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/basepage.css?432') }}" />      
+	    
+	    <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/full-slider.css') }}" />   
+	    
+	    <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/agency.css') }}">
+
+	{% endblock %}
+	
+	<style>
+{% block CSSForm %}
+{% endblock %}
+	</style>
+	<script>
+{% block Javascript %}
+{% endblock %}
+	</script>
+	
+{% block CssPlus %}
+	
+{% endblock %}
+</head>
+<body>
+{% block header %}
+<header class="page-header" style= "display: inline;">
+  <div class="row" id ="rowNarbar" >
+			<!-- navbar navbar-default -->
+			<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+				
+				<!-- navbar-header -->
+				<div class="navbar-header" style ="background-color: #2b65a9;">
+					
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" style ="padding-left: 40px; padding-top: 15px;">
+        				<p style= "font-size: 50px; color: white;" ><b>℗</b></p> 
+      				</a>
+					
+					
+					
+				</div><!-- /navbar-header -->
+				
+				<!-- navbar -->
+				<div class="navbar-collapse collapse" style ="background-color: #2b65a9;">
+					
+					<ul class="nav navbar-nav navbar-right" style ="padding-top: 0px; padding-right: 20px;">
+						<li><a href="{{path('page_landing')}}">HOME</a></li>
+	                    <li><a href="{{path('page_app') }}"> GET STARTED</a></li>
+	                    <li><a href="#">  FAQS</a></li>
+	           
+	                    <li><a href="{{path('contact_US')}}">  CONTACT US</a></li>
+	                    
+						{% if name == ''%}
+                        	<li><a href="{{path('login_login_homepage')}}" style = "margin-right: 280px;">LOGIN</a></li>
+                        {% else %}
+                        	<li><a href="{{path('pnc_management_userprofile')}}">  DASHBOARD</a></li>
+                            <li><a href="{{path('login_login_logout')}}" style = "margin-right: 280px;">LOGOUT</a></li> 
+                        {% endif %}
+
+                     
+         
+					
+                   	 	
+                   	 	<li><a href="#"><i class="fa fa-twitter"></i></a>
+              			</li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                   	 	
+					
+                   	 	
+				
+					
+				</div><!-- /navbar -->
+				
+			</div><!-- /navbar navbar-default -->
+	</div>	
+
+
+</header>
+	
+	
+{% endblock %}
+{% block body %}
+
+{% endblock %}
+{% block footer %}
+   	<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                     <ul class="list-inline quicklinks" style=" margin-top: 0px;">
+                        <li><a href="{{path('Terms_of_Service')}}" style='color: white; font-size: 13px;'>Terms of Service </a>
+                        </li>
+                        <li><a href="#" style='color: white; font-size: 13px;'>Privacy Policy </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks" style=" margin-top: 0px;">
+                        <li><a href="#" style='color: white; font-size: 13px;'>About </a>
+                        </li>
+                        <li><a href="#" style='color: white; font-size: 13px;'>Follow </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="col-md-4" >
+                    
+                    <span class="copyright" style='color: white; font-size: 13px;'>&copy 2014 Green Mountain Apps LLC. All rights reserved.</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+   	
+    
+{% endblock %}
+
+</body>
+{% block addJava %}
+<!-- jQuery -->
+     	<script src="{{asset('bundles/landing_page/js/jquery.js')}}"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{asset('bundles/landing_page/js/bootstrap.min.js')}}"></script>
+    
+       <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+{% endblock %}
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,132 @@
+{% extends "AcmeDemoBundle::manage_layout.html.twig" %}
+
+        
+        {% block leftmenu %}
+        <div class="col-sm-2 col-lg-2">
+            <div class="sidebar-nav">
+                <div class="nav-canvas">
+                    <div class="nav-sm nav nav-stacked">
+                    </div>
+                    <ul class="nav nav-pills nav-stacked main-menu">
+                        <li class="nav-header">Main</li>
+                        
+                        <!--
+                        <li><a class="ajax-link" href="{{ path('admin_home') }}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
+                        </li>                       
+                        -->
+
+                        <li><a class="ajax-link" href="{{ path('pnc_management_userprofile') }}"><i
+                                    class="glyphicon glyphicon-edit"></i><span> Profile</span></a></li>
+                        
+                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        </li>
+
+                        
+
+                        {% if   app.session.get('isAdmin') == 1 %}
+                        <li><a class="ajax-link" href="{{ path('admin_table') }}"><i
+                                    class="glyphicon glyphicon-align-justify"></i><span> Users Table </span></a></li>
+                        {% endif %}
+
+                                                                                                                                          
+                        <li><a href="{{ path('pnc_management_logout') }}"><i class="glyphicon glyphicon-lock"></i><span> Logout </span></a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+        
+		{% block content %}
+		<div class="row">
+		    <div class="box col-md-12">
+		        <div class="box-inner">
+		            <div class="box-header well" data-original-title="">
+		                <h2><i class="glyphicon glyphicon-star-empty"></i> Profile</h2>
+
+		                <div class="box-icon">
+		                    <a href="#" class="btn btn-setting btn-round btn-default"><i
+		                            class="glyphicon glyphicon-cog"></i></a>
+		                    <a href="#" class="btn btn-minimize btn-round btn-default"><i
+		                            class="glyphicon glyphicon-chevron-up"></i></a>
+		                    <a href="#" class="btn btn-close btn-round btn-default"><i
+		                            class="glyphicon glyphicon-remove"></i></a>
+		                </div>
+		            </div>
+		            <div class="box-content">
+		                <!-- put your content here -->
+
+		                    <!-- START -->
+		                    
+		                    <div class="row">
+		                        <div class="box col-md-6">
+		                        <div class="box-inner">
+		                        <div class="box-header well" data-original-title="">
+		                            <h2>User's Profile</h2>
+
+		                            <div class="box-icon">
+		                            <a href="#" class="btn btn-setting btn-round btn-default"><i
+		                                    class="glyphicon glyphicon-cog"></i></a>
+		                            <a href="#" class="btn btn-minimize btn-round btn-default"><i
+		                                    class="glyphicon glyphicon-chevron-up"></i></a>
+		                            <a href="#" class="btn btn-close btn-round btn-default"><i
+		                                    class="glyphicon glyphicon-remove"></i></a>
+		                            </div>
+		                        </div>
+		                        <div class="box-content">
+		                        
+		                        <table class="table table-striped">                       
+		                            <tr>
+		                                <th>Username</th>
+		                                <td>{{ entity.userName }}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Email</th>
+		                                <td>{{ entity.email }}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Password</th>
+		                                <td>{{ entity.password }}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Lastname</th>
+		                                <td>{{ entity.lastName }}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Firstname</th>
+		                                <td>{{ entity.firstName }}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>Language</th>
+		                                <td>{{ entity.language }}</td>
+		                            </tr>
+		                            <tr>
+		                                <th>isAdmin</th>
+		                                <td>{{ entity.isAdmin }}</td>
+		                            </tr>
+		                        </table>        
+		                        <ul>
+		                            <li>
+		                            <a href="{{ path('admin_edit', { 'id': entity.id }) }}">
+		                            Edit
+		                            </a>
+		                            </li>
+		                           
+		                            
+		                        </ul>
+		                        </div>
+		                        </div>
+		                        </div>
+		                        <!--/span-->
+		                    </div><!--/row-->
+
+		                    <!-- END -->
+		                
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		{% endblock %}
+
+    

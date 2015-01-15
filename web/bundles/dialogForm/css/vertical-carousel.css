@@ -1,0 +1,146 @@
+/* =====  Vertical Carousel ===== */
+.carousel-v{
+    position:relative;
+    z-index:1;
+    margin:10px auto;
+    width:230px;
+    height:706px;
+    overflow:hidden;
+}
+
+/* Carousel Container */
+.carousel-v-container{
+    position:relative;
+    z-index:1;
+    margin:5px auto;
+    width:230px;
+    height:616px;
+    overflow:hidden;
+}
+
+/* Carousel Buttons */
+a.carousel-v-prev-btn:link,a.carousel-v-prev-btn:visited,a.carousel-v-prev-btn:hover,
+a.carousel-v-next-btn:link,a.carousel-v-next-btn:visited,a.carousel-v-next-btn:hover{
+    margin:0 auto;
+    width:240px;
+    height:40px;
+    line-height:36px;
+    display:block;
+    text-align:center;
+    font-size:40px;
+    background-color:#000;
+    color:#FFF;
+    opacity:0.7;
+    filter:alpha(opacity=70);
+    text-decoration:none;
+    font-family: Georgia, Arial, Helvetica, sans-serif;
+    overflow:hidden;
+}
+a.carousel-v-next-btn:hover,
+a.carousel-v-prev-btn:hover{
+    background-color:#444;
+    color:#FEFEFE;
+}
+a.carousel-button-disabled:link,a.carousel-button-disabled:visited,a.carousel-button-disabled:hover{
+    background-color:#EEE;
+    color:#999;
+}
+
+/* Carousel List */
+.carousel-v-list{
+    position:absolute;
+    z-index:2;
+    top:0;
+    left:0;
+    margin:0;
+    padding:0;
+    width:230px;
+    height:616px;
+    overflow:hidden;
+}
+
+.carousel-v-list li{
+    position:relative;
+    z-index:1;
+    float:left;
+    margin:0;
+    list-style-type:none;
+    text-align:center;
+    width:230px;
+    height:154px;
+    overflow:hidden;
+}
+
+.carousel-v-list p{
+    position:relative;
+    z-index:2;
+    margin: 5px 0;
+    background-color:#FFF;
+    overflow:hidden;
+}
+
+.carousel-v-list p,.carousel-v-list img{
+    width:230px;
+    height:144px;
+}
+
+.carousel-v-list img{
+    position:absolute;
+    z-index:1;
+    top:50%;
+    left:50%;
+    margin-top:-72px;
+    margin-left:-115px;
+}
+
+.carousel-v-list h3{
+    position:absolute;
+    z-index:2;
+    bottom:10px;
+    left:0;
+    margin:0;
+    font-weight:normal;
+    width:230px;
+    height:30px;
+    line-height:30px;
+    background-color:#000;
+    opacity:0.7;
+    filter:alpha(opacity=70);
+    font-size:12px;
+    text-align:center;
+    overflow:hidden;
+}
+
+.carousel-v-list h3 a:link,.carousel-v-list h3 a:visited,.carousel-v-list h3 a:hover{
+    color:#FFF;
+}
+
+/* Carousel Pagination */
+.carousel-pagination{
+    position:absolute;
+    z-index:2;
+    top: 154px;
+    left: 50%;
+    margin:0 0 0 -60px;
+    padding:0;
+    width:120px;
+    height:10px;
+    overflow:hidden;
+}
+
+.carousel-pagination-tab{
+    float:left;
+    margin:0 5px;
+    display:inline;
+    height:20px;
+    width:20px;
+    list-style-type: none;
+    background-color:#b7b7b7;
+    cursor:pointer;
+    text-indent: -999px;
+    overflow:hidden;
+}
+
+.carousel-pagination-active-tab{
+    background-color: #61B842;
+}

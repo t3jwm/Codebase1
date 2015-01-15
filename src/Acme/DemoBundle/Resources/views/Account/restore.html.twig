@@ -1,0 +1,50 @@
+{% extends "AcmeDemoBundle::Baselayout.html.twig" %}
+{% block CssPlus %}
+	<link href="{{asset('bundles/acount_page/css/restoreEmail.css')}}" type="text/css" rel="stylesheet"/>
+{% endblock %}
+{%block body%}
+
+<div class="row">
+		
+		<div class="col-xs-12" id='col-8' style=" height: 586px;">
+		<div class="container">
+	<section id="content" style= "margin-top: 25px; margin-bottom: 120px;">
+		<form method="POST" action="{{link}}">
+			<h1>Restore Form</h1>
+			<div>
+				<input type="text" placeholder="Username" required="" id="username" name = "userName" maxlength="100" value="{{ username }}" disabled/>
+			</div>
+			<div>
+				<input type="password" placeholder="Password" required="" class="password" id="password" name ="password" />
+			</div>
+			<div>
+				<input type="password" placeholder="Confirm " required="" class="password" id="password" name ="passwordConfirm" />
+				
+			</div>
+			
+		 {% if  errs is defined %} 
+ 			<span style="color: red;">{{ errs }} </span>
+ {% endif %}
+			
+			<div>
+				<input type="submit" value="Restore" />
+				
+			
+			</div>
+			
+			<div style='clear: both;'>
+			
+			</div>
+			
+		</form><!-- form -->
+		
+
+	</section><!-- content -->
+</div><!-- container -->
+		</div>
+		
+	</div>
+
+ {%endblock%}
+ 
+     

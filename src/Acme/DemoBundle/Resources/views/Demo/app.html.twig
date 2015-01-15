@@ -1,0 +1,505 @@
+{% extends "AcmeDemoBundle::Baselayout.html.twig" %}
+{% block linkPlus %}
+
+	{% endblock %}
+{% block CssPlus %}
+	<!-- dialog form  -->
+    		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+			<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+			<link rel="stylesheet" href="{{ asset('bundles/dialogForm/css/bootstrap-modal-carousel.min.css') }}">
+			
+			
+			
+			
+			
+			
+    <!--  -->
+    
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+	<!-- SketchAPI v3.6.7.39 -->
+	<link href="{{asset('bundles/sketchpadNew/min/sketchapi.min.css')}}" type="text/css" rel="stylesheet" />
+	<script src="{{asset('bundles/sketchpadNew/min/sketchapi.min.js')}}" type="text/javascript"></script>
+
+	<!-- JS-->
+	<script src="{{asset('bundles/sketchpadNew/js/app/configure.js')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchpadNew/js/lib/clipart.js')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchpadNew/js/lib/text.js')}}" type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchpadNew/js/lib/color.js')}}" type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchpadNew/js/app/appGMA.js?random=<?php echo uniqid(); ?>')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchpadNew/js/app/appContextMenu.js')}}"  type="text/javascript"></script>
+
+	<!-- CSS-->
+	<link href="{{asset('bundles/sketchpadNew/css/appGMA.css')}}" type="text/css" rel="stylesheet" />
+ 	<link rel="stylesheet" href="{{ asset('bundles/landing_page/css/basepage.css') }}" />      
+	    
+    <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/full-slider.css') }}" />   
+    
+    <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/agency.css') }}">
+    
+    <!-- prompt  -->
+    <script src="{{asset('bundles/jQuery Alert Dialogs_files/jquery.js')}}" type="text/javascript"></script>
+				<script src="{{asset('bundles/jQuery Alert Dialogs_files/jquery.ui.draggable.js')}}" type="text/javascript"></script>
+		
+				<!-- Core files -->
+				<script src="{{asset('bundles/jQuery Alert Dialogs_files/jquery.alerts.js')}}" type="text/javascript"></script>
+				<link href="{{ asset('bundles/jQuery Alert Dialogs_files/jquery.alerts.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <!--  end -->
+    
+	<style>
+	.sk-sidebar {
+		height: 100%;
+		margin-top: 92px;
+	}
+	.col-lg-12 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	a {
+	}
+	.nav .external {
+		margin-top: 30px;
+	}
+	.row + .row,
+	.row-fluid + .row-fluid {
+		margin-top: 20px;
+	}
+	.btn .glyphicon + span {
+		margin-left: .5em;
+	}
+	@media (min-width: 768px) {
+		h2:first-child, .h2:first-child, h3:first-child, .h3:first-child {
+			margin-top: 0;
+		}
+	}
+	
+	.modal-content {				
+		width: 1100px;
+		position: relative;			
+		right: 250px;
+		top: 150px;
+	}
+	
+	#popup_prompt {
+		width: 200px;
+		height: 40px;
+	}
+	#popup_container {
+	max-width: 500px;
+	min-width: 500px;
+	
+	}
+	#popup_message {
+		font-size: 20px;
+	}
+	#popup_ok {
+		width: 60px;
+		height: 32px;
+		
+	}
+	#popup_cancel {
+		width: 80px;
+		height: 32px;
+		margin-left: 20px;
+	}
+	
+	
+		   
+	</style>
+	<style>
+div.img {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #989082;
+    height: auto;
+    width: auto;
+    float: left;
+    text-align: center;
+    background-color: #493D29;
+}	
+
+div.img img {
+    display: inline;
+    margin: 5px;
+    border: 1px solid #ffffff;
+}
+
+div.img:hover img {
+    border: 1px solid #0000ff;
+}
+
+div.desc {
+  text-align: center;
+  font-weight: normal;
+  width: 120px;
+  margin: 5px;
+  color: #D3EAEA;
+  overflow:hidden;
+}
+.sk-sidebar {
+	
+}
+.sk-sidebar-active-left div.sk-content {
+	//position: initial;
+}
+.modal-title {
+	color: white;
+}
+.modal-header {
+	background-color: black;
+}
+.close {
+	color: white;
+	background-color: white;
+}
+.sk-selectmenu-header .icon-caret-down {
+    height: auto !important;
+}	
+</style>
+	<script>
+		function saveImage() {
+			jPrompt('Type name for image:', 'Default value', 'Prompt Dialog', function(r) {
+				if( r ){
+
+					   $.ajax({
+					        url: "/download",
+					        type: "post",
+					        data: { nameImage :r},
+					        //dataType: "json",
+					        success: function(response){
+						        
+
+					            sk.exec("save-server"); 
+					            //alert(response);
+
+					            $(".content").html(response);
+					     
+					            //alert(data.name);
+					            //jsonData = response;
+					           // filePaths = response.filePaths;
+					            //alert(jsonData.name);
+					            	  
+					            
+					        },
+					        error:function(){
+					        	$("#carousel-container").html(response) ;
+
+					        }
+					    });
+					}
+			});
+		
+		}
+		//-----------------
+		function openImage() {
+			jPrompt('Please enter the drawing name', 'Default value', 'Prompt Dialog', function(r) {
+				if( r ){
+
+					   $.ajax({
+					        url: "/uploadname",
+					        type: "post",
+					        data: { nameImage :r},
+					        dataType: "json",
+					        success: function(data){
+
+					            if (data.existName == false) {//do all normal
+					            	sk.exec("save-server"); 
+					            	setTimeout(function (){
+
+					                    //something you want delayed
+					            		$.ajax({
+									        url: "/download",
+									        type: "post",
+									        data: { nameImage :r},
+									        //dataType: "json",
+									        success: function(response){
+										        
+									            //sk.exec("save-server"); 
+									            
+									            $(".content").html(response);
+									      
+									        },
+									        error:function(){
+									        	//$("#carousel-container").html(response) ;
+
+									        }
+									    });
+
+					                }, 1000); 
+					            	
+						        } else {//existing nameImage
+						        	jConfirm('The name has already existed. Would you like to update this drawing?', 'Confirmation Dialog', function(c) {
+										if (c == true) {
+						
+											sk.exec("save-server");
+											setTimeout(function (){
+											$.ajax({
+										        url: "/download",
+										        type: "post",
+										        data: { nameImage :r},
+										        //dataType: "json",
+										        success: function(response){
+
+										            //sk.exec("save-server"); 
+										         
+
+										            $(".content").html(response);
+										     
+										            
+										            
+										        },
+										        error:function(){
+										        	//$("#carousel-container").html(response) ;
+										        }
+										    });
+											}, 1000); 
+										} else {
+											//
+										}
+									
+									});	
+							    }
+					            //jsonData = response;
+					           // filePaths = response.filePaths;
+					            //alert(jsonData.name);
+					            	  
+					            
+					        },
+					        error:function(){
+					        	//$("#carousel-container").html(response) ;
+
+					        }
+					    });
+					}
+			});
+		}
+
+	</script>
+	<script>
+	function editImage($path) {
+		//alert("/media/"+$path);
+		  
+
+		
+				jConfirm('The current drawing will be lost. Are you sure?', 'Confirmation Dialog', function(r) {
+					if (r == true) {
+						sk.open.json($path);
+					} 
+				
+				});
+		
+		
+	}
+</script>
+{% endblock %}
+{% block header %}
+<header class="page-header" style= "display: inline;">
+  <div class="row" id ="rowNarbar" style = "margin-bottom : -25px;">
+			<!-- navbar navbar-default -->
+			<div class="navbar navbar-inverse" role="navigation">
+				
+				<!-- navbar-header -->
+				<div class="navbar-header" style ="background-color: #2b65a9;">
+					
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" style ="padding-left: 40px; padding-top: 15px;">
+        				<p style= "font-size: 50px; color: white;" ><b>℗</b></p> 
+      				</a>
+					
+					
+					
+				</div><!-- /navbar-header -->
+				
+				<!-- navbar -->
+				<div class="navbar-collapse collapse" style ="background-color: #2b65a9;">
+					
+					<ul class="nav navbar-nav navbar-right" style ="padding-top: 0px; padding-right: 20px;">
+						<li><a href="{{path('page_landing')}}">HOME</a></li>
+	                    <li><a href="#">  FAQS</a></li>
+	           
+	                    <li><a href="#">  CONTACT US</a></li>
+	                    
+    					{% if name == ''%}
+                        	<li><a href="{{path('login_login_homepage')}}" style = "margin-right: 280px;">LOGIN</a></li>
+                        {% else %}
+                        	<li><a href="{{path('pnc_management_userprofile')}}">  DASHBOARD</a></li>
+                            <li><a href="{{path('login_login_logout')}}" style = "margin-right: 280px;">LOGOUT</a></li> 
+                        {% endif %}
+                     
+         
+					
+                   	 	
+                   	 	<li><a href="#"><i class="fa fa-twitter"></i></a>
+              			</li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                   	 	
+					
+                   	 	
+				
+					
+				</div><!-- /navbar -->
+				
+			</div><!-- /navbar navbar-default -->
+	</div>	
+
+
+</header>
+	
+	
+{% endblock %}
+{% block body %}
+
+    
+<div class ="row">
+	<div class="col-lg-12" style= "margin-top: 5px;">
+		<div class="sketchapi">
+				<div class="sk-sidebar sk-sidebar-left">
+					<span class="tabs"></span>
+		
+					<!--- CONFIGURE -->
+					<div id="sk-configure" class="sk-pane"></div>
+		
+					<!--- CONFIGURE: FILL -->
+					<div id="sk-configure-fill" class="sk-pane">
+						<div class="sk-row-head"><span class="icon-left to-configure"></span>fill</div>
+						<div class="sk-pane-content"></div>
+					</div>
+		
+					<!--- CONFIGURE: STROKE -->
+					<div id="sk-configure-stroke" class="sk-pane">
+						<div class="sk-row-head"><span class="icon-left to-configure"></span>stroke</div>
+						<div class="sk-pane-content"></div>
+					</div>
+		
+					<!--- LAYERS -->
+					<div id="sk-layers" class="sk-pane">
+						<div class="sk-row-head">layers</div>		
+						<ul class="sk-pane-content sk-tree"></ul>
+					</div>
+		
+					<!--- DOCUMENT: HISTORY -->
+					<div id="sk-history" class="sk-pane">
+						<div class="sk-row-head">History</div>
+						<ul class="sk-pane-content sk-tree"></ul>
+					</div>
+				</div>
+				<div class="sk-toolset ">
+					<div class="left">
+						<button id="tool-menu" class="sk-tool icon-menu" title="menu"></button>
+					</div>
+					<div class="right">
+						<button id="tool-select" class="sk-tool icon-select" title="select"></button>
+						<button id="tool-pencil" class="sk-brush-menu sk-tool icon-pencil" title="brush"></button>
+						<button id="tool-highlighter" data-tool="type:highlighter;shortcut:paintbrush;fill:yellow;composite:multiply,destination-over;" class="sk-tool icon-highlight" title="Highlighter"></button>
+						<button id="tool-arrow" class="sk-tool icon-arrow" title="arrow"></button>
+						<button id="tool-rectangle" class="sk-shape-menu sk-tool icon-square" title="shape"></button>
+						<button id="tool-text" class="sk-tool icon-text" title="text"></button>
+						<button id="tool-attach" class="sk-tool sk-icon icon-attachment" title="attachment" style="display: inline"></button>
+						<button id="tool-new-confirm" class="sk-tool icon-file" title="new"></button>
+						<button id="tool-download-pdf" class="sk-tool icon-file-pdf" title="Download PDF"></button>
+						<button id="tool-print" class="sk-tool icon-print" title="Print"></button>
+						
+						<button id="" class="sk-tool icon-export glyphicon glyphicon-fullscreen" title="" data-toggle="modal" data-target="#myModal"></button>
+						
+						<button id="openImage" onclick = openImage() class="sk-tool icon-save" title="SaveH"></button>
+						
+					</div>
+				</div>
+				<div class="sk-content">
+					<div id="sk-orientation"></div>
+					<div class="sk-disable sk-hide"></div>
+				</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+				
+	<div class="col-sm-9">
+
+
+		<div class="modal fade   " id="myModal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									
+										<button type="button" class="close " data-dismiss="modal" aria-hidden="true" style= "color: white">&times;</button>
+									
+									
+										<h4 class="modal-title">Choose Image to edit</h4>
+									
+								</div>
+								
+									
+									
+										<div class="modal-footer">
+										<!-- <p>One fine body&hellip;</p> -->
+										<!-- start -->
+										
+									 <div class="content">
+										 {% if filePaths is defined %}
+										 {% if numImage is defined %}
+										  {% if numImage >= 0 %}
+										{% for i in 0..numImage %}
+										
+										<div class="img">
+												<img width="100" height="100" onclick = "editImage('{{ filePaths[i] }}.json')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}" />
+											 <div class="desc">{{ nameImages[i] }} </div>
+										</div>
+										{% endfor %}
+										{% endif %}
+										{% endif %}
+										{% endif %}
+	        			
+										</div>
+											
+												<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+												
+										
+										</div>
+							
+						</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+	</div>
+</div>
+
+
+{% endblock %}
+
+{% block footer %}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<script src="{{asset('bundles/dialogForm/js/bootstrap-modal-carousel.min.js')}}"></script>
+		<script src="{{asset('bundles/dialogForm/js/demo.min.js')}}"></script>
+				
+{% endblock %}
+{% block addJava %}
+{% if code != '' %}
+    	<script>
+    	
+    	$(document).ready(function(){
+    		setTimeout(function (){
+				sk.open.json('{{ code }}');
+				}, 1000); 
+    		
+    		});
+    	
+    	</script>
+    {% endif %}
+{% endblock %}
