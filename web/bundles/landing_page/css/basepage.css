@@ -34,7 +34,7 @@ color: #ced00f;
 }
 
 .navbar-inverse .navbar-nav>li>a {
-color: #2b65a9;
+color: white;
 font-size: 14px;	
 font-weight: bold;
 }
@@ -48,7 +48,7 @@ color: #ced00f;
 	
 }
 .container-fluid{
-	background-color: #2b65a9;
+	background-color: white;
 }
 #banner {
 	width: 100%;
