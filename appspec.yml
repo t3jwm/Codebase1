@@ -1,9 +1,0 @@
-version: 0.0
-os: windows
-files:
-  - source: github://t3jwm/codebase1
-    destination: c:\inetpub\wwwroot
-hooks:
-  BeforeInstall:
-    - location: \before-install.bat
-      timeout: 900
