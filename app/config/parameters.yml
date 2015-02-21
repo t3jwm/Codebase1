@@ -5,7 +5,7 @@ parameters:
     database_port: 3306
     database_name: sketchapp
     database_user: adminalpKFpG
-    database_password: 1RJAnFfeFKtn
+    database_password: "1RJAnFfeFKtn"
     mailer_transport: smtp
     mailer_host: smtp.gmail.com
     mailer_user: hao
