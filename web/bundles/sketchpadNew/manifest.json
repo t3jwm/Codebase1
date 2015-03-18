@@ -3,7 +3,7 @@
 	"offline_enabled": true,
 	"name": "Sketchpad 3.5",
 	"short_name": "Sketchpad",
-	"version": "3.6.7.39",
+	"version": "3.7.4.24",
 	"description": "Draw, Create, Share!",
 	"icons": {
 		"16": "media/ux/favicon/16.png",
@@ -13,7 +13,7 @@
 	"app": {
 		"background": {
 			"scripts": [
-				"chrome/background.js"
+				"chrome-app/background.js"
 			]
 		}
 	},
@@ -22,7 +22,9 @@
 	],
 	"permissions": [
 		"https://sketch.io/",
-		"https://apis.google.com/",
+		"https://static.sketch.io/",
+		"https://www.googleapis.com/",
+		"https://accounts.google.com/",
 		"https://www.google-analytics.com/",
 		"identity",
 		"storage",
@@ -31,5 +33,11 @@
 		"fullscreen",
 		"syncFileSystem",
 		"unlimitedStorage"
-	]
+	],
+	"oauth2": {
+		"client_id": "828302415973-3tq345a2c72koncls5nfllgnrbn9kfa8.apps.googleusercontent.com",
+		"scopes": [
+			"https://www.googleapis.com/auth/drive"
+		]
+	}
 }

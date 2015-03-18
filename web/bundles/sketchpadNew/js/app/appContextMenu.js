@@ -4,6 +4,8 @@ if (typeof sketch === 'undefined') var sketch = {};
 
 root.setup.add(function(root, doc) {
 
+	var createContextMenu = root.ui.contextMenu.create;
+
 	/* Select.js - No Selection
 	---------------------------------------------------- */
 	var items = [];
@@ -46,7 +48,7 @@ root.setup.add(function(root, doc) {
 		}
 	});
 	///
-	root.ui.menuSelectDefault = root.ui.contextMenu(items);
+	root.ui.menu.selectDefault = createContextMenu(items);
 
 	/* Select.js - TreeMenu
 	---------------------------------------------------- */
@@ -82,7 +84,7 @@ root.setup.add(function(root, doc) {
 		}
 	});
 	///
-	root.ui.menuTree = root.ui.contextMenu(items);
+	root.ui.menu.layers = createContextMenu(items);
 
 	/* Select.js - Multiple Selections
 	---------------------------------------------------- */
@@ -142,8 +144,8 @@ root.setup.add(function(root, doc) {
 		}
 	});
 	///
-	root.ui.menuSelect = // Single selections
-	root.ui.menuSelectMultiple = root.ui.contextMenu(items);
+	root.ui.menu.select = // Single selections
+	root.ui.menu.selectMultiple = createContextMenu(items);
 });
 	
 })(sketch);

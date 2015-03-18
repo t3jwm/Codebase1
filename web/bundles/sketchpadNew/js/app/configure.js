@@ -1,6 +1,6 @@
 /*
 	----------------------------------------------------------
-	app/Configure : 0.1.3 : 2014-11-03 : https://sketch.io
+	app/Configure : 0.1.3 : 2015-03-09 : https://sketch.io
 	----------------------------------------------------------
 */
 
@@ -10,21 +10,25 @@ if (typeof sketch === 'undefined') sketch = {};
 
 root.module = root.module || {};
 root.module.Configure = function(root, doc) {
+
 	var config = {};
 	///
 	var util = root.util;
 	var vars = root.ui.vars;
-	var Range = vars.Range;
-	var Select = vars.Select;
+	///
+	var Button = vars.Button;
 	var Checkbox = vars.Checkbox;
 	var Input = vars.Input;
 	var Palette = vars.Palette;
+	var Radio = vars.Radio;
+	var Range = vars.Range;
 	var Resource = vars.Resource;
+	var Select = vars.Select;
 	var SubTool = vars.SubTool;
 	///
 	var addClone = config.addClone = function(from, to, extend) {
 		var isObject = typeof from === 'object';
-		var obj = util.clone(isObject ? from : config[from]);
+		var obj = util.copy(isObject ? from : config[from]);
 		if (obj) {
 			obj.type = to;
 			config[to] = obj;
@@ -40,10 +44,10 @@ root.module.Configure = function(root, doc) {
 			}
 		}
 	};
-	
+
 	var createRange = function(param, value, min, max, format, params) {
-		return new Range(util.mixin(params, {
-			param: param, 
+		return new Range(util.copyInto(params, {
+			param: param,
 			value: value,
 			min: min,
 			max: max,
@@ -51,19 +55,17 @@ root.module.Configure = function(root, doc) {
 		}));
 	};
 
-	var createFill = function() {
+	var createFill = function(params) {
 		if (root.style) {
-			return new root.style.Fill();
+			return new root.style.Fill(params);
 		} else {
 			return console.warn('requires sk.style');
 		}
 	};
 
-	var createStroke = function() {
+	var createStroke = function(params) {
 		if (root.style) {
-			return new root.style.Stroke({
-				lineWidth: 0
-			});
+			return new root.style.Stroke(params);
 		} else {
 			return console.warn('requires sk.style');
 		}
@@ -72,12 +74,12 @@ root.module.Configure = function(root, doc) {
 	var createOpacity = function(value) {
 		value = isFinite(value) ? value : 100;
 		return new Range({ // 0.001 so selection still works
-			param: 'opacity', 
-			value: value, 
-			min: 0.001, 
-			max: 100, 
+			param: 'opacity',
+			value: value,
+			min: 0.001,
+			max: 100,
 			format: '%',
-			gradient: [ '#333', '#bbb' ]
+			gradient: ['#333', '#bbb']
 		});
 	};
 
@@ -96,30 +98,37 @@ root.module.Configure = function(root, doc) {
 			}
 		});
 	};
-
-	/* Select
+	
+	
+	/* Utilities
 	------------------------------------------------------- */
-	config.select = {
-		toolkit: 'select',
-		type: 'select',
-		subtool: new SubTool({
-			param: 'utility',
-			title: 'utilities'
-		})// ,
-// 		composite: createComposite(),
-// 		opacity: createOpacity()
-	};
-
-	/* Snapshot
-	------------------------------------------------------- */
-	config.snapshot = {
-		toolkit: 'snapshot',
-		type: 'snapshot',
+	var UTILITY = {
 		subtool: new SubTool({
 			param: 'utility',
 			title: 'utilities'
 		})
 	};
+
+	addClone(UTILITY, 'select', {
+		toolkit: 'select',
+		type: 'select'
+	});
+
+	addClone(UTILITY, 'screenshot', {
+		toolkit: 'screenshot',
+		type: 'screenshot'
+	});
+
+	addClone(UTILITY, 'eyedropper', {
+		toolkit: 'eyedropper',
+		type: 'eyedropper'
+	});
+
+	addClone(UTILITY, 'laserPointer', {
+		toolkit: 'laserPointer',
+		type: 'laserPointer'
+	});
+	
 
 	/* Crop
 	------------------------------------------------------- */
@@ -144,16 +153,16 @@ root.module.Configure = function(root, doc) {
 // 		})
 		ratio: new Select({
 			options: function() {
-				return root.ui.DOC.param.presets;
+				return root.ui.DOC.param.preset;
 			},
 			param: 'ratio',
-			selected: '377 x 197 (Facebook)',
+			selected: 'size:377x197,units:px,dpi:72', //'377 x 197 (Facebook)',
 			label: 'aspect-ratio',
 			title: 'choose-aspect-ratio',
 			onchange: function(param, value) {
-				var ret = {};
-				ret[param] = root.ui.DOC.getPresetData(value);
-				doc.tool.update(ret);
+				var res = {};
+				res[param] = root.ui.DOC.param.presetData[value];
+				doc.tool.update(res);
 			}
 		}),
 		constrain: new Checkbox({
@@ -173,6 +182,7 @@ root.module.Configure = function(root, doc) {
 //		,height: new Input(100, 0, 100, '%')
 	};
 
+
 	/* Zoom
 	------------------------------------------------------- */
 	config.zoom = {
@@ -185,6 +195,7 @@ root.module.Configure = function(root, doc) {
 //		, amount: createRange('amount', 100, 10, 500, '%')
 	};
 
+
 	/* Group
 	------------------------------------------------------- */
 	config.group = {
@@ -193,6 +204,7 @@ root.module.Configure = function(root, doc) {
 		composite: createComposite(),
 		opacity: createOpacity()
 	};
+
 
 	/* Shapes
 	------------------------------------------------------- */
@@ -206,10 +218,10 @@ root.module.Configure = function(root, doc) {
 		composite: createComposite(),
 		fill: createFill(),
 		stroke: createStroke(),
-		opacity: createOpacity()// ,
-// 		lineWidth: createRange('lineWidth', 1, 0.1, 5, 'px')// ,
-// 		imperfection: createRange('imperfection', 0, 0, 100, 'float'),
-// 		anticlockwise: false
+		opacity: createOpacity()
+// 		, lineWidth: createRange('lineWidth', 1, 0.1, 5, 'px')
+// 		, imperfection: createRange('imperfection', 0, 0, 100, 'float')
+// 		, anticlockwise: false
 	};
 
 	addClone(SHAPE, 'pie', {
@@ -222,7 +234,13 @@ root.module.Configure = function(root, doc) {
 	});
 
 	addClone(SHAPE, 'rectangle', {
-		roundness: createRange('roundness', 0, 0, 1, 'float')
+		roundness: createRange('roundness', 0, 0, 1, 'float'),
+		cutout: createRange('cutout', 0, 0.0, 0.99, 'float')
+	});
+
+	addClone(SHAPE, 'square', {
+		roundness: createRange('roundness', 0, 0, 1, 'float'),
+		cutout: createRange('cutout', 0, 0.0, 0.99, 'float')
 	});
 
 	addClone(SHAPE, 'regularPolygon', {
@@ -267,12 +285,17 @@ root.module.Configure = function(root, doc) {
 		n3: createRange('n3', 0.25, 0.1, 15, 'float'),
 		cutout: createRange('cutout', 0, 0, 0.99, 'float')
 	});
+
+	addClone(SHAPE, 'ellipse', {
+		cutout: createRange('cutout', 0.0, 0.0, 0.99, 'float')
+	});
+
+	addClone(SHAPE, 'circle', {
+		cutout: createRange('cutout', 0.0, 0.0, 0.99, 'float')
+	});
 	///
-	addClone(SHAPE, 'ellipse');
-	addClone(SHAPE, 'circle');
-	///
-	addClone('rectangle', 'square');
 	addClone('regularPolygon', 'triangle', {sides: null});
+
 
 	/* Text
 	------------------------------------------------------- */
@@ -289,6 +312,7 @@ root.module.Configure = function(root, doc) {
 		fill: createFill(),
 		stroke: createStroke(),
 		opacity: createOpacity(),
+		content: '',
 		fontWeight: 'normal', // bold, bolder, lighter, 100-900
 		fontSize: createRange('fontSize', 30, 1, 120, 'float'),
 		fontFamily: 'Arial',
@@ -299,11 +323,12 @@ root.module.Configure = function(root, doc) {
 		textAlign: 'center', // left, right, center, justify
 		textDecoration: 'none', // overline, underline, line-through
 		textTransform: 'none', // capitalize, uppercase, lowercase
-		whiteSpace: 'normal' // normal, pre, pre-line, pre-wrap, nowrap
+		whiteSpace: 'pre-wrap' // normal, pre, pre-line, pre-wrap, pre-nowrap, nowrap
 //		, blur: createRange('blur', 0, 0, 25, '%')
 	};
 
-	/* Image
+
+	/* Speechbubble
 	------------------------------------------------------- */
 	config.speechbubble = {
 		toolkit: 'speechbubble',
@@ -311,6 +336,7 @@ root.module.Configure = function(root, doc) {
 		composite: createComposite(),
 		opacity: createOpacity()
 	};
+
 
 	/* Image
 	------------------------------------------------------- */
@@ -323,21 +349,22 @@ root.module.Configure = function(root, doc) {
 // 		stroke: createStroke(),
 		opacity: createOpacity(),
 //		src: './media/stamp/Basic/0-live.png',
-		hue: createRange('hue', 0.0, 0.0, 360.0, 'float', {gradient: [ '#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00' ]}),
-		saturation: createRange('saturation', 1.0, 0.0, 3.0, 'float', {gradient: [ '#ffffff', '#ffffbf', '#9eff9e', '#7ffffa', '#5e5eff', '#ff3fff', '#f00' ]}),
-		temperature: createRange('temperature', 0.0, -32.0, 32.0, 'float', {gradient: [ '#568fcf', '#f7e146' ]}),
-		tint: createRange('tint', 0.0, -32.0, 32.0, 'float', {gradient: [ '#00ae47', '#c73baf' ]}),
-		exposure: createRange('exposure', 1.0, 0.0, 2.0, 'float', {gradient: [ '#333', '#bbb' ]}),
-		brightness: createRange('brightness', 0.0, -100.0, 100.0, 'float', {gradient: [ '#333', '#bbb' ]}),
-		contrast: createRange('contrast', 0.0, -0.5, 0.5, 'float', {gradient: [ '#bbb', '#333' ]}),
-		reset: new vars.Button({
+		hue: createRange('hue', 0.0, 0.0, 360.0, 'float', {gradient: ['#f00', '#ff0', '#0f0', '#0ff', '#00f', '#f0f', '#f00']}),
+		saturation: createRange('saturation', 1.0, 0.0, 3.0, 'float', {gradient: ['#ffffff', '#ffffbf', '#9eff9e', '#7ffffa', '#5e5eff', '#ff3fff', '#f00']}),
+		temperature: createRange('temperature', 0.0, -32.0, 32.0, 'float', {gradient: ['#568fcf', '#f7e146']}),
+		tint: createRange('tint', 0.0, -32.0, 32.0, 'float', {gradient: ['#00ae47', '#c73baf']}),
+		exposure: createRange('exposure', 1.0, 0.0, 2.0, 'float', {gradient: ['#333', '#bbb']}),
+		brightness: createRange('brightness', 0.0, -100.0, 100.0, 'float', {gradient: ['#333', '#bbb']}),
+		contrast: createRange('contrast', 0.0, -0.5, 0.5, 'float', {gradient: ['#bbb', '#333']}),
+		reset: new Button({
 			title: 'reset',
+			style: 'width: 94%; margin: 0 3%;',
 			callback: function(event) {
 				eventjs.prevent(event);
-				root.doc.toolkit.setParams({
-					'selection': root.doc.selection.items,
-					'tool': 'image',
-					'params': {
+				doc.toolkit.setParams({
+					selection: doc.selection.items,
+					filter: 'image',
+					params: {
 						'hue': 0,
 						'saturation': 1,
 						'temperature': 0,
@@ -354,6 +381,7 @@ root.module.Configure = function(root, doc) {
 
 	addClone(IMAGE, 'image');
 	addClone(IMAGE, 'video');
+
 
 	/* Clipart
 	------------------------------------------------------- */
@@ -373,7 +401,95 @@ root.module.Configure = function(root, doc) {
 		opacity: createOpacity()
 	};
 
-	addClone('clipart', 'symbol');
+
+	/* Symbol
+	------------------------------------------------------- */
+	config.symbol = {
+		toolkit: 'media',
+		type: 'symbol',
+		palette: new Palette(),
+// 		src: 'clipart/animals/1216139760278927551lemmling_Cartoon_cow.svg',
+		composite: createComposite(),
+		fill: createFill(),
+// 		stroke: createStroke(),
+		opacity: createOpacity()
+	};
+
+
+	/* Vectorfill
+	------------------------------------------------------- */
+	config.vectorfill = {
+		toolkit: 'vectorfill',
+		type: 'vectorfill',
+		palette: new Palette(),
+		composite: createComposite(),
+		fill: createFill(),
+		opacity: createOpacity()
+	};
+
+
+	/* SVG Paths
+	------------------------------------------------------- */
+	var BRUSH = {
+		toolkit: 'brush',
+		subtool: new SubTool({
+			param: 'brush',
+			title: 'brushes'
+		}),
+		palette: new Palette(),
+		composite: createComposite(),
+		fill: createFill({
+		    enabled: false
+		}),
+		stroke: createStroke({
+		    enabled: true,
+		    lineWidth: 2
+		}),
+		opacity: createOpacity(),
+		interval: 1,
+		spacing: {
+			min: 1,
+			max: 25
+		},
+		buttons: new vars.HTML({
+			construct: function(node) {
+// 				node.className = 'sk-footer';
+				root.ui.appendButton(node, new Button({
+					className: 'grey',
+					title: 'close path',
+					style: 'float: left; margin: 5px 0 5px 5px; width: 43%;',
+					callback: function(event) {
+						for (var pointerId in doc.render.pointer);
+						var pointer = doc.render.pointer[pointerId];
+						pointer.object.brush.closePath();
+						pointer.object.brush.savePath();
+					}
+				}));
+				root.ui.appendButton(node, new Button({
+					className: 'grey',
+					title: 'finish editing',
+					style: 'float: right; margin: 5px 5px 5px 0; width: 50%;',
+					callback: function(event) {
+						for (var pointerId in doc.render.pointer);
+						var pointer = doc.render.pointer[pointerId];
+						pointer.object.brush.savePath();
+					}
+				}));
+				node.appendChild(root.dom.create('<div style="clear: both"></div>'));
+			}
+		})
+	};
+	///
+	addClone(BRUSH, 'polyline');
+	addClone(BRUSH, 'polygon');
+	addClone(BRUSH, 'path');
+	///
+	addClone(BRUSH, 'scissor', {
+		fill: false,
+		stroke: false,
+		closePath: false
+	});
+
 
 	/* Brushes
 	------------------------------------------------------- */
@@ -386,10 +502,11 @@ root.module.Configure = function(root, doc) {
 		palette: new Palette(),
 		composite: createComposite(),
 		fill: createFill(),
-// 		stroke: createStroke(),
+		stroke: false,
 		opacity: createOpacity(),
+		interval: 1,
 		spacing: {
-			min: 2,
+			min: 1,
 			max: 25
 		}
 	};
@@ -397,30 +514,27 @@ root.module.Configure = function(root, doc) {
 	///
 	addClone(BRUSH, 'textbrush', {
 		diameter: createRange('diameter', 10, 1, 100, 'px'),
-		content: new vars.Textarea({value:'“The quick brown fox jumps over the lazy dog” is an English-language pangram – a phrase that contains all of the letters of the English alphabet.'})
+		content: new vars.Textarea({
+			label: 'content',
+			param: 'content',
+			value: '“The quick brown fox jumps over the lazy dog” is an English-language pangram – a phrase that contains all of the letters of the English alphabet.'
+		})
 	});
 
-	///
 	addClone(BRUSH, 'arrow', {
-		diameter: createRange('diameter', 42, 1, 250, 'px')
+		diameter: createRange('diameter', 35, 1, 250, 'px'),
 //		, mode: createRange('mode', 1, 1, 3, 'int')
+		curved: new Checkbox({
+			checked: false,
+			label: 'curved',
+			param: 'curved'
+		})
 	});
 
-	///
-	addClone(BRUSH, 'polygon', {
-		diameter: createRange('diameter', 1, 1, 100, 'px')
-	});
-	addClone(BRUSH, 'polyline', {
-		diameter: createRange('diameter', 1, 1, 100, 'px')
-	});
-	addClone(BRUSH, 'path', {
-		diameter: createRange('diameter', 1, 1, 100, 'px')
-	});
-	addClone(BRUSH, 'scissor', {
-		diameter: createRange('diameter', 1, 1, 100, 'px')
+	addClone(BRUSH, 'pencil', {
+		diameter: createRange('diameter', 2, 1, 250, 'px'),
 	});
 
-	///
 	addClone(BRUSH, 'eraser', {
 		subtool: false,
 		palette: false,
@@ -432,12 +546,8 @@ root.module.Configure = function(root, doc) {
 	});
 
 	addClone(BRUSH, 'paintbrush', {
-		diameter: createRange('diameter', 60, 1, 250, 'px'),
+		diameter: createRange('diameter', 40, 1, 250, 'px'),
 		blur: createRange('blur', 10, 0, 100, '%')
-	});
-
-	addClone(BRUSH, 'pencil', {
-		diameter: createRange('diameter', 2, 1, 250, 'px')
 	});
 
 	/* Vector brushes
@@ -445,15 +555,15 @@ root.module.Configure = function(root, doc) {
 	addClone(BRUSH, 'streamer', {
 		diameter: createRange('diameter', [0.001, 15], 0.001, 150, 'px'),
 		spacing: {
-			min: 2,
+			min: 5,
 			max: util.INFINITY
 		}
 	});
 
 	addClone(BRUSH, 'pen', {
-		diameter: createRange('diameter', [0.001, 10], 0.001, 50, 'px'),
+		diameter: createRange('diameter', [0.5, 10], 0.001, 50, 'px'),
 		spacing: {
-			min: 2,
+			min: 5,
 			max: util.INFINITY
 		}
 	});
@@ -547,7 +657,7 @@ root.module.Configure = function(root, doc) {
 			max: 50
 		}
 //		, speed: createRange('speed', 100, 1, 100, 'float')
-		, diameter: createRange('diameter', 40, 25, 250, 'px')
+		, diameter: createRange('diameter', 70, 25, 250, 'px')
 	});
 
 	addClone(BRUSH, 'crayon', {
@@ -578,6 +688,7 @@ root.module.Configure = function(root, doc) {
 		scale: createRange('scale', [0.05, 1.5], 0.05, 3, '%'),
 		translate: createRange('translate', [0,0], 0, 250, 'px'),
 		spacing: createRange('spacing', [12, util.INFINITY], 1, 250, 'px'),
+		interval: 1,
 		pollock: false
 //		, src: './media/stamp/Water Colors/0-live.png'
 //		, filePicker: new vars.FilePicker('stamp')
@@ -616,13 +727,14 @@ root.module.Configure = function(root, doc) {
 
 	/// clone defaults for reset
 	(function() {
-		var defaults = util.clone(config);
+		var defaults = util.copy(config);
 		config.reset = function(type) {
-			config[type] = util.clone(defaults[type]);
+			config[type] = util.copy(defaults[type]);
 		};
 	})();
 
 	return config;
+
 };
 
 })(sketch);
