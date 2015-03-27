@@ -30,6 +30,10 @@ private $user;
 */
 public $name;
 /**
+* @ORM\Column(type="string", length=200)
+*/
+public $description;
+/**
  * @ORM\Column(type="string", length=255)
  */
 public $root;
@@ -72,6 +76,16 @@ public function getName()
 public function setName($name)
 {
 	$this->name = $name;
+}
+
+public function getDescription()
+{
+	return $this->description;
+}
+
+public function setDescription($description)
+{
+	$this->description = $description;
 }
 
 public function getRoot()
