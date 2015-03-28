@@ -288,10 +288,10 @@
                                     class="glyphicon glyphicon-edit"></i><span> Profile</span></a></li>
                         
                         {% if   app.session.get('isAdmin') == 1 %}            
-                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
                         </li>
                         {% else %}
-                        <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
                         </li>
                         {% endif %}
 
@@ -324,7 +324,7 @@
         <div class="box col-md-12">
             <div class="box-inner">
                 <div class="box-header well" data-original-title="">
-                    <h2><i class="glyphicon glyphicon-picture"></i> Gallery</h2>
+                    <h2><i class="glyphicon glyphicon-picture"></i> Portfolio</h2>
 
                     <div class="box-icon">
                         <a href="#" class="btn btn-setting btn-round btn-default"><i
@@ -371,7 +371,7 @@
 
 							{% endfor %}
                         {% else %}
-                            <p style="font-style:italic">The gallery is empty !</p>
+                            <p style="font-style:italic">Your portfolio is empty </p>
 						{% endif %}
 						{% endif %}
                             
