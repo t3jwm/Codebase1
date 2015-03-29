@@ -128,7 +128,26 @@ class WelcomeController extends Controller
     	return $this->render(
     			'AcmeDemoBundle:Demo:terms.html.twig', array('name' =>''));
     }
-    public function openImageDashAction($code)
+    public function privacyAction()
+    {
+    	/*
+    	 * The action's view can be rendered using render() method
+    	 * or @Template annotation as demonstrated in DemoController.
+    	 *
+    	 */
+    	$session = $this->getRequest()->getSession();
+    	if ($session->has('login')) {
+    		$login = $session->get('login');
+    		$userName = $login->getUsername();
+    
+    
+    		return $this->render('AcmeDemoBundle:Demo:privacy.html.twig', array('name' => $userName));
+    
+    	}
+    	return $this->render(
+    			'AcmeDemoBundle:Demo:privacy.html.twig', array('name' =>''));
+    }
+	public function openImageDashAction($code)
     {
     	/*
     	 * The action's view can be rendered using render() method
