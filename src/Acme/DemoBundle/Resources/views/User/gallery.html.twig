@@ -167,7 +167,7 @@
 
         function sendImage($imgId, $filePath) {
             //alert($filePath);
-            jPrompt('Type email you want to send this image:', 'Default value', 'Prompt Dialog', function(r) {
+            jPrompt('Warning: Disclosure of your invention to a third-party can impact your patent rights.  Contact our partner, Dunkiel Saunders, or your patent attorney for guidance:', 'Email Address', 'Email My Invention', function(r) {
                 if( r ){
 
                        $.ajax({

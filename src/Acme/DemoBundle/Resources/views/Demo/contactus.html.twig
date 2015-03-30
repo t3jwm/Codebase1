@@ -318,25 +318,25 @@ footer hr {
 	<div class="containerus clearfix">
 		<div class="content grid_2 contactype active" id="contact-mapClick">
 			<div class="icon-map"></div>
-			<p>Map</p>
+			<h2>Map</h2>
 		</div>
 		
 
 		
 		<div class="content grid_2 contactype" id="contact-phoneClick">
 			<div class="icon-phone"></div>
-			<p>Telephone</p>
+			<h2>Telephone</h2>
 		</div>
 		<div class="content grid_2 contactype omega" id="contact-mailClick">
 			<div class="icon-mail"></div>
-			<p>E-Mail</p>
+			<h2>E-Mail</h2>
 		</div>
 
 		<div class="content grid_12 contactmap" id="contact-map">
 			<div class="grid_4">
 				<h2>CONTACT</h2>
-				<p class="information"><span class="icon-location"> ADDRESS: </span>91 College Street, Burlington, VT 05401.</p>
-				<p class="information"><span class="icon-phone-2"> TELEPHONE: </span> 0 (802) 860 1003</p>
+				<p class="information"><span class="icon-location"> <h2>ADDRESS: </span>91 College Street, Burlington, VT 05401.</h2></p>
+				<p class="information"><span class="icon-phone-2"> <h2>TELEPHONE: </span> 0 (802) 860 1003</h2></p>
 				<a class="btn" href="https://www.google.com/maps/place/91+College+St,+Burlington,+VT+05401/@44.476617,-73.2165,17z/data=!3m1!4b1!4m2!3m1!1s0x4cca7afa00214137:0x9d292e7015c2d7e1" target="_blank">Get Direction</a>
 				<div class="clear"></div>
 			</div>
@@ -353,10 +353,10 @@ footer hr {
 		<div class="content grid_12 contactmap dn" id="contact-phone">
 			<div class="grid_4">
 				<h2>TELEPHONE</h2>
-				<p class="information"><span class="icon-location"> ADRESS: </span>Canada.</p>
+				<p class="information"><span class="icon-location"> ADDRESS: </span>91 College St., Burlington, VT 05401</p>
 			</div>
 			<div class="grid_8 omega">
-				<div class="grid_6 omega">0 (123) 456 789</div>
+				<div class="grid_6 omega">0 (802) 860 1003</div>
 			</div>
 		</div>
 
@@ -364,10 +364,10 @@ footer hr {
 		<div class="content grid_12 contactmap dn" id="contact-mail">
 			<div class="grid_4">
 				<h2>E-MAIL</h2>
-				<p class="information"><span class="icon-location"> ADRESS: </span>Canada.</p>
+				<p class="information"><span class="icon-location"> ADDRESS: </span>91 College St., Burlington, VT 05401</p>
 			</div>
 			<div class="grid_8 omega">
-				<div class="grid_6 omega"><a href="mailto:sketchapp@gmail.com?Subject=Hello" class="btn">mail@loremipsum.com</a></div>
+				<div class="grid_6 omega"><a href="mailto:info@patent-that.com?Subject=Hello" class="btn">info@patent-that.com</a></div>
 			</div>
 		</div>
 
@@ -431,7 +431,7 @@ var map;
 function initialize() {
     var mapOptions = {
         zoom: 13,
-        center: new google.maps.LatLng(39.94991, 32.788134),
+        center: new google.maps.LatLng(44.476617,-73.2165),
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
