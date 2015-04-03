@@ -1,166 +1,116 @@
 {% extends "AcmeDemoBundle::Baselayout.html.twig" %}
-
-
-
 {% block body %}
 
+<!-- Temporary Stride stylesheet for development only -->
+<link rel="stylesheet" href="http://stridecreative.com/patentthat/css/stride.css" />
 
-     <div class="row">
-            
-                <div class="col-lg-12 text-center" style="padding-left:0; padding-right: 0;">
-                    <div id="carousel-example-generic" class="carousel slide">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators hidden-xs">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                        </ol>
+<div class="hp-carousel-wrap">
+	<div class="row">
+		<div class="col-lg-12 text-center">
+			<div id="carousel-example-generic" class="carousel slide"> 
+				<!-- Indicators -->
+				<!--<ol class="carousel-indicators hidden-xs">
+					<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				</ol>-->
+				
+				<!-- Wrapper for slides -->
+				<div class="carousel-inner">
+					<div class="item active"> <img class="img-responsive img-full" style=" min-width: 100%;height: 95%;" src="{{ asset('bundles/landing_page/img/Banner1.jpg') }}" /> </div>
+				</div>
+				
+				<!-- Controls --> 
+				<!-- <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"> <span class="icon-prev"></span> </a> <a class="right carousel-control" href="#carousel-example-generic" data-slide="next"> <span class="icon-next"></span> </a> </div>-->
+		</div>
+	</div>
+</div>
 
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img class="img-responsive img-full" style=" min-width: 100%;height: 95%;" src="{{ asset('bundles/landing_page/img/Banner1.jpg') }}" />
-                            </div>
-                        </div>
+<!-- Navigation --> 
 
-                        <!-- Controls -->
-                        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                            <span class="icon-prev"></span>
-                        </a>
-                        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                            <span class="icon-next"></span>
-                        </a>
-                    </div>
-                    
-                </div>
-            </div>
-       
-    <!-- Navigation -->
-    
-    <!-- Page Content -->
+<!-- Page Content -->
 
-    <div class="content-section-a" id = "page1_2">
+<div class="content-section-a" id="page1_2">
+	<div class="container" >
+		<div class="row">
+			<div class="col-lg-12 col-sm-12">
+				<h2 class="section-heading">ONE GREAT IDEA IS ALL IT TAKES TO CHANGE THE WORLD</h2>
+				<p>We believe in the power of innovation and we created Patent That to put the power back in your hands.  We want inventors take control of the patent process using intuitive tools built for creative people.</p>
+				<p>Be CREATIVE  -  Think BIG...</p><p><a href="/apppage" class="button" >Get STARTED &#187;</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.container -->
 
-        <div class="container" >
+<div class="content-section-b" id="page1_3">
+	<div class="container">
+		<div class="row">
+		<div class="col-lg-5 col-lg-offset-2 col-sm-6 floatright"> <img id='image_page1_4' src="{{ asset('bundles/landing_page/img/page1_4.jpg') }}"> </div>
+			<div class="col-lg-5 col-sm-6">
+				<h3 class ='banner_page1_3'>FLEXIBLE and FREE</h3>
+				<ul>
+					<li>Develop your ideas when you want, where you want.</li>
+					<li>Store all your ideas in one place.</li>
+					<li>Get information about what it takes to patent and the patent process.</li>
+					<li>Send your idea to an attorney when you are ready to take that next step.</li>
+				</ul>
+				<a href="/apppage" class="button">Sign up FREE &#187;</a>
+			</div>
+			
+		</div>
+	</div>
+	<!-- /.container --> 
+</div>
+<!-- /.content-section-a -->
 
-            <div class="row">
-            
-                <div class="col-lg-12 col-sm-12" style = "text-align: center;padding-top: 100px;padding-bottom: 75px;padding-left: 60px;padding-right: 60px;">
-                  
-                	
-                    <h2 class="section-heading" style = "font-weight: 700;">ONE GREAT IDEA IS ALL IT TAKES TO CHANGE THE WORLD</h2>
-                    <h3 class="lead" style = "font-weight: 700;padding-top: 40px; padding-bottom: 75px;">We believe in the power of innovation and we created Patent That to put the power back in 
-  your hands.  We want inventors take control of the patent process using intuitive tools built for creative 
-										people.</h3>
-										 <h2 class="lead" style = "font-weight: 700;font-size:350% ">Be CREATIVE  -  Think BIG  -  Get STARTED.</h2>
-                </div>
-           
-            </div>
+<div class="content-section-a" id='page1_4'>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5 col-lg-offset-1 col-sm-push-6 col-sm-6">
+				<div class="col-lg-5 col-sm-pull-6  col-sm-6" > <img class="img-responsive" style=" margin-left: auto; margin-right: auto;" src="{{ asset('bundles/landing_page/img/page1_5.jpg') }}"> </div>
+				<h3>SIMPLE and SECURE</h3>
+				<ul>
+					<li>Register in seconds.</li>
+					<li>Your ideas are safe with us - no one will see your concepts without your approval.</li>
+					<li>Help is only a click away.</li>
+				</ul>
+				<a href="/apppage" class="button">Sign up FREE &#187;</a>
+			</div>
+		</div>
+	</div>
+	<!-- /.container --> 
+</div>
+<!-- /.content-section-b -->
+<div class="content-section-b" id="page1_5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-5 col-sm-pull-6  col-sm-6" ><img id='image_page1_6' class="floatright" src="{{ asset('bundles/landing_page/img/page1_6.jpg') }}"></div>
+				<div class="col-lg-5 col-sm-6">
+					<h3 class ='banner_page1_3'>POWERFUL and EMPOWERING</h3>
+						<ul>
+							<li>Accessible on multiple platforms - work across all your devices.</li>
+							<li>Insert, sketch, doodle, write - the Patent That sketchpad lets you innovate as creatively as you desire.</li>
+							<li>Save time any money - guided assistance for patent application development at your own pace.</li>
+							<li>Additional patent resources at your fingertips.</li>
+						</ul>
+				<a href="/apppage" class = "button">Sign up FREE &#187;</a>
+			</div>
+		</div>
+	</div>
+	<!-- /.container --> 
+	
+</div>
+<!-- /.content-section-a -->
 
-        </div>
-        </div>
-        <!-- /.container -->
+<div class="banner" >
+	<div class="row">
+		<div class="col-lg-12">
+			<h2 id = 'getStart'><a class="button alternate" href="{{path('page_app') }}">Get Started!</a></h2>
+		</div>
+	</div>
+	
+	<!-- /.container --> 
+	
+</div>
+<!-- /.banner --> 
 
-
-    
-    
-    <div class="content-section-a" id = "page1_4">
-
-        <div class="container">
-
-            <div class="row" style="padding-top: 75px;border-bottom-width: 75px;padding-bottom: 75px;">
-                <div class="col-lg-5 col-sm-6">
-                <h3 class ='banner_page1_3'><b>FLEXIBLE and FREE</b></h3>
-                    <hr class="section-heading-spacer" style="border-top: 3px solid #000000;margin-top: 0px;">
-                    <div class="clearfix"></div>
-                    <p class="lead" style = "font-weight: 700; color: 2b65a9;">Develop your ideas when you want, where you want. </p>
-                    <p class="lead" style = "font-weight: 700; color: 2b65a9;">Store all your ideas in one place. </p>
-					<p class="lead" style = "font-weight: 700; color: 2b65a9;">Get information about what it takes to patent and the patent process. </p>
-					<p class="lead" style = "font-weight: 700; color: 2b65a9;">Send your idea to an attorney when you are ready to take that next step. </p>
-                	<a href="/apppage" style = "color:#000000;">SIGN UP FREE</a>
-					<hr class="section-heading-spacer" style="border-top: 3px solid #000000;">
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6" style="
-    margin-left: 30px;">
-                    <img id='image_page1_4' src="{{ asset('bundles/landing_page/img/page1_4.jpg') }}" style="width: 150%;">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
-    
- <div class="content-section-b" id='page1_5'>
-
-        <div class="container">
-
-            <div class="row" style="padding-top: 75px;border-bottom-width: 75px;padding-bottom: 75px;">
-          
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                  <h3 class ='banner_page1_3'><b>SIMPLE and SECURE</b></h3>
-                    <hr class="section-heading-spacer" style ="border-top: 3px solid #000000;">
-                    <div class="clearfix"></div>
-                    <p class="lead" style = "font-weight: 700; color: 2b65a9;">Register in seconds. </p>
-                    <p class="lead" style = "font-weight: 700; color: 2b65a9;">Your ideas are safe with us - no one will see your concepts without your approval. </p>
-					<p class="lead" style = "font-weight: 700; color: 2b65a9;">Help is only a click away. </p>
-					<a href="/apppage" style = "color:#000000;">SIGN UP FREE</a>
-					<hr class="section-heading-spacer" style ="border-top: 3px solid #000000;">
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6" >
-                    <img class="img-responsive" style=" margin-left: auto; margin-right: auto;" src="{{ asset('bundles/landing_page/img/page1_5.jpg') }}">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-b -->     
-
-    <div class="content-section-a" id ="page1_6">
-
-        <div class="container">
-
-            <div class="row" style="padding-top: 75px;border-bottom-width: 75px;padding-bottom: 75px;">
-
-                <div class="col-lg-5 col-sm-6">
-               	<h3 class ='banner_page1_3'><b>POWERFUL and EMPOWERING</b></h3>
-                    <hr class="section-heading-spacer" style="border-top: 3px solid #000000;margin-top: 0px;">
-                    <div class="clearfix"></div>
-                    <p class="lead" style = "font-weight: 700; color: 2b65a9;">Accessible on multiple platforms - work across all your devices.</p>
-                    <p class="lead" style = "font-weight: 700; color: 2b65a9;">Insert, sketch, doodle, write - the Patent That sketchpad lets you innovate as creatively as you desire.</p>
-					<p class="lead" style = "font-weight: 700; color: 2b65a9;">Save time any money - guided assistance for patent application development at your own pace. </p>
-					<p class="lead" style = "font-weight: 700; color: 2b65a9;">Additional patent resources at your fingertips. </p>
-					<a href="/apppage" style = "color:#000000;">SIGN UP FREE</a>
-                	<hr class="section-heading-spacer" style="border-top: 3px solid #000000;">
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6" style="margin-left: 40px;"> 
-                    <img id='image_page1_6' src="{{ asset('bundles/landing_page/img/page1_6.jpg') }}" style="height: 70%; padding-top: 60px; padding-left 15px">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
-   
-
-    <div class="banner" >
-
-
-            <div class="row" style="padding-top: 250px;">
-                <div class="col-lg-12">
-                    <h2 id = 'getStart'><a href="{{path('page_app') }}">Get Started!</a></h2>
-                </div>
-          
-            </div>
-
-       
-        <!-- /.container -->
-
-    </div>
-    <!-- /.banner -->
-    
-    
-{% endblock %}
+{% endblock %} 
