@@ -149,7 +149,12 @@ border-color: #ffffff;
 .text-errs {
 	color: red;
 }
-
+/* Stride Styles */
+/* Remove distortion from homepage carousel */
+.carousel-inner .img-responsive.img-full {
+  height: auto !important;
+  width: auto !important;
+}
 
 @media (min-width: 1200px) {
 	#brandImage {
