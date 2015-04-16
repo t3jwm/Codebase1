@@ -73,12 +73,15 @@
 					
 					<ul class="nav navbar-nav navbar-right">
 						<li><a href="{{path('page_landing')}}">Home</a></li>
-						<li><a href="{{path('page_app') }}">SKETCH</a></li>
-						<li><a href="#">  FAQS</a></li>
-						<li><a href="{{path('contact_US')}}">Contact Us</a></li>
 						{% if name == ''%}
 						<li><a href="{{path('login_login_homepage')}}" class="nav-login">Login</a></li>
+						<li><a href="{{path('page_app') }}">Get Started</a></li>
+						<li><a href="#">  FAQS</a></li>
+						<li><a href="{{path('contact_US')}}">Contact Us</a></li>
 						{% else %}
+						<li><a href="{{path('page_app') }}">Sketch</a></li>
+						<li><a href="#">  FAQS</a></li>
+						<li><a href="{{path('contact_US')}}">Contact Us</a></li>
 						<li><a href="{{path('pnc_management_usergallery')}}">Dashboard</a></li>
 						<li><a href="{{path('login_login_logout')}}" class="nav-login" >Logout</a></li> 
 						{% endif %}
