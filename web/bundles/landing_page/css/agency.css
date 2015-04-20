@@ -65,3 +65,112 @@ footer ul.quicklinks {
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     line-height: 40px;
 }
+/*  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - 
+  - - - - - - - - - - - - - - -- - - - - - - Stride Styles - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - -- - - - - - - - - - -
+ - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - -  */
+
+/* BUTTON STYLES */
+a.button {
+	background: none repeat scroll 0 0 #0099ff;
+	border-radius:5px;
+	color:#fff;
+	font-size:20px;
+	font-weight:600;
+	line-height: 4.5;
+	padding: 20px 30px;
+}
+a.button:hover {
+	background: none repeat scroll 0 0 #0054ab;
+	color:#00aeef;
+}
+/* removes shadow on footer hp button */
+body .banner h2 {
+  text-shadow: 0 0 transparent;
+}
+
+.col-lg-5.col-sm-6 li {
+	text-align: left;
+}
+.hp-carousel-wrap .col-lg-12 {
+	padding: 0;
+}
+.content-section-a {
+	text-align:center;/* background: #0099ff; */
+}
+#page1_2 .container {
+	max-width: 625px;
+}
+#page1_3 {
+background:
+}
+.banner_page1_3 {
+	color: #04356f;
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-align: left;
+}
+.content-section-b .col-sm-pull-6 {
+	right: 0;
+}
+#image_page1_6 {
+	max-width: 100%;
+}
+body h1, body .h1 {
+	color: #004ea3;
+	font-size: 36px;
+}
+/* Navbar styles */
+body .navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
+	max-height:none;
+}
+.nav.navbar-nav.navbar-right > li {
+	border-bottom: 0px solid #ccc;
+}
+body .navbar-collapse.collapse.in {
+	width: 100% !important;
+}
+.nav.navbar-nav.navbar-right {
+	padding-right: 20px !important;
+}
+body .navbar-nav > li > a {
+	padding: 26px 12px;
+}
+.navbar-collapse.collapse.in .navbar-nav > li > a {
+	padding: 12px 42px;
+}
+body #rowNarbar {
+	margin-bottom: 73px;
+}
+body .navbar-toggle {
+	margin-top: 17px;
+}
+.navbar-collapse.collapse {
+	box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.3);
+	min-height:73px;
+}
+
+/*  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - 
+  - - - - - - - - - - - - - - -- - - - - - - Overrides of existing styles - - - - - - - - - - - - - - -- - - - - - - - - - - - - - - - - - - - - - - - -
+ - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - - - - - - - - -- - - - - - -  - - - - - - - -  */
+ 
+ body {
+	font-size:16px;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+	color: #00aeef;
+}
+#page1_3, #page1_4, #page1_5 {
+	text-align:center;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+	background-color: #333;
+}
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+	background-color: #eee;
+}
+#page1_4 { 
+	/* background-image: url("../img/Beautiful-Image-of-Landscape-Leopard-Aurora-in-the-Blue-Sky-White-Stars-Shinning.jpg"); */
+	background-image:none;
+	background-repeat: no-repeat;
+}
+
+/* END STRIDE STYLES */
