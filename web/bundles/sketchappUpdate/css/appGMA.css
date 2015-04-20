@@ -23,7 +23,6 @@ a:hover, a:active { outline: 0; }
 -------------------------------------------------- */
 .sketchapi {
 	min-width: 660px;
-	margin-top: 3em;
 }
 .sketchapi .sk-contents {
 	padding: 0;

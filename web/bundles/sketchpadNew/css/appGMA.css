@@ -1,6 +1,7 @@
 * {
-    -moz-box-sizing: border-box;
-         box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
 
 html, body {
@@ -22,7 +23,11 @@ a:hover, a:active { outline: 0; }
 /* Contents
 -------------------------------------------------- */
 .sketchapi {
+	position: relative;
 	min-width: 660px;
+	max-height: calc(100% - 178px);
+	top: 356px;
+	margin-top: -178px;
 }
 .sketchapi .sk-contents {
 	padding: 0;
@@ -31,7 +36,6 @@ a:hover, a:active { outline: 0; }
 	height: inherit;
 	overflow: none;
 	background: #111;
-	background: -webkit-linear-gradient(bottom, #222, #333);
 	background: linear-gradient(to top, #222, #333);
 	z-index: 1;
 }
@@ -101,8 +105,7 @@ a:hover, a:active { outline: 0; }
 -------------------------------------------------- */
 .sk-toolset {
 	background-image: url("../media/ux/bg_woodgrain_dark.png");
-	-webkit-transition: opacity, padding .35s;
-	        transition: opacity, padding .35s;
+	transition: opacity, padding .35s;
 	padding-left: 0;
 }
 .sk-toolset .sk-tool {
@@ -125,6 +128,9 @@ a:hover, a:active { outline: 0; }
 
 /* Sidebar
 -------------------------------------------------- */
+.sk-sidebar {
+	position: absolute;
+}
 .sk-sidebar-left {
     margin-top: 0px;
     padding-top: 81px; /* compensate toolbar + tabs */
@@ -163,9 +169,8 @@ a:hover, a:active { outline: 0; }
 -------------------------------------------------- */
 #add-page {
 	color: rgba(0, 106, 245, 1);
-	-webkit-transition: color .25s;
-	        transition: color .25s;
-	position: fixed;
+	transition: color .25s;
+	position: absolute;
 	bottom: 5px;
 	right: 5px;
 	background: none;
