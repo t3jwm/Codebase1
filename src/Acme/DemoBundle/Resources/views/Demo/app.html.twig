@@ -29,7 +29,7 @@
 {% block body %}
 	<div class="sketchapi">
 		<div class="sk-sidebar sk-sidebar-right">
-			<div class="sk-guide sk-pane selected">
+			<div class="sk-guide sk-pane selected" style="padding-top: 50px;">
 				<div class="sk-row-head">guide</div>
 				<div class="sk-divider">
 					<label><input type="checkbox"></label> Invention Title
@@ -91,7 +91,8 @@
 			</div>
 		</div>
 		<div class="sk-sidebar sk-sidebar-left">
-			<span class="tabs"></span>
+			<span class="tabs" style="
+    padding-top: 50px;"></span>
 
 			<!--- CONFIGURE -->
 			<div id="sk-configure" class="sk-pane"></div>
@@ -109,7 +110,7 @@
 			</div>
 
 			<!--- LAYERS -->
-			<div id="sk-layers" class="sk-pane">
+			<div id="sk-layers" class="sk-pane" style="padding-top: 50px;">
 				<div class="sk-row-head">layers</div>		
 				<ul class="sk-pane-content sk-tree"></ul>
 			</div>
@@ -120,7 +121,9 @@
 				<ul class="sk-pane-content sk-tree"></ul>
 			</div>
 		</div>
-		<div class="sk-toolset">
+		<div class="sk-toolset" style="
+    padding-top: 10px;
+    height: 50px;">
 			<div class="left">
 				<button id="tool-menu" class="sk-tool icon-menu" data-title="menu"></button>
 				<button id="tool-file" class="sk-tool icon-file" data-title="file"></button>
