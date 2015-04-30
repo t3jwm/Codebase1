@@ -437,56 +437,40 @@ var setupExec = function() {
 	};
 	///
 	root.exec.register('save-server', function() {
-alertify.prompt({
-message: 'How would you like this saved?',
-callback: function(truthy, values) {
-if (truthy) {
-//root.server.save();
-
-			    var filename = values['filename'];
-var description = values['description'];
-$.ajax({
-url: "/repo/web/uploadname",
-type: "get",
-data: { nameImage: filename, descriptionImage:
-description},
-dataType: "json",
-success: function(data){
-root.server.save();
-}
-});
-}
-},
-verify: function(inputs, callback) {
-for (var n = 0; n < inputs.length; n ++) {
-if (inputs[n].value === '') {
-alertify.error('<i>' + inputs[n].title + '</i> is
-required');
-callback(false);
-return;
-}
-}
-callback(true);
-},
-labels: {
-ok: 'Save',
-cancel: 'Cancel'
-},
-fields: [{
-id: 'filename',
-name: 'filename1',
-title: 'Filename',
-type: 'text',
-placeholder: 'Filename'
-}, {
-id: 'description',
-name: 'description1',
-title: 'Description',
-type: 'textarea',
-placeholder: 'Description'
-}]
-});
-});
+		alertify.prompt({
+			message: 'How would you like this saved?', 
+			callback: function(truthy, values) {
+			    if (truthy) {
+			        root.server.save();
+			    }
+			}, 
+			verify: function(inputs, callback) {
+				for (var n = 0; n < inputs.length; n ++) {
+					if (inputs[n].value === '') {
+						alertify.error('<i>' + inputs[n].title + '</i> is required');
+						callback(false);
+						return;
+					}
+				}
+				callback(true);
+			},
+			labels: {
+				ok: 'Save',
+				cancel: 'Cancel'
+			},
+			fields: [{
+				id: 'filename',
+				title: 'Filename',
+				type: 'text',
+				placeholder: 'Filename'
+			}, {
+				id: 'description',
+				title: 'Description',
+				type: 'textarea',
+				placeholder: 'Description'
+			}]
+		});
+	});
 	///
 	root.exec.register('guide', function() {
 		setPane('guide');
