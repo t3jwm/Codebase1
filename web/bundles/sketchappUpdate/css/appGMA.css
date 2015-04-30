@@ -167,7 +167,7 @@ a:hover, a:active { outline: 0; }
 	-webkit-transition: color .25s;
 	        transition: color .25s;
 	position: fixed;
-	bottom: 20px;
+	bottom: 70px;
 	right: 350px;
 	background: none;
 	border: none;

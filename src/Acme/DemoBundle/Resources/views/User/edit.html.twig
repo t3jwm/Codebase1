@@ -26,10 +26,10 @@
                                     class="glyphicon glyphicon-edit"></i><span> Profile</span></a></li>
                         
                         {% if   app.session.get('isAdmin') == 1 %}            
-                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
                         </li>
                         {% else %}
-                        <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
                         </li>
                         {% endif %}
 
