@@ -47,13 +47,14 @@ a:hover, a:active { outline: 0; }
 	padding-left: 0px;
 }
 .sketchapi.pad-left .sk-viewport {
-	padding-left: 220px;
+	padding-left: 300px;
 }
 .sketchapi.pad-right .sk-viewport {
-	padding-right: 220px;
+	padding-right: 300px;
 }
 .sketchapi.pad-right #add-page {
-	right: 225px;
+	right: 400px;
+	top: 200px
 }
 
 
