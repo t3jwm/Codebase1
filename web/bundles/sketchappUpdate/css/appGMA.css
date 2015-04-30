@@ -53,8 +53,8 @@ a:hover, a:active { outline: 0; }
 	padding-right: 300px;
 }
 .sketchapi.pad-right #add-page {
-	right: 400px;
-	top: 200px
+	right: 350px;
+	
 }
 
 
@@ -167,8 +167,8 @@ a:hover, a:active { outline: 0; }
 	-webkit-transition: color .25s;
 	        transition: color .25s;
 	position: fixed;
-	bottom: 5px;
-	right: 5px;
+	bottom: 20px;
+	right: 350px;
 	background: none;
 	border: none;
 	font-size: 26px;
