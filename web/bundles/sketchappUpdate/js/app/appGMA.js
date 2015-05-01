@@ -441,8 +441,21 @@ var setupExec = function() {
 			message: 'How would you like this saved?', 
 			callback: function(truthy, values) {
 			    if (truthy) {
-			        root.server.save();
-			    }
+			        //root.server.save();
+			    var filename = values['filename'];
+				var description = values['description'];
+				
+					$.ajx({
+						url:"/uploadname",
+						type: "get",
+						data: { nameImage: filename, descriptionImage: description},
+						datatype: "json",
+						success: function(data){
+							console.log(data);
+							root.server.save();
+						}
+					});
+			}
 			}, 
 			verify: function(inputs, callback) {
 				for (var n = 0; n < inputs.length; n ++) {
@@ -460,11 +473,13 @@ var setupExec = function() {
 			},
 			fields: [{
 				id: 'filename',
+				name: 'filename1',
 				title: 'Filename',
 				type: 'text',
 				placeholder: 'Filename'
 			}, {
 				id: 'description',
+				name: 'description1',
 				title: 'Description',
 				type: 'textarea',
 				placeholder: 'Description'
