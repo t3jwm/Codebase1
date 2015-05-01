@@ -262,17 +262,17 @@ eventjs.add(window, 'load', function() {
 		},
 		///
 		hosts: { // paths to POST and GET and various servers
-'localhost': { // my local testing environment [can be removed]
-HOST: 'localhost/repo/web/app_dev.php',
-GET: 'localhost/repo/web/app_dev.php/upload?sketch=',
-POST: 'localhost/repo/web/app_dev.php/upload',
-alias: ['mudcube.local']
-},
-'patentthat-patentthat.rhcloud.com': { // your web host
-HOST: 'patentthat-patentthat.rhcloud.com',
-GET: 'patentthat-patentthat.rhcloud.com/upload?sketch=',
-POST: 'patentthat-patentthat.rhcloud.com/upload'
-}
+			'localhost': { // my local testing environment [can be removed]
+				HOST: 'localhost/sketch.io/clients/gma',
+				GET: 'localhost/sketch.io/clients/gma/filesystem.php?sketch=',
+				POST: 'localhost/sketch.io/clients/gma/filesystem.php',
+				alias: ['mudcube.local']
+			},
+			'yourhost.com': { // your web host
+				HOST: 'yourhost.com',
+				GET: 'yourhost.com/filesystem.php?sketch=',
+				POST: 'yourhost.com/filesystem.php'
+			}
 		}
 	});
 });
@@ -431,55 +431,40 @@ var setupExec = function() {
 	};
 	///
 	root.exec.register('save-server', function() {
-alertify.prompt({
-message: 'How would you like this saved?',
-callback: function(truthy, values) {
-if (truthy) {
-//root.server.save();
-		var filename = values['filename'];
-var description = values['description'];
-$.ajax({
-url: "/repo/web/uploadname",
-type: "get",
-data: { nameImage: filename, descriptionImage:
-description},
-dataType: "json",
-success: function(data){
-root.server.save();
-}
-});
-}
-},
-verify: function(inputs, callback) {
-for (var n = 0; n < inputs.length; n ++) {
-if (inputs[n].value === '') {
-alertify.error('<i>' + inputs[n].title + '</i> is
-required');
-callback(false);
-return;
-}
-}
-callback(true);
-},
-labels: {
-ok: 'Save',
-cancel: 'Cancel'
-},
-fields: [{
-id: 'filename',
-name: 'filename1',
-title: 'Filename',
-type: 'text',
-placeholder: 'Filename'
-}, {
-id: 'description',
-name: 'description1',
-title: 'Description',
-type: 'textarea',
-placeholder: 'Description'
-}]
-});
-});
+		alertify.prompt({
+			message: 'How would you like this saved?', 
+			callback: function(truthy, values) {
+			    if (truthy) {
+			        root.save.toServer();
+			    }
+			}, 
+			verify: function(inputs, callback) {
+				for (var n = 0; n < inputs.length; n ++) {
+					if (inputs[n].value === '') {
+						alertify.error('<i>' + inputs[n].title + '</i> is required');
+						callback(false);
+						return;
+					}
+				}
+				callback(true);
+			},
+			labels: {
+				ok: 'Save',
+				cancel: 'Cancel'
+			},
+			fields: [{
+				id: 'filename',
+				title: 'Filename',
+				type: 'text',
+				placeholder: 'Filename'
+			}, {
+				id: 'description',
+				title: 'Description',
+				type: 'textarea',
+				placeholder: 'Description'
+			}]
+		});
+	});
 	///
 	root.exec.register('guide', function() {
 		setPane('guide');
