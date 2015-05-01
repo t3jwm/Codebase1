@@ -1,7 +1,7 @@
 // https://github.com/jonathantneal/polyfill
 
 // Window.prototype.getComputedStyle
-(function () {
+window.getComputedStyle || (function () {
 	function getComputedStylePixel(element, property, fontSize) {
 		var
 		value = element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
@@ -105,7 +105,3 @@
 		return new CSSStyleDeclaration(element);
 	};
 })();
-
-Object.getPrototypeOf = function getPrototypeOf(object) {
-	return object && object.constructor && object.constructor.prototype || null;
-};

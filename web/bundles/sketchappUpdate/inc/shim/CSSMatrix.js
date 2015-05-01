@@ -27,77 +27,82 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+ 
+/*
+	-------------------------------------------------------------------
+	matrix3d(a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4)
+	-------------------------------------------------------------------
+	a1	a2	a3	a4
+	b1	b2	b3	b4
+	c1	c2	c3	c4
+	d1	d2	d3	d4
+	-------------------------------------------------------------------
+	https://github.com/jonbrennecke/CSSMatrix/blob/master/cssmatrix.js
+	http://www.w3.org/TR/2009/WD-css3-2d-transforms-20090320/
+	http://www.w3.org/TR/css3-3d-transforms/#cssmatrix-interface
+	http://www.w3.org/TR/css3-transforms/
+	http://www.w3.org/TR/geometry-1/
+	-------------------------------------------------------------------
+*/
 
-if (window['WebKitCSSMatrix']) {
-	window['CSSMatrix'] = WebKitCSSMatrix;
+if (self.WebKitCSSMatrix === 'function') {
+	self.CSSMatrix = WebKitCSSMatrix;
 } else {
-  
-(function () {
 
-"use strict";
+(function() { "use strict";
 
-// a CSSMatrix shim
-// http://www.w3.org/TR/css3-3d-transforms/#cssmatrix-interface
-// http://www.w3.org/TR/css3-2d-transforms/#cssmatrix-interface
-
-
-// decimal values in WebKitCSSMatrix.prototype.toString are truncated to 6 digits
 var SMALL_NUMBER = 1e-6;
 
 /**
  * CSSMatrix Shim
  * @constructor
  */
-function CSSMatrix() {
-	var a = [].slice.call(arguments),
-		m = this;
-	if (a.length) for (var i = a.length; i--;) {
-		if (Math.abs(a[i]) < SMALL_NUMBER) a[i] = 0;
+function CSSMatrix(string) {
+	if (string === undefined) {
+		return setIdentity(this);
+	} else if (string === 'none') {
+		return setIdentity(this);
+	} else if (string instanceof CSSMatrix) {
+		return clone(string);
+	} else {
+		var args = arguments;
+		if (args.length) {
+			if (args.length === 16) {
+				return setMatrix3d(this, args);
+			} else if (args.length === 6) {
+				return setMatrix2d(this, args);
+			}
+		}
 	}
-	setIdentity(m);
-	if (a.length == 16) {
-		m.m11 = m.a = a[0];  m.m12 = m.b = a[1];  m.m13 = a[2];  m.m14 = a[3];
-		m.m21 = m.c = a[4];  m.m22 = m.d = a[5];  m.m23 = a[6];  m.m24 = a[7];
-		m.m31 = a[8];  m.m32 = a[9];  m.m33 = a[10]; m.m34 = a[11];
-		m.m41 = m.e = a[12]; m.m42 = m.f = a[13]; m.m43 = a[14]; m.m44 = a[15];
-	} else if (a.length == 6) {
-		m.m11 = m.a = a[0]; m.m12 = m.b = a[1];
-		m.m21 = m.c = a[2]; m.m22 = m.d = a[3];
-		m.m41 = m.e = a[4]; m.m42 = m.f = a[5];
-	} else if (typeof a[0] == 'string') {
-		m.setMatrixValue(a[0]);
-	} else if (a.length > 0) {
-		throw new TypeError('Invalid Matrix Value');
-	}
-}
+	return this.setMatrixValue(string);
+};
 
 // Transformations
 
-// http://en.wikipedia.org/wiki/Rotation_matrix
 function rotate(rx, ry, rz) {
 	rx *= Math.PI / 180;
 	ry *= Math.PI / 180;
 	rz *= Math.PI / 180;
-	// minus sin() because of right-handed system
-	var cosx = Math.cos(rx), sinx = - Math.sin(rx);
-	var cosy = Math.cos(ry), siny = - Math.sin(ry);
-	var cosz = Math.cos(rz), sinz = - Math.sin(rz);
+
+	var cosx = Math.cos(rx), sinx = -Math.sin(rx);
+	var cosy = Math.cos(ry), siny = -Math.sin(ry);
+	var cosz = Math.cos(rz), sinz = -Math.sin(rz);
 	var m = new CSSMatrix();
 
 	m.m11 = m.a = cosy * cosz;
-	m.m12 = m.b = - cosy * sinz;
+	m.m12 = m.b = -cosy * sinz;
 	m.m13 = siny;
 
 	m.m21 = m.c = sinx * siny * cosz + cosx * sinz;
 	m.m22 = m.d = cosx * cosz - sinx * siny * sinz;
-	m.m23 = - sinx * cosy;
+	m.m23 = -sinx * cosy;
 
 	m.m31 = sinx * sinz - cosx * siny * cosz;
 	m.m32 = sinx * cosz + cosx * siny * sinz;
 	m.m33 = cosx * cosy;
 
 	return m;
-}
+};
 
 
 function rotateAxisAngle(x, y, z, angle) {
@@ -106,8 +111,7 @@ function rotateAxisAngle(x, y, z, angle) {
 	var sinA = Math.sin(angle), cosA = Math.cos(angle), sinA2 = sinA * sinA;
 	var length = Math.sqrt(x * x + y * y + z * z);
 
-	if (length === 0) {
-		// bad vector length, use something reasonable
+	if (length === 0) { // bad vector length, use something reasonable
 		x = 0;
 		y = 0;
 		z = 1;
@@ -123,18 +127,45 @@ function rotateAxisAngle(x, y, z, angle) {
 	m.m11 = m.a = 1 - 2 * (y2 + z2) * sinA2;
 	m.m12 = m.b = 2 * (x * y * sinA2 + z * sinA * cosA);
 	m.m13 = 2 * (x * z * sinA2 - y * sinA * cosA);
+	
 	m.m21 = m.c = 2 * (y * x * sinA2 - z * sinA * cosA);
 	m.m22 = m.d = 1 - 2 * (z2 + x2) * sinA2;
 	m.m23 = 2 * (y * z * sinA2 + x * sinA * cosA);
+	
 	m.m31 = 2 * (z * x * sinA2 + y * sinA * cosA);
 	m.m32 = 2 * (z * y * sinA2 - x * sinA * cosA);
 	m.m33 = 1 - 2 * (x2 + y2) * sinA2;
+	
 	m.m14 = m.m24 = m.m34 = 0;
 	m.m41 = m.e = m.m42 = m.f = m.m43 = 0;
 	m.m44 = 1;
 
 	return m;
-}
+};
+
+function clone(from) {
+	var m = new CSSMatrix();
+	m.m11 = m.a = from.m11;
+	m.m12 = m.b = from.m12;
+	m.m13 = from.m13;
+	m.m14 = from.m14;
+	
+	m.m21 = m.c = from.m21;
+	m.m22 = m.d = from.m22;
+	m.m23 = from.m23;
+	m.m24 = from.m24;
+	
+	m.m31 = from.m31;
+	m.m32 = from.m32;
+	m.m33 = from.m33;
+	m.m34 = from.m34;
+	
+	m.m41 = m.e = from.m41;
+	m.m42 = m.f = from.m42;
+	m.m43 = from.m43;
+	m.m44 = from.m44;
+	return m;
+};
 
 
 function scale(x, y, z) {
@@ -143,7 +174,7 @@ function scale(x, y, z) {
 	m.m22 = m.d = y;
 	m.m33 = z;
 	return m;
-}
+};
 
 
 function skewX(angle) {
@@ -151,7 +182,7 @@ function skewX(angle) {
 	var m = new CSSMatrix();
 	m.m21 = m.c = Math.tan(angle);
 	return m;
-}
+};
 
 
 function skewY(angle) {
@@ -159,24 +190,77 @@ function skewY(angle) {
 	var m = new CSSMatrix();
 	m.m12 = m.b = Math.tan(angle);
 	return m;
-}
+};
 
 
-function translate(x, y, z) {
-	var m = new CSSMatrix();
-	m.m41 = m.e = x;
-	m.m42 = m.f = y;
-	m.m43 = z;
-	return m;
-}
+function determinant(m) {
+
+	return m.m14 * m.m23 * m.m32 * m.m41
+		 - m.m13 * m.m24 * m.m32 * m.m41
+		 - m.m14 * m.m22 * m.m33 * m.m41
+		 + m.m12 * m.m24 * m.m33 * m.m41
+		 + m.m13 * m.m22 * m.m34 * m.m41
+		 - m.m12 * m.m23 * m.m34 * m.m41
+		 - m.m14 * m.m23 * m.m31 * m.m42
+		 + m.m13 * m.m24 * m.m31 * m.m42
+		 + m.m14 * m.m21 * m.m33 * m.m42
+		 - m.m11 * m.m24 * m.m33 * m.m42
+		 - m.m13 * m.m21 * m.m34 * m.m42
+		 + m.m11 * m.m23 * m.m34 * m.m42
+		 + m.m14 * m.m22 * m.m31 * m.m43
+		 - m.m12 * m.m24 * m.m31 * m.m43
+		 - m.m14 * m.m21 * m.m32 * m.m43
+		 + m.m11 * m.m24 * m.m32 * m.m43
+		 + m.m12 * m.m21 * m.m34 * m.m43
+		 - m.m11 * m.m22 * m.m34 * m.m43
+		 - m.m13 * m.m22 * m.m31 * m.m44
+		 + m.m12 * m.m23 * m.m31 * m.m44
+		 + m.m13 * m.m21 * m.m32 * m.m44
+		 - m.m11 * m.m23 * m.m32 * m.m44
+		 - m.m12 * m.m21 * m.m33 * m.m44
+		 + m.m11 * m.m22 * m.m33 * m.m44;
+};
 
 
 function inverse(m) {
-	throw new Error('the inverse() method is not implemented (yet).');
-}
+	var det = determinant(m);
+	if (!det) {
+		return false;
+	}
+
+	var m11 = m.m23 * m.m34 * m.m42 - m.m24 * m.m33 * m.m42 + m.m24 * m.m32 * m.m43 - m.m22 * m.m34 * m.m43 - m.m23 * m.m32 * m.m44 + m.m22 * m.m33 * m.m44,
+		m12 = m.m14 * m.m33 * m.m42 - m.m13 * m.m34 * m.m42 - m.m14 * m.m32 * m.m43 + m.m12 * m.m34 * m.m43 + m.m13 * m.m32 * m.m44 - m.m12 * m.m33 * m.m44,
+		m13 = m.m13 * m.m24 * m.m42 - m.m14 * m.m23 * m.m42 + m.m14 * m.m22 * m.m43 - m.m12 * m.m24 * m.m43 - m.m13 * m.m22 * m.m44 + m.m12 * m.m23 * m.m44,
+		m14 = m.m14 * m.m23 * m.m32 - m.m13 * m.m24 * m.m32 - m.m14 * m.m22 * m.m33 + m.m12 * m.m24 * m.m33 + m.m13 * m.m22 * m.m34 - m.m12 * m.m23 * m.m34,
+
+		m21 = m.m24 * m.m33 * m.m41 - m.m23 * m.m34 * m.m41 - m.m24 * m.m31 * m.m43 + m.m21 * m.m34 * m.m43 + m.m23 * m.m31 * m.m44 - m.m21 * m.m33 * m.m44,
+		m22 = m.m13 * m.m34 * m.m41 - m.m14 * m.m33 * m.m41 + m.m14 * m.m31 * m.m43 - m.m11 * m.m34 * m.m43 - m.m13 * m.m31 * m.m44 + m.m11 * m.m33 * m.m44,
+		m23 = m.m14 * m.m23 * m.m41 - m.m13 * m.m24 * m.m41 - m.m14 * m.m21 * m.m43 + m.m11 * m.m24 * m.m43 + m.m13 * m.m21 * m.m44 - m.m11 * m.m23 * m.m44,
+		m24 = m.m13 * m.m24 * m.m31 - m.m14 * m.m23 * m.m31 + m.m14 * m.m21 * m.m33 - m.m11 * m.m24 * m.m33 - m.m13 * m.m21 * m.m34 + m.m11 * m.m23 * m.m34,
+
+		m31 = m.m22 * m.m34 * m.m41 - m.m24 * m.m32 * m.m41 + m.m24 * m.m31 * m.m42 - m.m21 * m.m34 * m.m42 - m.m22 * m.m31 * m.m44 + m.m21 * m.m32 * m.m44,
+		m32 = m.m14 * m.m32 * m.m41 - m.m12 * m.m34 * m.m41 - m.m14 * m.m31 * m.m42 + m.m11 * m.m34 * m.m42 + m.m12 * m.m31 * m.m44 - m.m11 * m.m32 * m.m44,
+		m33 = m.m12 * m.m24 * m.m41 - m.m14 * m.m22 * m.m41 + m.m14 * m.m21 * m.m42 - m.m11 * m.m24 * m.m42 - m.m12 * m.m21 * m.m44 + m.m11 * m.m22 * m.m44,
+		m34 = m.m14 * m.m22 * m.m31 - m.m12 * m.m24 * m.m31 - m.m14 * m.m21 * m.m32 + m.m11 * m.m24 * m.m32 + m.m12 * m.m21 * m.m34 - m.m11 * m.m22 * m.m34,
+
+		m41 = m.m23 * m.m32 * m.m41 - m.m22 * m.m33 * m.m41 - m.m23 * m.m31 * m.m42 + m.m21 * m.m33 * m.m42 + m.m22 * m.m31 * m.m43 - m.m21 * m.m32 * m.m43,
+		m42 = m.m12 * m.m33 * m.m41 - m.m13 * m.m32 * m.m41 + m.m13 * m.m31 * m.m42 - m.m11 * m.m33 * m.m42 - m.m12 * m.m31 * m.m43 + m.m11 * m.m32 * m.m43,
+		m43 = m.m13 * m.m22 * m.m41 - m.m12 * m.m23 * m.m41 - m.m13 * m.m21 * m.m42 + m.m11 * m.m23 * m.m42 + m.m12 * m.m21 * m.m43 - m.m11 * m.m22 * m.m43,
+		m44 = m.m12 * m.m23 * m.m31 - m.m13 * m.m22 * m.m31 + m.m13 * m.m21 * m.m32 - m.m11 * m.m23 * m.m32 - m.m12 * m.m21 * m.m33 + m.m11 * m.m22 * m.m33;
+
+	return new CSSMatrix(
+		m11 / det, m12 / det, m13 / det, m14 / det,
+		m21 / det, m22 / det, m23 / det, m24 / det,
+		m31 / det, m32 / det, m33 / det, m34 / det,
+		m41 / det, m42 / det, m43 / det, m44 / det
+	);
+};
 
 
 function multiply(m1, m2) {
+	if (!(m2 instanceof CSSMatrix)) {
+		return null;
+	}
 
 	var m11 = m2.m11 * m1.m11 + m2.m12 * m1.m21 + m2.m13 * m1.m31 + m2.m14 * m1.m41,
 		m12 = m2.m11 * m1.m12 + m2.m12 * m1.m22 + m2.m13 * m1.m32 + m2.m14 * m1.m42,
@@ -204,7 +288,7 @@ function multiply(m1, m2) {
 		m31, m32, m33, m34,
 		m41, m42, m43, m44
 	);
-}
+};
 
 // Helpers
 
@@ -214,12 +298,27 @@ function multiply(m1, m2) {
  * @return {CSSMatrix} the matrix
  */
 function setIdentity(m) {
-	m.m11 = m.a = 1; m.m12 = m.b = 0; m.m13 = 0; m.m14 = 0;
-	m.m21 = m.c = 0; m.m22 = m.d = 1; m.m23 = 0; m.m24 = 0;
-	m.m31 = 0; m.m32 = 0; m.m33 = 1; m.m34 = 0;
-	m.m41 = m.e = 0; m.m42 = m.f = 0; m.m43 = 0; m.m44 = 1;
+	m.m11 = m.a = 1;
+	m.m12 = m.b = 0;
+	m.m13 = 0;
+	m.m14 = 0;
+	
+	m.m21 = m.c = 0;
+	m.m22 = m.d = 1;
+	m.m23 = 0;
+	m.m24 = 0;
+	
+	m.m31 = 0;
+	m.m32 = 0;
+	m.m33 = 1;
+	m.m34 = 0;
+	
+	m.m41 = m.e = 0;
+	m.m42 = m.f = 0;
+	m.m43 = 0;
+	m.m44 = 1;
 	return m;
-}
+};
 
 /**
  * Returns true of the given matrix is affine
@@ -227,15 +326,13 @@ function setIdentity(m) {
  * @return {boolean} affine
  */
 function isAffine(m) {
-	if (!(m.m13 || m.m14 ||
-		m.m23 || m.m24 ||
-		m.m31 || m.m32 || m.m33 !== 1 || m.m34 ||
-		m.m43 || m.m44 !== 1)) return true;
-	return false;
-}
+	if (!(m.m13 || m.m14 || m.m23 || m.m24 || m.m31 || m.m32 || m.m33 !== 1 || m.m34 || m.m43 || m.m44 !== 1)) {
+		return true;
+	} else {
+		return false;
+	}
+};
 
-
-// w3c defined methods
 
 /**
  * The setMatrixValue method replaces the existing matrix with one computed
@@ -243,33 +340,66 @@ function isAffine(m) {
  * transform property in a CSS style rule.
  * @param {String} string The string to parse.
  */
-CSSMatrix.prototype.setMatrixValue = function(string) {
-	var i, m = this,
-		parts = [],
-		patternNone = /^none$/,
-		patternMatrix = /^matrix\((.*)\)/,
-		patternMatrix3d = /^matrix3d\((.*)\)/;
 
-	string = String(string).trim();
-	setIdentity(m);
+var rxPatternMatrix = /^matrix\((.*)\)/;
+var rxPatternMatrix3d = /^matrix3d\((.*)\)/;
 
-	if (patternNone.test(string)) return m;
-
-	parts = string.replace(/^.*\((.*)\)$/g, "$1").split(/\s*,\s*/);
-	for (i = parts.length; i--;) parts[i] = parseFloat(parts[i]);
-
-	if (patternMatrix.test(string) && parts.length === 6) {
-		m.m11 = m.a = parts[0]; m.m12 = m.b = parts[2]; m.m41 = m.e = parts[4];
-		m.m21 = m.c = parts[1]; m.m22 = m.d = parts[3]; m.m42 = m.f = parts[5];
-	} else if (patternMatrix3d.test(string) && parts.length === 16) {
-		m.m11 = m.a = parts[0]; m.m12 = m.b = parts[1]; m.m13 = parts[2];  m.m14 = parts[3];
-		m.m21 = m.c = parts[4]; m.m22 = m.d = parts[5]; m.m23 = parts[6];  m.m24 = parts[7];
-		m.m31 = parts[8]; m.m32 = parts[9]; m.m33 = parts[10]; m.m34 = parts[11];
-		m.m41 = m.e = parts[12]; m.m42 = m.f = parts[13]; m.m43 = parts[14]; m.m44 = parts[15];
-	} else {
-		throw new TypeError('Invalid Matrix Value');
-	}
+var setMatrix2d = function(m, parts) {
+	m.m11 = m.a = parts[0];
+	m.m12 = m.b = parts[1];
+	m.m41 = m.e = parts[4];
+	
+	m.m21 = m.c = parts[2];
+	m.m22 = m.d = parts[3];
+	m.m42 = m.f = parts[5];
 	return m;
+};
+
+var setMatrix3d = function(m, parts) {
+	m.m11 = m.a = parts[0];
+	m.m12 = m.b = parts[1];
+	m.m13 = parts[2];
+	m.m14 = parts[3];
+
+	m.m21 = m.c = parts[4];
+	m.m22 = m.d = parts[5];
+	m.m23 = parts[6];
+	m.m24 = parts[7];
+
+	m.m31 = parts[8];
+	m.m32 = parts[9];
+	m.m33 = parts[10];
+	m.m34 = parts[11];
+
+	m.m41 = m.e = parts[12];
+	m.m42 = m.f = parts[13];
+	m.m43 = parts[14];
+	m.m44 = parts[15];
+	return m;
+};
+
+CSSMatrix.prototype.setMatrixValue = function(string) {
+	if (typeof string === 'string') {
+		setIdentity(this);
+
+		string = string.trim();
+		if (string === 'none') {
+			return this;
+		}
+
+		var parts = string.replace(/^.*\((.*)\)$/g, "$1").split(/\s*,\s*/);
+		for (var i = parts.length; i--;) {
+			parts[i] = parseFloat(parts[i]);
+		}
+
+		if (parts.length === 6 && rxPatternMatrix.test(string)) {
+			return setMatrix2d(this, parts);
+		} else if (parts.length === 16 && rxPatternMatrix3d.test(string)) {
+			return setMatrix3d(this, parts);
+		}
+	}
+	///
+	throw new Error('Failed to execute \'setMatrixValue\' on \'CSSMatrix\': Failed to parse \'' + string + '\'');
 };
 
 
@@ -289,8 +419,6 @@ CSSMatrix.prototype.multiply = function(m2) {
 /**
  * The inverse method returns a new matrix which is the inverse of this matrix.
  * This matrix is not modified.
- *
- * method not implemented yet
  */
 CSSMatrix.prototype.inverse = function() {
 	return inverse(this);
@@ -309,8 +437,13 @@ CSSMatrix.prototype.inverse = function() {
  * @return {CSSMatrix} The result matrix
  */
 CSSMatrix.prototype.translate = function(x, y, z) {
-	if (typeof z == 'undefined') z = 0;
-	return multiply(this, translate(x, y, z));
+	z = z || 0;
+	var m = clone(this);
+	m.m41 = m.e = m.m11 * x + m.m21 * y + m.m31 * z + m.m41;
+	m.m42 = m.f = m.m12 * x + m.m22 * y + m.m32 * z + m.m42;
+	m.m43 = m.m13 * x + m.m23 * y + m.m33 * z + m.m43;
+	m.m44 = m.m14 * x + m.m24 * y + m.m34 * z + m.m44;
+	return m;
 };
 
 
@@ -326,8 +459,8 @@ CSSMatrix.prototype.translate = function(x, y, z) {
  * @return {CSSMatrix} The result matrix
  */
 CSSMatrix.prototype.scale = function(x, y, z) {
-	if (typeof y == 'undefined') y = x;
-	if (typeof z == 'undefined') z = 1;
+	if (!(y === +y)) y = x;
+	if (!(z === +z)) z = 1;
 	return multiply(this, scale(x, y, z));
 };
 
@@ -345,8 +478,14 @@ CSSMatrix.prototype.scale = function(x, y, z) {
  * @return {CSSMatrix} The result matrix
  */
 CSSMatrix.prototype.rotate = function(rx, ry, rz) {
-	if (typeof ry == 'undefined') ry = rx;
-	if (typeof rz == 'undefined') rz = rx;
+	if (!(rx === +rx)) rx = 0;
+	if (!(ry === +ry) && !(rz === +rz)) {
+		rz = rx;
+		rx = 0;
+		ry = 0;
+	}
+	if (!(ry === +ry)) ry = 0;
+	if (!(rz === +rz)) rz = 0;
 	return multiply(this, rotate(rx, ry, rz));
 };
 
@@ -364,8 +503,8 @@ CSSMatrix.prototype.rotate = function(rx, ry, rz) {
  * @return {CSSMatrix} The result matrix
  */
 CSSMatrix.prototype.rotateAxisAngle = function(x, y, z, angle) {
-	if (typeof y == 'undefined') y = x;
-	if (typeof z == 'undefined') z = x;
+	if (!(y === +y)) y = x;
+	if (!(z === +z)) z = x;
 	return multiply(this, rotateAxisAngle(x, y, z, angle));
 };
 
@@ -375,27 +514,24 @@ CSSMatrix.prototype.rotateAxisAngle = function(x, y, z, angle) {
  * @return {string}
  */
 CSSMatrix.prototype.toString = function() {
-	var affine, m = this,
-		fix = function (val) {
-			return val.toFixed(6);
-		};
-
-	if (isAffine(m)) affine = true;
-
-	if (affine) {
-		return  'matrix(' + [
+	var m = this;
+	var fix = function(val) {
+		return val.toFixed(6);
+	};
+	if (isAffine(m)) {
+		return 'matrix(' + [
 			m.a, m.b,
 			m.c, m.d,
 			m.e, m.f
 		].map(fix).join(', ') + ')';
+	} else {
+		return 'matrix3d(' + [
+			m.m11, m.m12, m.m13, m.m14,
+			m.m21, m.m22, m.m23, m.m24,
+			m.m31, m.m32, m.m33, m.m34,
+			m.m41, m.m42, m.m43, m.m44
+		].map(fix).join(', ') + ')';
 	}
-	// note: the elements here are transposed
-	return  'matrix3d(' + [
-		m.m11, m.m12, m.m13, m.m14,
-		m.m21, m.m22, m.m23, m.m24,
-		m.m31, m.m32, m.m33, m.m34,
-		m.m41, m.m42, m.m43, m.m44
-	].map(fix).join(', ') + ')';
 };
 
 
@@ -425,9 +561,9 @@ if (typeof exports !== 'undefined') {
 	if (typeof module !== 'undefined' && module.exports) {
 		exports = module.exports = CSSMatrix;
 	}
-	exports['CSSMatrix'] = CSSMatrix;
+	exports.CSSMatrix = CSSMatrix;
 } else {
-	window['CSSMatrix'] = CSSMatrix;
+	self.CSSMatrix = CSSMatrix;
 }
 
 })();

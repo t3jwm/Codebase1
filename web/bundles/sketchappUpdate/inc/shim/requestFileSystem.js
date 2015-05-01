@@ -34,7 +34,7 @@
 
 	// Bomb out if no indexedDB available
 	var indexedDB = exports.indexedDB || exports.mozIndexedDB || exports.msIndexedDB;
-	if (!indexedDB) {
+	if (!indexedDB || !indexedDB.deleteDatabase) {
 		return;
 	}
 
@@ -42,7 +42,7 @@
 	var support = new function() {
 		var dbName = "blob-support";
 		indexedDB.deleteDatabase(dbName).onsuccess = function() {
-			var request = indexedDB.open(dbName, 1.0);
+			var request = indexedDB.open(dbName, 1);
 			request.onerror = function() {
 				support.blob = false;
 			};
@@ -480,9 +480,13 @@
 			}, opt_errorCallback);
 		},
 		toURL: function() {
-			var blob = this.file_.blob_;
-			blob.objectURL = blob.objectURL || URL.createObjectURL(blob);
-			return blob.objectURL;
+			if (this.file_) { // file
+				var blob = this.file_.blob_;
+				blob.objectURL = blob.objectURL || URL.createObjectURL(blob);
+				return blob.objectURL;
+			} else { // directory
+				return baseURL() + this.fullPath;
+			}
 		}
 	};
 
@@ -773,10 +777,13 @@
 		}, opt_errorCallback);
 	}
 	
-	function resolveLocalFileSystemURL(url, successCallback, opt_errorCallback) {
+	function baseURL() {
 		var origin = location.protocol + '//' + location.host;
-		var base = 'filesystem:' + origin + DIR_SEPARATOR + storageType_.toLowerCase();
-		url = url.replace(base, '');
+		return 'filesystem:' + origin + DIR_SEPARATOR + storageType_.toLowerCase();
+	};
+	
+	function resolveLocalFileSystemURL(url, successCallback, opt_errorCallback) {
+		url = url.replace(baseURL(), '');
 		if (url.substr(-1) === '/') url = url.slice(0, -1);
 		idb_.get(url, function(entry) {
 			if (entry) {
@@ -797,7 +804,7 @@
 		var self = this;
 
 		// TODO: FF 12.0a1 isn't liking a db name with : in it.
-		var request = indexedDB.open(dbName.replace(':', '_') /*, 1 /*version*/ );
+		var request = indexedDB.open(dbName.replace(':', '_'), 2); //- had to increment value for safari for some reason
 
 		request.onerror = opt_errorCallback || onError;
 
@@ -813,6 +820,7 @@
 		request.onsuccess = function(e) {
 			self.db = e.target.result;
 			self.db.onerror = onError;
+			self.db.transaction([FILE_STORE_], 'readonly');
 			successCallback(e);
 		};
 
@@ -948,7 +956,9 @@
 	// Clean up.
 	// TODO: decide if this is the best place for this. 
 	exports.addEventListener('beforeunload', function(e) {
-		idb_.db.close();
+		if (idb_.db) {
+			idb_.db.close();
+		}
 	}, false);
 
 	//exports.idb = idb_;

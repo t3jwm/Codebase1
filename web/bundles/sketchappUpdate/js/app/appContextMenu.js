@@ -2,7 +2,7 @@ if (typeof sketch === 'undefined') var sketch = {};
 
 (function(root) { 'use strict';
 
-root.setup.add(function(root, doc) {
+root.queue.module.add(function(root, doc) {
 
 	var createContextMenu = root.ui.contextMenu.create;
 

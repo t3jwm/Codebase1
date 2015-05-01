@@ -1,6 +1,6 @@
 /**
  * @license -------------------------------------------------------------------
- *    module: FileSaver.js (2014-07-21)
+ *    module: FileSaver.js (2015-01-04)
  *       src: https://github.com/eligrey/FileSaver.js
  *    author: Eli Grey
  * copyright: (c) 2011 Eli Grey <http://eligrey.com>
@@ -28,7 +28,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-if (!document.createElementNS) {
+if (!document.createElementNS) { // prevent error in IE8 <
 	document.createElementNS = function(uri, name) {
 		return document.createElement(name);
 	};
@@ -55,7 +55,7 @@ var saveAs = saveAs
 			return view.URL || view.webkitURL || view;
 		}
 		, save_link = doc.createElementNS("http://www.w3.org/1999/xhtml", "a")
-		, can_use_save_link = !view.externalHost && "download" in save_link
+		, can_use_save_link = "download" in save_link
 		, click = function(node) {
 			var event = doc.createEvent("MouseEvents");
 			event.initMouseEvent(
@@ -73,17 +73,23 @@ var saveAs = saveAs
 		}
 		, force_saveable_type = "application/octet-stream"
 		, fs_min_size = 0
-		// See https://code.google.com/p/chromium/issues/detail?id=375297#c7 for
-		// the reasoning behind the timeout and revocation flow
-		, arbitrary_revoke_timeout = 10
+		// See https://code.google.com/p/chromium/issues/detail?id=375297#c7 and
+		// https://github.com/eligrey/FileSaver.js/commit/485930a#commitcomment-8768047
+		// for the reasoning behind the timeout and revocation flow
+		, arbitrary_revoke_timeout = 500 // in ms
 		, revoke = function(file) {
-			setTimeout(function() {
+			var revoker = function() {
 				if (typeof file === "string") { // file is an object URL
 					get_URL().revokeObjectURL(file);
 				} else { // file is a File
 					file.remove();
 				}
-			}, arbitrary_revoke_timeout);
+			};
+			if (view.chrome) {
+				revoker();
+			} else {
+				setTimeout(revoker, arbitrary_revoke_timeout);
+			}
 		}
 		, dispatch = function(filesaver, event_types, event) {
 			event_types = [].concat(event_types);
@@ -253,8 +259,8 @@ var saveAs = saveAs
 // while `this` is nsIContentFrameMessageManager
 // with an attribute `content` that corresponds to the window
 
-if (typeof module !== "undefined" && module !== null) {
-  module.exports = saveAs;
+if (typeof module !== "undefined" && module.exports) {
+  module.exports.saveAs = saveAs;
 } else if ((typeof define !== "undefined" && define !== null) && (define.amd != null)) {
   define([], function() {
     return saveAs;

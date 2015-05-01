@@ -14,10 +14,10 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
  * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -28,35 +28,42 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-(function () {
-	var Vector4 = function (x, y, z, w) { // 4 dimensional vector
+(function() {
+
+	var Vector4 = function(x, y, z, w) { // 4 dimensional vector
 		this.x = x ? x : 0;
 		this.y = y ? y : 0;
 		this.z = z ? z : 0;
 		this.w = w ? w : 0;
-		this.checkValues = function () { // Ensure that values are not undefined
+
+		this.checkValues = function() { // Ensure that values are not undefined
 			this.x = this.x ? this.x : 0;
 			this.y = this.y ? this.y : 0;
 			this.z = this.z ? this.z : 0;
 			this.w = this.w ? this.w : 0;
 		};
-		this.length = function () { // Get the length of the vector
+
+		this.length = function() { // Get the length of the vector
 			this.checkValues();
 			return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 		};
-		this.normalise = function () { // Get a normalised representation of the vector
+
+		this.normalise = function() { // Get a normalised representation of the vector
 			var len = this.length();
 			var v = new Vector4(this.x / len, this.y / len, this.z / len);
 			return v;
 		};
-		this.dot = function (v) { // Vector Dot-Product
+
+		this.dot = function(v) { // Vector Dot-Product
 			return this.x * v.x + this.y * v.y + this.z * v.z + this.w * v.w;
 		};
-		this.cross = function (v) { // Vector Cross-Product
+
+		this.cross = function(v) { // Vector Cross-Product
 			return new Vector4(this.y * v.z - this.z * v.y, this.z * v.x - this.x * v.z, this.x * v.y - this.y * v.x);
 		};
+
 		/**
-		 * 
+		 *
 		 * A Javascript implementation of pseudo code available from http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition
 		 * @param {Vector4} aPoint A 3D point
 		 * @param {float} ascl
@@ -64,16 +71,17 @@
 		 * @author Joe Lambert
 		 * @returns {Vector4}
 		 */
-		this.combine = function (aPoint, ascl, bscl) {
+
+		this.combine = function(aPoint, ascl, bscl) {
 			return new Vector4(
-				(ascl * this.x) + (bscl * aPoint.x), 
-				(ascl * this.y) + (bscl * aPoint.y), 
+				(ascl * this.x) + (bscl * aPoint.x),
+				(ascl * this.y) + (bscl * aPoint.y),
 				(ascl * this.z) + (bscl * aPoint.z)
 			);
 		}
 	};
-	///
-	var CSSMatrixDecomposed = function (obj) { // Object containing the decomposed components of a matrix
+
+	var CSSMatrixDecomposed = function(obj) { // Object containing the decomposed components of a matrix
 		obj = obj || {};
 		var components = {
 			perspective: null,
@@ -86,13 +94,27 @@
 			this[i] = obj[i] ? obj[i] : new Vector4();
 		}
 	};
-	CSSMatrix.prototype.transformVector = function (v) { // Transform a Vector4 object using the current matrix
-		// TODO: Do we need to mod this for Vector4?
-		return new Vector4(this.m11 * v.x + this.m12 * v.y + this.m13 * v.z,
-			this.m21 * v.x + this.m22 * v.y + this.m23 * v.z,
-			this.m31 * v.x + this.m32 * v.y + this.m33 * v.z);
+
+	CSSMatrix.prototype.transformVector = function(v) {
+		//- is this needed anymore?
+		return new Vector4(
+			this.m11*v.x + this.m12*v.y + this.m13*v.z,
+			this.m21*v.x + this.m22*v.y + this.m23*v.z,
+			this.m31*v.x + this.m32*v.y + this.m33*v.z
+		);
 	};
-	CSSMatrix.prototype.transpose = function () { // Transposes the matrix
+
+	CSSMatrix.prototype.point3d = function(v) { // Transform a Vector4 object using the current matrix
+		var vec = new Vector4(
+			this.m11 * v.x + this.m21 * v.y + this.m31 * v.z + this.m41,
+			this.m12 * v.x + this.m22 * v.y + this.m32 * v.z + this.m42,
+			this.m13 * v.x + this.m23 * v.y + this.m33 * v.z + this.m43,
+			this.m14 * v.x + this.m24 * v.y + this.m34 * v.z + this.m44
+		);
+		return vec;
+	};
+
+	CSSMatrix.prototype.transpose = function() { // Transposes the matrix
 		var matrix = new CSSMatrix();
 		var n = 0;
 		var m = 0;
@@ -104,7 +126,8 @@
 		}
 		return matrix;
 	};
-	CSSMatrix.prototype.determinant = function () { // Calculates the determinant
+
+	CSSMatrix.prototype.determinant = function() { // Calculates the determinant
 		return this.m14 * this.m23 * this.m32 * this.m41 - this.m13 * this.m24 * this.m32 * this.m41 -
 			this.m14 * this.m22 * this.m33 * this.m41 + this.m12 * this.m24 * this.m33 * this.m41 +
 			this.m13 * this.m22 * this.m34 * this.m41 - this.m12 * this.m23 * this.m34 * this.m41 -
@@ -118,8 +141,13 @@
 			this.m13 * this.m21 * this.m32 * this.m44 - this.m11 * this.m23 * this.m32 * this.m44 -
 			this.m12 * this.m21 * this.m33 * this.m44 + this.m11 * this.m22 * this.m33 * this.m44;
 	};
+
 	// Javascript implementation of the pseudo code available from http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition
-	CSSMatrix.prototype.decompose = function () { // Decomposes the matrix into its component parts.
+	CSSMatrix.prototype.decompose = function() { // Decomposes the matrix into its component parts.
+
+		// compare to
+		// http://www.w3.org/TR/css3-transforms/#interpolation-of-2d-matrices
+
 		var matrix = new CSSMatrix(this.toString());
 		var perspectiveMatrix;
 		var rightHandSide;
@@ -234,4 +262,5 @@
 			rotate: rotate
 		});
 	};
+
 })();
