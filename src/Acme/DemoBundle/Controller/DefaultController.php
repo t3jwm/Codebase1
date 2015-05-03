@@ -251,4 +251,10 @@ class DefaultController extends Controller
 
 		return $response;
 	}
+	/**
+     * @Route("/admin")
+     */
+    public function adminAction(){
+        return new Response('Admin page!');
+    }
 }
