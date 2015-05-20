@@ -21,11 +21,13 @@ a:hover, a:active { outline: 0; }
 
 /* Contents
 -------------------------------------------------- */
-.sketchapi {
+.sketch-api {
+    font-size: 12px;
+    line-height: 12px;
+	position: relative;
 	min-width: 660px;
-	
 }
-.sketchapi .sk-contents {
+.sketch-api .sk-contents {
 	padding: 0;
 	margin: 0;
 	width: inherit;
@@ -40,22 +42,18 @@ a:hover, a:active { outline: 0; }
 
 /* Viewport
 -------------------------------------------------- */
-.sketchapi .sk-viewport {
+.sketch-api .sk-contents {
 	position: absolute;
 	top: 0;
 	left: 0;
 	padding-top: 40px;
 	padding-left: 0px;
 }
-.sketchapi.pad-left .sk-viewport {
+.sketch-api.pad-left .sk-contents {
 	padding-left: 300px;
 }
-.sketchapi.pad-right .sk-viewport {
+.sketch-api.pad-right .sk-contents {
 	padding-right: 300px;
-}
-.sketchapi.pad-right #add-page {
-	right: 300px;
-	
 }
 
 
@@ -111,7 +109,7 @@ a:hover, a:active { outline: 0; }
     box-shadow: inset -1px 0 0 0 #333, inset 1px 0 0 0 #000;
 	width: 44px;
 }
-.sk-toolset #tool-redo {
+.sk-toolset [data-tool='redo'] {
 	position: absolute;
 	right: 0px;
 	top: 40px;
@@ -120,13 +118,17 @@ a:hover, a:active { outline: 0; }
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
 }
-.sk-toolset #tool-redo:hover {
+.sk-toolset [data-tool='redo']:hover {
 	box-shadow: inset 0 0 10px 2px #777;
 }
 
 
 /* Sidebar
 -------------------------------------------------- */
+.sk-sidebar {
+	width: 300px;
+	position: absolute;
+}
 .sk-sidebar-left {
     margin-top: 0px;
     padding-top: 81px; /* compensate toolbar + tabs */
@@ -146,6 +148,7 @@ a:hover, a:active { outline: 0; }
 	padding: 4px 4px 4px 8px;
 }
 
+
 /* Guide
 -------------------------------------------------- */
 .sk-guide .sk-row-head {
@@ -161,44 +164,26 @@ a:hover, a:active { outline: 0; }
 }
 
 
-/* Add Page
--------------------------------------------------- */
-#add-page {
-	color: rgba(0, 106, 245, 1);
-	-webkit-transition: color .25s;
-	        transition: color .25s;
-	position: absolute;
-	bottom: 70px;
-	right: 350px;
-	background: none;
-	border: none;
-	font-size: 26px;
-}
-#add-page:hover {
-	color: rgba(0, 106, 245, 1);
-}
-
-
 /* Font
 --------------------------------------------- */
 @font-face {
 	font-family: 'opensans';
-	src:url('../media/font/opensans/OpenSans-Regular.eot');
-	src:url('../media/font/opensans/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
-		url('../media/font/opensans/OpenSans-Regular.ttf') format('truetype'),
-		url('../media/font/opensans/OpenSans-Regular.woff') format('woff'),
-		url('../media/font/opensans/OpenSans-Regular.svg#logomaker') format('svg');
+	src:url('../media/text/opensans/OpenSans-Regular.eot');
+	src:url('../media/text/opensans/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+		url('../media/text/opensans/OpenSans-Regular.ttf') format('truetype'),
+		url('../media/text/opensans/OpenSans-Regular.woff') format('woff'),
+		url('../media/text/opensans/OpenSans-Regular.svg#logomaker') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
 @font-face {
 	font-family: 'opensans-bold';
-	src:url('../media/font/opensans/OpenSans-Bold.eot');
-	src:url('../media/font/opensans/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
-		url('../media/font/opensans/OpenSans-Bold.ttf') format('truetype'),
-		url('../media/font/opensans/OpenSans-Bold.woff') format('woff'),
-		url('../media/font/opensans/OpenSans-Bold.svg#logomaker') format('svg');
+	src:url('../media/text/opensans/OpenSans-Bold.eot');
+	src:url('../media/text/opensans/OpenSans-Bold.eot?#iefix') format('embedded-opentype'),
+		url('../media/text/opensans/OpenSans-Bold.ttf') format('truetype'),
+		url('../media/text/opensans/OpenSans-Bold.woff') format('woff'),
+		url('../media/text/opensans/OpenSans-Bold.svg#logomaker') format('svg');
 	font-weight: bold;
 	font-style: bold;
 }

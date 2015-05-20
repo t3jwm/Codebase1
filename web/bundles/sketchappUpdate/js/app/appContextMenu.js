@@ -2,9 +2,61 @@ if (typeof sketch === 'undefined') var sketch = {};
 
 (function(root) { 'use strict';
 
-root.queue.module.add(function(root, doc) {
+root.module.add(function(root, doc) {
 
-	var createContextMenu = root.ui.contextMenu.create;
+	var addContextMenu = root.ui.contextMenu.add;
+
+	/* Main menu
+	---------------------------------------------------- */
+	var items = [];
+	items.push({
+		label: 'New File',
+		onclick: function() {
+			root.save.confirm({
+				oncontinue: function() {
+					root.exec('new');
+					root.ui.log(lang.translate('new-doc-created'));
+				},
+				onrequestsave: function() {
+					root.exec('save-server');
+				}
+			});
+		}
+	});
+	items.push({
+		label: 'Add Page',
+		onclick: function() {
+			root.exec('add-page');
+		}
+	});
+	///
+	addContextMenu('file-new', items);
+
+
+	/* Main menu
+	---------------------------------------------------- */
+	var items = [];
+	items.push({
+		label: 'Save to Server',
+		onclick: function() {
+			root.exec('save-server');
+		}
+	});
+	items.push({
+		label: 'Download PDF',
+		onclick: function() {
+			root.download.pdf();
+		}
+	});
+	items.push({
+		label: 'Print',
+		onclick: function() {
+			root.print();
+		}
+	});
+	///
+	addContextMenu('file-save', items);
+
 
 	/* Select.js - No Selection
 	---------------------------------------------------- */
@@ -18,21 +70,21 @@ root.queue.module.add(function(root, doc) {
 	items.push({
 		label: 'Copy all',
 		onclick: function() {
-			root.exec('select-all');
-			root.exec('layer-copy');
+			doc.scene.selectAll();
+			root.exec('object-copy');
 		}
 	});
 	items.push({
 		label: 'Cut all',
 		onclick: function() {
-			root.exec('select-all');
-			root.exec('layer-cut');
+			doc.scene.selectAll();
+			root.exec('object-cut');
 		}
 	});
 	items.push({
 		label: 'Paste',
 		onclick: function() {
-			root.exec('layer-paste');
+			root.exec('object-paste');
 		}
 	});
 	items.push({
@@ -48,7 +100,8 @@ root.queue.module.add(function(root, doc) {
 		}
 	});
 	///
-	root.ui.menu.selectDefault = createContextMenu(items);
+	addContextMenu('selectDefault', items);
+
 
 	/* Select.js - TreeMenu
 	---------------------------------------------------- */
@@ -56,35 +109,35 @@ root.queue.module.add(function(root, doc) {
 	items.push({
 		label: 'Layer To Back',
 		onclick: function() {
-			root.exec('layer-to-back');
+			root.exec('object-to-back');
 		}
 	});
 	items.push({
 		label: 'Layer To Front',
 		onclick: function() {
-			root.exec('layer-to-front');
+			root.exec('object-to-front');
 		}
 	});
 	items.push({
 		label: 'Layer Backwards',
 		onclick: function() {
-			root.exec('layer-backwards');
+			root.exec('object-backwards');
 		}
 	});
 	items.push({
 		label: 'Layer Forwards',
 		onclick: function() {
-			root.exec('layer-forwards');
+			root.exec('object-forwards');
 		}
 	});
 	items.push({
 		label: 'Delete',
 		onclick: function() {
-			root.exec('layer-delete');
+			root.exec('object-delete');
 		}
 	});
 	///
-	root.ui.menu.layers = createContextMenu(items);
+	addContextMenu('layers', items);
 
 	/* Select.js - Multiple Selections
 	---------------------------------------------------- */
@@ -92,60 +145,60 @@ root.queue.module.add(function(root, doc) {
 /*	items.push({
 		label: 'Group Layers',
 		onclick: function() {
-			root.exec('layer-group');
+			root.exec('object-group');
 		}
 	});*/
 	items.push({
 		label: 'Layer To Back',
 		onclick: function() {
-			root.exec('layer-to-back');
+			root.exec('object-to-back');
 		}
 	});
 	items.push({
 		label: 'Layer To Front',
 		onclick: function() {
-			root.exec('layer-to-front');
+			root.exec('object-to-front');
 		}
 	});
 	items.push({
 		label: 'Layer Backwards',
 		onclick: function() {
-			root.exec('layer-backwards');
+			root.exec('object-backwards');
 		}
 	});
 	items.push({
 		label: 'Layer Forwards',
 		onclick: function() {
-			root.exec('layer-forwards');
+			root.exec('object-forwards');
 		}
 	});
 	items.push({
 		label: 'Cut',
 		onclick: function() {
-			root.exec('layer-cut');
+			root.exec('object-cut');
 		}
 	});
 	items.push({
 		label: 'Copy',
 		onclick: function() {
-			root.exec('layer-copy');
+			root.exec('object-copy');
 		}
 	});
 	items.push({
 		label: 'Paste',
 		onclick: function() {
-			root.exec('layer-paste');
+			root.exec('object-paste');
 		}
 	});
 	items.push({
 		label: 'Delete',
 		onclick: function() {
-			root.exec('layer-delete');
+			root.exec('object-delete');
 		}
 	});
 	///
-	root.ui.menu.select = // Single selections
-	root.ui.menu.selectMultiple = createContextMenu(items);
+	addContextMenu('selectSingle', items);
+	addContextMenu('selectMultiple', items);
 });
 	
 })(sketch);

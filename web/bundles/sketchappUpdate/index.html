@@ -8,9 +8,9 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-	<!-- SketchAPI v3.7.5.8 -->
-	<link href="min/sketchapi.min.css" type="text/css" rel="stylesheet" />
-	<script src="min/sketchapi.min.js" type="text/javascript"></script>
+	<!-- SketchAPI v3.7.6.43 -->
+	<link href="min/sketch-api.min.css" type="text/css" rel="stylesheet" />
+	<script src="min/sketch-api.min.js" type="text/javascript"></script>
 
 	<!-- JS-->
 	<script src="./js/app/configure.js" type="text/javascript"></script>
@@ -23,10 +23,11 @@
 	<script src="./js/app/appContextMenu.js" type="text/javascript"></script>
 
 	<!-- CSS-->
+	<link href="./css/sk-selectmenu-dark.css" type="text/css" rel="stylesheet" />
 	<link href="./css/appGMA.css" type="text/css" rel="stylesheet" />
 </head>
 <body>
-	<div class="sketchapi">
+	<div class="sketch-api">
 		<div class="sk-sidebar sk-sidebar-right">
 			<div class="sk-guide sk-pane selected">
 				<div class="sk-row-head">guide</div>
@@ -121,51 +122,36 @@
 		</div>
 		<div class="sk-toolset">
 			<div class="left">
-				<button id="tool-menu" class="sk-tool icon-menu" data-title="menu"></button>
-				<button id="tool-file" class="sk-tool icon-file" data-title="file"></button>
+				<button data-tool="menu" class="sk-tool icon-menu" data-title="menu"></button>
+				<button data-tool="file-new" class="sk-tool icon-file-new" data-title="new"></button>
+				<button data-tool="file-save" class="sk-tool icon-save" data-title="save"></button>
 			</div>
 			<div class="center">
-				<button id="tool-select" class="sk-tool icon-select" data-title="select"></button>
-				<button id="tool-text" class="sk-tool icon-text" data-title="text"></button>
-				<button id="tool-pencil" class="sk-tool icon-pencil" data-title="Pencil"></button>
-				<button id="tool-path" class="sk-tool icon-polyline" data-title="Path"></button>
-				<button id="tool-arrow" class="sk-tool icon-arrow" data-title="Arrow"></button>
-<!-- 
-				<button id="tool-polyline" class="sk-brush-menu sk-tool icon-polyline" data-title="Draw"></button>
- -->
-				<button id="tool-highlighter" data-tool="type:highlighter;shortcut:paintbrush;fill:yellow;composite:multiply,destination-over;" class="sk-tool icon-highlight" data-title="Highlighter"></button>
-				<button id="tool-rectangle" class="sk-shape-menu sk-tool icon-square" data-title="shape"></button>
-				<button id="tool-attach" class="sk-tool sk-icon icon-attachment" data-title="attachment" style="display: inline"></button>
-				<button id="tool-eraser" class="sk-tool icon-eraser" data-title="Eraser"></button>
-				<button id="tool-undo" class="sk-tool icon-undo" data-title="undo"></button>
+				<button data-tool="select" class="sk-tool icon-select" data-title="select"></button>
+				<button data-tool="text" class="sk-tool icon-text" data-title="text"></button>
+				<button data-tool="pencil" class="sk-tool icon-pencil" data-title="Pencil"></button>
+				<button data-tool="path" class="sk-tool icon-polyline" data-title="Path"></button>
+				<button data-tool="arrow" class="sk-tool icon-arrow" data-title="Arrow"></button>
+				<button data-tool="highlighter" data-toolFormula="type:highlighter;shortcut:paintbrush;fill:yellow;composite:multiply,destination-over;" class="sk-tool icon-highlight" data-title="Highlighter"></button>
+				<button data-tool="triangle" data-toolkit="shape" class="sk-tool icon-triangle" data-title="shape"></button>
+				<button data-tool="eraser" class="sk-tool icon-eraser" data-title="Eraser"></button>
+				<button data-tool="attach" class="sk-tool sk-icon icon-attachment" data-title="attachment" style="display: inline"></button>
+				<button data-tool="undo" class="sk-tool icon-undo" data-title="undo"></button>
 			</div>
 			<div class="right">
-				<button id="tool-guide" class="sk-tool icon-compass" data-title="Guide"></button>
-				<button id="tool-search" class="sk-tool icon-search" data-title="Search"></button>
-				<button id="tool-help" class="sk-tool icon-help" data-title="Help"></button>
+				<button data-tool="guide" class="sk-tool icon-compass" data-title="Guide"></button>
+				<button data-tool="search" class="sk-tool icon-search" data-title="Search"></button>
+				<button data-tool="help" class="sk-tool icon-help" data-title="Help"></button>
 			</div>
 		</div>
+
+		<!--- ORIENTATION -->
+		<div id="sk-orientation"></div>
 
 		<!--- CONTENT -->
 		<div class="sk-contents">
-			<div class="sk-viewport">
-				<!--- ORIENTATION -->
-				<div id="sk-orientation"></div>
-
-				<!--- CANVAS -->
-				<div class="sk-canvas" style="z-index: 0;">
-					<div class="sk-canvas-content" style="width: inherit; height: inherit;"></div>
-					<div class="clear"></div>
-				</div>
-			</div>
+			<div class="sk-canvas" style="z-index: 0;"></div>
 		</div>
-<!-- 
-		<div class="sk-content">
-			<div id="sk-orientation"></div>
-			<div class="sk-disable sk-hide"></div>
-		</div>
- -->
-		<button class="icon-file-new" id="add-page"></button>
 	</div>
 </body>
 </html>
