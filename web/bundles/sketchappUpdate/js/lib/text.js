@@ -1,111 +1,143 @@
-if (typeof sketch === 'undefined') sketch = {};
-if (typeof (sketch.lib) === 'undefined') sketch.lib = {};
-
-(function(root) { 'use strict';
-
-var text = root.lib.text = {	
-	defaultCategory: 'Display',
-	dir: 'font',
-	thumbnail: {
-		_width: 118,
-		_height: 30,
-		columns: 2,
-		rows: 6,
-		padding: 0
-	},
-	tree: {
-		'Your Files': [],
-		'Sans Serif': [{
-			'name': 'Arial',
-			'filepath': '',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Abel',
-			'filepath': 'abel/Abel-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Acme',
-			'filepath': 'acme/Acme-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Droid Sans',
-			'filepath': 'droidsans/DroidSans',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Economica',
-			'filepath': 'economica/Economica-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Lato',
-			'filepath': 'lato/Lato-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Open Sans',
-			'filepath': 'opensans/OpenSans-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Oswald',
-			'filepath': 'oswald/Oswald-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'PT Sans Narrow',
-			'filepath': 'ptsansnarrow/PT_Sans-Narrow-Web-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'PT Sans',
-			'filepath': 'ptsans/PT_Sans-Web-Regular',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'PT Mono',
-			'filepath': 'ptmono/PTM55FT',
-			'category': 'Sans Serif'
-		}, {
-			'name': 'Ubuntu Condensed',
-			'filepath': 'ubuntucondensed/UbuntuCondensed-Regular',
-			'category': 'Sans Serif'
-		}],
-		'Serif': [{
-			'name': 'Andada',
-			'filepath': 'andada/Andada-Regular',
-			'category': 'Serif'
-		}, {
-			'name': 'Droid Serif',
-			'filepath': 'droidserif/DroidSerif',
-			'category': 'Serif'
-		}, {
-			'name': 'Gentium Book Basic',
-			'filepath': 'gentiumbookbasic/GenBkBasR',
-			'category': 'Serif'
-		}, {
-			'name': 'Josefin Slab',
-			'filepath': 'josefinsans/JosefinSans-Regular',
-			'category': 'Serif'
-		}, {
-			'name': 'IM Fell English',
-			'filepath': 'imfellenglish/IMFeENrm28P',
-			'category': 'Serif'
-		}, {
-			'name': 'Merriweather',
-			'filepath': 'merriweather/Merriweather-Regular',
-			'category': 'Serif'
-		}, {
-			'name': 'Old Standard TT',
-			'filepath': 'oldstandardtt/OldStandard-Regular',
-			'category': 'Serif'
-		}, {
-			'name': 'PT Serif',
-			'filepath': 'ptserif/PT_Serif-Web-Regular',
-			'category': 'Serif'
-		}, {
-			'name': 'Playfair Display',
-			'filepath': 'playfairdisplay/PlayfairDisplay-Regular',
-			'category': 'Serif'
-		}, {
-			'name': 'Vollkorn',
-			'filepath': 'vollkorn/Vollkorn-Regular',
-			'category': 'Serif'
-		}]
-	}
+if (typeof sketch === "undefined") sketch = {};
+sketch.lib = sketch.lib || {};
+sketch.lib.text = {
+    "defaultCategory": "text",
+    "dir": "text",
+    "thumbnail": {
+        "_width": 600,
+        "_height": 100
+    },
+    "tree": {
+        "Your Files": [],
+        "text": [{
+            "name": "Abel",
+            "filepath": "abel/Abel-Regular"
+        }, {
+            "name": "AbrilFatface",
+            "filepath": "abrilfatface/AbrilFatface-Regular"
+        }, {
+            "name": "Acme",
+            "filepath": "acme/Acme-Regular"
+        }, {
+            "name": "Aladin",
+            "filepath": "aladin/Aladin-Regular"
+        }, {
+            "name": "AmaticSC",
+            "filepath": "amaticsc/AmaticSC-Regular"
+        }, {
+            "name": "Andada",
+            "filepath": "andada/Andada-Regular"
+        }, {
+            "name": "ArchitectsDaughter",
+            "filepath": "architectsdaughter/ArchitectsDaughter"
+        }, {
+            "name": "Arial",
+            "filepath": "arial/Arial"
+        }, {
+            "name": "Arizonia",
+            "filepath": "arizonia/Arizonia-Regular"
+        }, {
+            "name": "BilboSwashCaps",
+            "filepath": "bilboswashcaps/BilboSwashCaps-Regular"
+        }, {
+            "name": "BubblegumSans",
+            "filepath": "bubblegumsans/BubblegumSans-Regular"
+        }, {
+            "name": "CabinSketch",
+            "filepath": "cabinsketch/CabinSketch-Regular"
+        }, {
+            "name": "Capriola",
+            "filepath": "capriola/Capriola"
+        }, {
+            "name": "ChelseaMarket",
+            "filepath": "chelseamarket/ChelseaMarket-Regular"
+        }, {
+            "name": "Codystar",
+            "filepath": "codystar/Codystar-Regular"
+        }, {
+            "name": "Comfortaa",
+            "filepath": "comfortaa/Comfortaa-Regular"
+        }, {
+            "name": "DeliusSwashCaps",
+            "filepath": "deliusswashcaps/DeliusSwashCaps-Regular"
+        }, {
+            "name": "DroidSans",
+            "filepath": "droidsans/DroidSans"
+        }, {
+            "name": "DroidSerif",
+            "filepath": "droidserif/DroidSerif"
+        }, {
+            "name": "Economica",
+            "filepath": "economica/Economica-Regular"
+        }, {
+            "name": "EmilysCandy",
+            "filepath": "emilyscandy/EmilysCandy-Regular"
+        }, {
+            "name": "FrederickatheGreat",
+            "filepath": "frederickathegreat/FrederickatheGreat-Regular"
+        }, {
+            "name": "GenBkBasR",
+            "filepath": "gentiumbookbasic/GenBkBasR"
+        }, {
+            "name": "GravitasOne",
+            "filepath": "gravitasone/GravitasOne"
+        }, {
+            "name": "Italiana",
+            "filepath": "italiana/Italiana-Regular"
+        }, {
+            "name": "JollyLodger",
+            "filepath": "jollylodger/JollyLodger-Regular"
+        }, {
+            "name": "JosefinSans",
+            "filepath": "josefinsans/JosefinSans-Regular"
+        }, {
+            "name": "Lato",
+            "filepath": "lato/Lato-Regular"
+        }, {
+            "name": "Lobster",
+            "filepath": "lobster/Lobster"
+        }, {
+            "name": "LondrinaShadow",
+            "filepath": "londrinashadow/LondrinaShadow-Regular"
+        }, {
+            "name": "LondrinaSolid",
+            "filepath": "londrinasolid/LondrinaSolid-Regular"
+        }, {
+            "name": "LoveYaLikeASister",
+            "filepath": "loveyalikeasister/LoveYaLikeASister"
+        }, {
+            "name": "MaidenOrange",
+            "filepath": "maidenorange/MaidenOrange"
+        }, {
+            "name": "Merriweather",
+            "filepath": "merriweather/Merriweather-Regular"
+        }, {
+            "name": "MysteryQuest",
+            "filepath": "mysteryquest/MysteryQuest-Regular"
+        }, {
+            "name": "OldStandard",
+            "filepath": "oldstandardtt/OldStandard-Regular"
+        }, {
+            "name": "OpenSans",
+            "filepath": "opensans/OpenSans-Regular"
+        }, {
+            "name": "Oswald",
+            "filepath": "oswald/Oswald-Regular"
+        }, {
+            "name": "PlayfairDisplay",
+            "filepath": "playfairdisplay/PlayfairDisplay-Regular"
+        }, {
+            "name": "RugeBoogie",
+            "filepath": "rugeboogie/RugeBoogie-Regular"
+        }, {
+            "name": "SupermercadoOne",
+            "filepath": "supermercadoone/SupermercadoOne-Regular"
+        }, {
+            "name": "UbuntuCondensed",
+            "filepath": "ubuntucondensed/UbuntuCondensed-Regular"
+        }, {
+            "name": "Vollkorn",
+            "filepath": "vollkorn/Vollkorn-Regular"
+        }]
+    }
 };
-
-})(sketch);
