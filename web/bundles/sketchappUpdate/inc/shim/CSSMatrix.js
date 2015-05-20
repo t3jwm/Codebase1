@@ -558,7 +558,7 @@ CSSMatrix.prototype.skewY = function(angle) {
 };
 
 if (typeof exports !== 'undefined') {
-	if (typeof module !== 'undefined' && module.exports) {
+	if (typeof module === 'object' && module.exports) {
 		exports = module.exports = CSSMatrix;
 	}
 	exports.CSSMatrix = CSSMatrix;

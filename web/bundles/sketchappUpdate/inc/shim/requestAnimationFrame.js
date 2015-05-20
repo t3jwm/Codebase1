@@ -245,13 +245,24 @@ var PerformanceTiming = require('./performance-timing')
  * @api public
  */
 exports.now = function () {
-    if (window.performance && window.performance.now) return window.performance.now()
-    return now() - PerformanceTiming.navigationStart
+    if (window.performance && window.performance.now) {
+    	return window.performance.now()
+    } else {
+		return now() - PerformanceTiming.navigationStart
+	}
 }
 
 },{"./now":4,"./performance-timing":5}]},{},[1])(1)
 });
 
-if (!window.requestAnimationframe || !window.cancelAnimationFrame) {
-	AnimationFrame.shim();
-}
+(function() {
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] 
+                                   || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+	if (!window.requestAnimationFrame || !window.cancelAnimationFrame) {
+		AnimationFrame.shim();
+	}
+})();
