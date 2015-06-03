@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class Expression extends Constraint
 {
-    public $message = 'This value is not valid.';
+    public $message = 'The passwords to not match.';
     public $expression;
 
     /**
