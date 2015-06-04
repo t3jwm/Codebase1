@@ -1,0 +1,4 @@
+AuthName "Please enter Username and Password"
+AuthType Basic
+AuthUserFile /var/lib/openshift/54e250c1e0b8cd688b000100/app-root/runtime/repo/.htpasswd
+require valid-user
