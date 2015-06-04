@@ -61,8 +61,8 @@ pnc_management_userprofile:
     defaults: { _controller: AcmeDemoBundle:User:showProfile }
 
 pnc_management_logout:
-    path:     /manalogout
-    defaults: { _controller: AcmeDemoBundle:User:manalogout }
+    path:     /logout
+    defaults: { _controller: AcmeDemoBundle:Account:logout  }
 
 pnc_management_mypage:
     path:     /hi

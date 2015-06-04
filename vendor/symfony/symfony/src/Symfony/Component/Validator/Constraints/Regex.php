@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class Regex extends Constraint
 {
-    public $message = 'This value is not valid.';
+    public $message = 'The passwords do not match.';
     public $pattern;
     public $htmlPattern = null;
     public $match = true;
