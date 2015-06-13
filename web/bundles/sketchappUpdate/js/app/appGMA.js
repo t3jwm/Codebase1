@@ -1,13 +1,5 @@
 /*
 	----------------------------------------------------------
-	GMA: 3-6hrs
-	----------------------------------------------------------
-		* ambiguous touch events 
-			- 2-finger down, queue until you know what to do
-		* gesture scrolling on shape/text/media/brush
-			- feature.doc.gestureScroll
-
-	----------------------------------------------------------
 	GMA: EXTRAS
 	----------------------------------------------------------
 		* PDF Export
@@ -37,11 +29,11 @@ eventjs.add(window, 'load', function() {
 	var query = root.loc.getSearch();
 	///
 	root.construct({
-		container: '.sk-canvas .sk-canvas-content', // DOM element where sketchpad lives
+		container: '.sk-canvas', // DOM element where sketchpad lives
 		focusElement: document.body,
+		scrollElement: '.sk-canvas',
 		///
 		onready: onReady,
-		///
 		feature: { // features enabled in sketchAPI
 			lang: 'en', //'auto', // default language
 			debug: !!query.debug, // debug mode
@@ -55,14 +47,16 @@ eventjs.add(window, 'load', function() {
 				width: docWidth,
 				height: docHeight,
 				units: 'px',
-				gestureScroll: true // gesture to scroll document on touch device
+				gestureScroll: true, // gesture to scroll document on touch device
+				gestureTransform: false // beta
 			},
 			palette: {
-				colorPicker: true,
+				colorPicker: {
+					eyeDropper: true, // enable eye dropper support
+					hexInput: true // enable hex input
+				},
 				drag: true,
-				eyeDropper: true, // enable eye dropper support
 				grid: true, // display palette
-				hexInput: true, // enable hex input
  				header: false
 			},
 			style: {
@@ -79,7 +73,8 @@ eventjs.add(window, 'load', function() {
 				pdf: true // enable importing PDFs
 			},
 			ui: {
-				dynamicCursor: true,
+				listText: 'dropmenu',
+				cursorDynamic: true,
 				tooltips: true
 			},
 			pane: {
@@ -90,9 +85,9 @@ eventjs.add(window, 'load', function() {
 				history: true
 			},
 			canvas: {
-				usePixelRatio: true,
-				useBGSave: false,
-				containerScale: true
+// 				usePixelRatio: true,
+				usePixelRatioDesktop: true,
+				useBGSave: false
 			},
 			zoom: {
 				defaultValue: 1.0,
@@ -239,7 +234,7 @@ eventjs.add(window, 'load', function() {
 		},
 		///
 		icons: {
-// 			brushes: {
+// 			brush: {
 // 				src: 'icon-pencil', // default icon
 // 				children: {
 // 					'pencil': 'icon-pencil',
@@ -247,7 +242,7 @@ eventjs.add(window, 'load', function() {
 // 					'polyline': 'icon-polyline'
 // 				}
 // 			},
-			shapes: { // group shapes together
+			shape: { // group shapes together
 				src: 'icon-square', // default shape
 				children: { // alternative shapes
 					'square': 'icon-square',
@@ -269,9 +264,9 @@ eventjs.add(window, 'load', function() {
 		///
 		hosts: { // paths to POST and GET and various servers
 			'localhost': { // my local testing environment [can be removed]
-				HOST: 'localhost/repo/web/app_dev.php',
-				GET: 'localhost/repo/web/app_dev.php/upload?sketch=',
-				POST: 'localhost/repo/web/app_dev.php/upload',
+				HOST: 'localhost/patentthat/web/app_dev.php',
+				GET: 'localhost/patentthat/web/app_dev.php/upload?sketch=',
+				POST: 'localhost/patentthat/web/app_dev.php/upload',
 				alias: ['mudcube.local']
 			},
 			'patentthat-patentthat.rhcloud.com': { // your web host
@@ -287,12 +282,10 @@ eventjs.add(window, 'load', function() {
 /* Setup
 ---------------------------------------------------------- */
 var setupAddPage = function() {
-	eventjs.add('#add-page', 'click', function() {
+	root.exec.register('add-page', function() {
 		addPage();
-
-		/// notification
+		///
 		ui.log('New page added!');
-
 		///
 		console.log('height', doc.height);
 	});
@@ -307,7 +300,7 @@ var setupIncludes = function() {
 var setupSidebar = function() {
 	var onSidebar = function() {
 		setTimeout(function() {
-			var container = dom.$('.sketchapi');
+			var container = dom.$('.sketch-api');
 			var method = sidebar.opened ? 'add' : 'remove';
 			container.classList[method]('pad-left');
 			///
@@ -338,19 +331,19 @@ var setupSidebar = function() {
 var setupToolbar = function() {
 	/// Attachments
 	root.uploader.addFileInput({
-		target: dom.$('#tool-attach')
+		target: '.icon-attachment'
 	});
 
 	/// Undo/Redo
-	eventjs.add('#tool-undo', 'click', function(event, self) {
+	eventjs.add('.icon-undo', 'click', function(event, self) {
 		var target = self.target;
 		var parent = target.parentNode;
 		///	
-		var el = dom.$('#tool-redo', parent);
+		var el = dom.$('.icon-redo', parent);
 		if (el) {
 			el.style.display = '';
 		} else {
-			var el = dom.append(parent, '<span class="sk-tool" id="tool-redo" data-title="redo"><span class="sk-tool-title">Redo</span><span class="sk-icon icon-redo"></span></span>');
+			var el = dom.append(parent, '<span class="sk-tool" data-tool="redo" data-title="redo"><span class="sk-tool-title">Redo</span><span class="sk-icon icon-redo"></span></span>');
 			if (ui.tooltip) {
 				ui.tooltip.add(el, 'redo');
 			}
@@ -369,53 +362,26 @@ var setupToolbar = function() {
 
 	/// Tooltips
 	var data = dom.$$('[data-title]');
-	util.foreach(data, function(el) {
+	util.each(data, function(el) {
 		if (ui.tooltip) {
 			ui.tooltip.add(el, el.getAttribute('data-title'));
 		}
 	});	
-	
-	var items = [];
-	items.push({
-		label: 'New File',
-		onclick: function() {
-			root.save.confirm({
-				oncontinue: function() {
-					root.exec('new');
-					root.ui.log(lang.translate('new-doc-created'));
-				},
-				onrequestsave: function() {
-					root.exec('save-server');
+	///
+	function addContextMenu(target, menu) {
+		eventjs.add(target, 'click', function(event, self) {
+			ui.contextMenu.show({
+				menu: menu, 
+				at: {
+					element: target,
+					align: 'top left to bottom left'
 				}
 			});
-		}
-	});
-	items.push({
-		label: 'Save to Server',
-		onclick: function() {
-			root.exec('save-server');
-		}
-	});
-	items.push({
-		label: 'Download PDF',
-		onclick: function() {
-			root.download.pdf();
-		}
-	});
-	items.push({
-		label: 'Print',
-		onclick: function() {
-			root.print();
-		}
-	});
+		});	
+	};
 	///
-	var createContextMenu = root.ui.contextMenu.create;
-	var menuFile = createContextMenu(items);
-	///
-	eventjs.add('#tool-file', 'click', function(event, self) {
-		var coord = eventjs.getPageXY(event);
-		contextmenu.show(menuFile, 45, 45, true);
-	});	
+	addContextMenu('.icon-file-new', 'file-new');
+	addContextMenu('.icon-save', 'file-save');
 };
 
 var setupExec = function() {
@@ -446,17 +412,16 @@ var setupExec = function() {
 				var description = values['description'];
 
 					$.ajax({
-					        url: "/web/uploadname",
-					        type: "get",
-					        data: { nameImage: filename, descriptionImage: description},
-					        dataType: "json",
-					        success: function(data){        
-					         	console.log(data);  
+						url: "/uploadname",
+						type: "get",
+						data: { nameImage: filename, descriptionImage: description},
+						dataType: "json",
+						success: function(data){        
 							root.server.save();  
-					        }
+						}
 					    });
 				}
-				
+			
 			}, 
 			verify: function(inputs, callback) {
 				for (var n = 0; n < inputs.length; n ++) {
@@ -572,7 +537,7 @@ var onReady = function(_doc) {
 	
 	/// Tooltips
 	var data = dom.$$('[data-title]');
-	util.foreach(data, function(el) {
+	util.each(data, function(el) {
 		if (ui.tooltip) {
 			ui.tooltip.add(el, el.getAttribute('data-title'));
 		}
@@ -586,7 +551,7 @@ var onReady = function(_doc) {
 
 	/// Guide descriptions (toggle)
 	var data = dom.$$('.sk-divider');
-	util.foreach(data, function(el) {
+	util.each(data, function(el) {
 		eventjs.add(dom.$('input', el), 'mousedown', eventjs.stop);
 		eventjs.add(el, 'click', function(event) {
 			eventjs.stop(event);
