@@ -269,10 +269,10 @@ eventjs.add(window, 'load', function() {
 				POST: 'localhost/patentthat/web/app_dev.php/upload',
 				alias: ['mudcube.local']
 			},
-			'patentthat-patentthat.rhcloud.com': { // your web host
-				HOST: 'patentthat-patentthat.rhcloud.com',
-				GET: 'patentthat-patentthat.rhcloud.com/upload?sketch=',
-				POST: 'patentthat-patentthat.rhcloud.com/upload'
+			'beta.patent-that.com': { // your web host
+				HOST: 'beta.patent-that.com',
+				GET: 'beta.patent-that.com/upload?sketch=',
+				POST: 'beta.patent-that.com/upload'
 			}
 		}
 	});
