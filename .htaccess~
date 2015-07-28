@@ -1,0 +1,4 @@
+AuthName "Please enter Username and Password"
+AuthType Basic
+AuthUserFile ${OPENSHIFT_REPO_DIR}/.htpasswd
+require valid-user

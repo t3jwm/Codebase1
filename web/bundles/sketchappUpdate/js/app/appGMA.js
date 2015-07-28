@@ -264,15 +264,15 @@ eventjs.add(window, 'load', function() {
 		///
 		hosts: { // paths to POST and GET and various servers
 			'localhost': { // my local testing environment [can be removed]
-				HOST: 'localhost/sketch.io/clients/gma',
-				GET: 'localhost/sketch.io/clients/gma/filesystem.php?sketch=',
-				POST: 'localhost/sketch.io/clients/gma/filesystem.php',
+				HOST: 'localhost/patentthat/web/app_dev.php',
+				GET: 'localhost/patentthat/web/app_dev.php/upload?sketch=',
+				POST: 'localhost/patentthat/web/app_dev.php/upload',
 				alias: ['mudcube.local']
 			},
-			'yourhost.com': { // your web host
-				HOST: 'yourhost.com',
-				GET: 'yourhost.com/filesystem.php?sketch=',
-				POST: 'yourhost.com/filesystem.php'
+			'beta.patent-that.com': { // your web host
+				HOST: 'beta.patent-that.com',
+				GET: 'beta.patent-that.com/upload?sketch=',
+				POST: 'beta.patent-that.com/upload'
 			}
 		}
 	});
@@ -407,8 +407,21 @@ var setupExec = function() {
 			message: 'How would you like this saved?', 
 			callback: function(truthy, values) {
 			    if (truthy) {
-			        root.save.toServer();
-			    }
+			        //root.server.save();
+				var filename = values['filename'];
+				var description = values['description'];
+
+					$.ajax({
+						url: "/uploadname",
+						type: "get",
+						data: { nameImage: filename, descriptionImage: description},
+						dataType: "json",
+						success: function(data){        
+							root.server.save();  
+						}
+					    });
+				}
+			
 			}, 
 			verify: function(inputs, callback) {
 				for (var n = 0; n < inputs.length; n ++) {
@@ -426,11 +439,13 @@ var setupExec = function() {
 			},
 			fields: [{
 				id: 'filename',
+				name: 'filename1',
 				title: 'Filename',
 				type: 'text',
 				placeholder: 'Filename'
 			}, {
 				id: 'description',
+				name: 'description1',
 				title: 'Description',
 				type: 'textarea',
 				placeholder: 'Description'
