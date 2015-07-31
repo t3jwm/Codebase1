@@ -76,11 +76,11 @@
 						{% if name == ''%}
 						<li><a href="{{path('login_login_homepage')}}" class="nav-login">Login</a></li>
 						<li><a href="{{path('page_app') }}">Get Started</a></li>
-						<li><a href="#">  FAQS</a></li>
+						<li><a href="{{path('FAQS')}}">  FAQS</a></li>
 						<li><a href="{{path('contact_US')}}">Contact Us</a></li>
 						{% else %}
 						<li><a href="{{path('page_app') }}">Sketch</a></li>
-						<li><a href="#">  FAQS</a></li>
+						<li><a href="{{path('FAQS')}}">  FAQS</a></li>
 						<li><a href="{{path('contact_US')}}">Contact Us</a></li>
 						<li><a href="{{path('pnc_management_usergallery')}}">Dashboard</a></li>
 						<li><a href="{{path('login_login_logout')}}" class="nav-login" >Logout</a></li> 
@@ -115,7 +115,7 @@
                     <ul class="list-inline quicklinks" style=" margin-top: 0px;">
                         <li><a href="#" style='color: white; font-size: 13px;'>About </a>
                         </li>
-                        <li><a href="#" style='color: white; font-size: 13px;'>Follow </a>
+                        <li><a href="https://twitter.com/greenmtnapps" style='color: white; font-size: 13px;'>Follow </a>
                         </li>
                         
                     </ul>
