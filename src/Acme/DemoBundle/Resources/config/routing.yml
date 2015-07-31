@@ -106,11 +106,9 @@ contact_US:
 Terms_of_Service: 
     path:     /terms
     defaults: { _controller: AcmeDemoBundle:Welcome:terms}
-    
 Privacy_Policy: 
     path:     /privacy
     defaults: { _controller: AcmeDemoBundle:Welcome:privacy}
-	
 open_image_Dash: 
     path:     /apppage/{code}
     defaults: { _controller: AcmeDemoBundle:Welcome:openImageDash }
