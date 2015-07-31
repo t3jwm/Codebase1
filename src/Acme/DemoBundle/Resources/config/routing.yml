@@ -113,5 +113,5 @@ open_image_Dash:
     path:     /apppage/{code}
     defaults: { _controller: AcmeDemoBundle:Welcome:openImageDash }
 FAQS: 
-    path:     /faqs
+    path:     /faq
     defaults: { _controller: AcmeDemoBundle:Welcome:faq}
