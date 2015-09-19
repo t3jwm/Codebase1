@@ -270,7 +270,7 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // pnc_management_homepage
-        if ($pathinfo === '/manalogin') {
+        if ($pathinfo === '/dashboard/login') {
             return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\UserController::loginAction',  '_route' => 'pnc_management_homepage',);
         }
 
@@ -293,8 +293,8 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         }
 
         // pnc_management_logout
-        if ($pathinfo === '/manalogout') {
-            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\UserController::manalogoutAction',  '_route' => 'pnc_management_logout',);
+        if ($pathinfo === '/logout') {
+            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\AccountController::logoutAction',  '_route' => 'pnc_management_logout',);
         }
 
         // pnc_management_mypage
@@ -346,6 +346,31 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
         // send_image
         if ($pathinfo === '/sendImage') {
             return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\UserController::sendImageAction',  '_route' => 'send_image',);
+        }
+
+        // contact_US
+        if ($pathinfo === '/contactus') {
+            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::contactusAction',  '_route' => 'contact_US',);
+        }
+
+        // Terms_of_Service
+        if ($pathinfo === '/terms') {
+            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::termsAction',  '_route' => 'Terms_of_Service',);
+        }
+
+        // Privacy_Policy
+        if ($pathinfo === '/privacy') {
+            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::privacyAction',  '_route' => 'Privacy_Policy',);
+        }
+
+        // open_image_Dash
+        if (0 === strpos($pathinfo, '/apppage') && preg_match('#^/apppage/(?P<code>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'open_image_Dash')), array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::openImageDashAction',));
+        }
+
+        // FAQS
+        if ($pathinfo === '/faq') {
+            return array (  '_controller' => 'Acme\\DemoBundle\\Controller\\WelcomeController::faqAction',  '_route' => 'FAQS',);
         }
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
