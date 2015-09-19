@@ -917,7 +917,7 @@ class UserController extends Controller
       $mpdfService = $this->get('tfox.mpdfport');
 	  
         //$html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script><object data='hao.pdf' type='application/pdf' width='100%' height='100%'></object><img src=$pathFile> </img></body></html>";
-		$html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script><object data='media/hao.pdf' type='application/pdf' width='100%' height='100%'></object></body></html>";
+		$html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script>toi ngan nam doi <object data='media/hao.pdf' type='application/pdf' width='100%' height='100%'></object></body></html>";
         $response = $mpdfService->generatePdfResponse($html);
          
         //var_dump(substr($pathFile,1)); die;
