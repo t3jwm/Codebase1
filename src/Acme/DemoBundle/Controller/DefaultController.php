@@ -240,7 +240,6 @@ class DefaultController extends Controller
 	
 	public function uploadnameAction(){	
 		
-		
 		$nameImage = $_GET['nameImage'];
 		$nameDescription = $_GET['descriptionImage'];
 		$session = $this->getRequest()->getSession();

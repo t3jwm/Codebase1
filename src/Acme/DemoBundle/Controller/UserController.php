@@ -767,7 +767,7 @@ class UserController extends Controller
         $imgid = $_POST['imgId'];
         $id = $_POST['id'];
 
-         $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
 
         //$img->setName('eminem2');
@@ -915,7 +915,8 @@ class UserController extends Controller
         //$container = new LoggableGenerator();
         
       $mpdfService = $this->get('tfox.mpdfport');
-        $html = "<img src=$pathFile> </img>";
+	  
+        $html = "<html><body><img src=$pathFile> </img></body></html>";
         $response = $mpdfService->generatePdfResponse($html);
          
         //var_dump(substr($pathFile,1)); die;
