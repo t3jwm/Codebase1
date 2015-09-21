@@ -196,11 +196,11 @@
         }
         function openImage_app($imgId) {
              	
-            //window.location.replace("/apppage/"+$imgId);
-            }
+            window.location.replace("/apppage/"+$imgId);
+		}
         function showImage($imgId, $rscImg, $nameImg, $id, $filePath) {
                 bootbox.dialog({
-				  message: '<img src="'+$rscImg+'" />',
+				  message: '<img onclick="openImage_app('+$imgId+')" src="'+$rscImg+'" />',
 				  title: $nameImg,
 				  buttons: {
 					success: {
@@ -223,7 +223,7 @@
 					  callback: function() {
 						deleteImage($imgId, $id);
 					  }
-					},
+					},					
 					edit: {
 					  label: "Edit",
 					  className: "btn-info",
