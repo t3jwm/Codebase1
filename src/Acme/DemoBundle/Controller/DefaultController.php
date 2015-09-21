@@ -44,7 +44,7 @@ class DefaultController extends Controller
 			//var_dump($userId); exit;
 		} 
 		$isExist = $session->get('isExist');
-		var_dump($isExist); die;
+		
 		if($isExist == false){
 			$nameImage = $session->get('nameImage');		
 			$descriptionImage = $session->get('descriptionImage');
