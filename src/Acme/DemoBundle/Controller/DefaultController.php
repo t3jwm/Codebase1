@@ -37,6 +37,9 @@ class DefaultController extends Controller
 	*/
 	public function uploadAction()
 	{      	
+		$nameImage = $_GET['nameImage'];
+		$descriptionImage = $_GET['descriptionImage'];
+		
 		$session = $this->getRequest()->getSession();
 		if ($session->has('login')) {
 			$login = $session->get('login');
@@ -49,8 +52,11 @@ class DefaultController extends Controller
 			$nameImage = "name";
 		}*/
 
-		$nameImage = $session->get('nameImage');
-		$descriptionImage = $session->get('descriptionImage');
+		$nameImage = $_GET['nameImage'];
+		$descriptionImage = $_GET['descriptionImage'];
+		if(($nameImage == "") || ($descriptionImage == "")){
+			return;
+		}
 		/*if ($session->has('existName')) {
 			$existName = $session->get('existName');
 			$idImage = $session->get('idImage');

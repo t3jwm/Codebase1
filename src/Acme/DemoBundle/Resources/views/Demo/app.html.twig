@@ -156,12 +156,20 @@
 {% endblock %}
 {% block addJava %}
 {% if code != '' %}
-    	<script>    	
-    	$(document).ready(function(){
-    		setTimeout(function (){
-				sk.open.json('{{ code }}');
-				}, 1000);     		
-    		});    	
-    	</script>
-    {% endif %}
+	<script>
+	var isExist = true; 
+	var fileName = "";
+	var description = "";   	
+	$(document).ready(function(){
+		setTimeout(function (){
+			sk.open.json('{{ code }}');
+			}, 1000);     		
+		});    	
+	</script>
+{% else %}
+	<script>
+	var isExist = false;
+		
+	</script>
+{% endif %}
 {% endblock %}
