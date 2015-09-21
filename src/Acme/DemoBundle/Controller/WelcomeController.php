@@ -184,6 +184,7 @@ class WelcomeController extends Controller
     	} else {
     		return $this->redirect($this->generateUrl('account_register'));
     	}
+		
     	$repository = $this->getDoctrine()
     	->getRepository('AcmeDemoBundle:File');
     	$products = $repository->findByUser($userId);
@@ -236,8 +237,6 @@ class WelcomeController extends Controller
     	if ($session->has('login')) {
     		$login = $session->get('login');
     		$userName = $login->getUsername();
-    		 
-    		 
     		return $this->render('AcmeDemoBundle:Demo:app.html.twig', array('name' => $userName,'filePaths' => $filePaths, 'numImage' => $numImage, 'nameImages' => $nameImages, 'code' =>$filepath_dash ));
     		 
     	}

@@ -156,16 +156,12 @@
 {% endblock %}
 {% block addJava %}
 {% if code != '' %}
-
-    	<script>
-    	
+    	<script>    	
     	$(document).ready(function(){
     		setTimeout(function (){
 				sk.open.json('{{ code }}');
-				}, 1000); 
-    		
-    		});
-    	
+				}, 1000);     		
+    		});    	
     	</script>
     {% endif %}
 {% endblock %}
