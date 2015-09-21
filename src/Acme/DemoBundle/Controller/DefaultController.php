@@ -37,154 +37,148 @@ class DefaultController extends Controller
 	*/
 	public function uploadAction()
 	{      	
-		$nameImage = $_GET['nameImage'];
-		$descriptionImage = $_GET['descriptionImage'];
-		
 		$session = $this->getRequest()->getSession();
 		if ($session->has('login')) {
 			$login = $session->get('login');
 			$userId = $login->getUserId();
 			//var_dump($userId); exit;
 		} 
-		/*if ($session->has('nameImage')) {
-			$nameImage = $session->get('nameImage');
-		} else {
-			$nameImage = "name";
-		}*/
-
-		$nameImage = $_GET['nameImage'];
-		$descriptionImage = $_GET['descriptionImage'];
-		if(($nameImage == "") || ($descriptionImage == "")){
-			return;
-		}
-		/*if ($session->has('existName')) {
-			$existName = $session->get('existName');
-			$idImage = $session->get('idImage');
-			//var_dump($idImage); die;
-		} else {
+		$isExist = $session->get('isExist');
+		if($isExist == false){
+			$nameImage = $session->get('nameImage');		
+			$descriptionImage = $session->get('descriptionImage');
+			/*if ($session->has('existName')) {
+				$existName = $session->get('existName');
+				$idImage = $session->get('idImage');
+				//var_dump($idImage); die;
+			} else {
+				$existName = false;
+			}*/
 			$existName = false;
-		}*/
-		$existName = false;
-		if ($session->has('existPath')) {
-			$existPath = $session->get('existPath');
+			if ($session->has('existPath')) {
+				$existPath = $session->get('existPath');
+			
+				//var_dump($idImage); die;
+			} else {
+				$existPath = sha1(uniqid(mt_rand(), true));
+			}
+			
+			
+			if ($existName == false) {//do all normal
+				
+				/*
+				 ----------------------------------------------------------------
+				 FILE MANAGER : 1.0.3 : 2014-11-04
+				 ----------------------------------------------------------------
+				 SETUP:
+				 chmod 777 ./media/upload/
+				 ----------------------------------------------------------------
+				 */
+				
+				$basedir = "/media/upload";
+				$userdir = "media"; // logged in username
+				//$document = "mydocument"; // document name
+				$document = sha1(uniqid(mt_rand(), true));
+				$targetdir = "{$userdir}";
+				$created = Array();
+				//
+				@mkdir("{$targetdir}"); // create target dir}
+				
+				/* MIME TYPES (supported formats)
+				 -------------------------------------------------------- */
+				$mime = Array(
+						"sketch"=> "application/zip",
+						"json"=> "application/json",
+						"svg"=> "image/svg+xml",
+						"thumb.gif"=> "image/gif",
+						"thumb.jpeg"=> "image/jpeg",
+						"thumb.png"=> "image/png",
+						"gif"=> "image/gif",
+						"jpeg"=> "image/jpeg",
+						"png"=> "image/png"
+				);
+				
+				/* $_FILES (Binary upload)
+				 -------------------------------------------------------- */
+				$useFILES = isset($_FILES) && count($_FILES);
+				if ($useFILES) { // blob
+				
+					foreach ($_FILES as $key=>$value) {
+						$name = str_replace("_", ".", $key);
+						$ext = array_pop((explode(".", $name)));
+						if (!isset($mime[$ext])) continue;
+						$tmp_name = $_FILES[$key]["tmp_name"];
+						$md5 = md5_file($tmp_name);
+						$filepath = "{$targetdir}/{$document}.{$ext}";
+						//$filepath = "{$targetdir}/{$md5}.{$ext}";
+						$created[] = $filepath;
+						move_uploaded_file($tmp_name, $filepath);
+					}
+				}
+				
+				/* $_POST (UTF-8 upload)
+				 -------------------------------------------------------- */
+				$usePOST = isset($_POST) && count($_POST);
+					
+				if ($usePOST) { // string
+					foreach ($_POST as $key=>$value) {
+						$ext = str_replace("_", ".", $key);
+						if (!isset($mime[$ext])) continue;
+						list($type, $extension) = explode("/", $mime[$ext]);
+						/// Base64 decode.
+						if ($type === "image" && $ext !== "svg") {
+							$split = explode(",", $value);
+							$value = base64_decode($split[1]);
+						}
+						/// Put image data.
+						$md5 = md5($value);
+						$filepath = "{$targetdir}/{$document}.{$ext}";
+						$filepath = "{$targetdir}/{$md5}.{$ext}";
+						$created[] = $filepath;
+						file_put_contents($filepath, $value);
+					}
+				}
+				
+				
+				/* filesystem.php?type=sketch&file=drawing
+				 -------------------------------------------------------- */
+				
+				
+				
+				
+				
+				$file = new File();
+				
+				//if ($form->isValid()) {
+				
+				$em = $this->getDoctrine()->getManager();
+				$user_class = $this->container->getParameter('user_class');
+				$user = $em->getRepository($user_class)->findOneById($userId);
+				if (!$user) {
+					exit;
+				}
+				$file->setUser($user);
+				$file->setName($nameImage);
+				$file->setDescription($descriptionImage);
+				$file->setRoot('media');
+				$file->setPath($document);
+					
+				//---
+				//var_dump($file->getUser());die;
+				$em = $this->getDoctrine() ->getManager();
+				
+	
+				$em->persist($file);
+				$em->flush();
+				$response = new Response(json_encode(array('Term' => 'termToFixError')));
+				$response->headers->set('Content-Type', 'application/json');
 		
-			//var_dump($idImage); die;
-		} else {
-			$existPath = sha1(uniqid(mt_rand(), true));
+				return $response;
+			}	
+		}else{
+			var_dump($isExist); die;
 		}
 		
-		
-		if ($existName == false) {//do all normal
-			
-			/*
-			 ----------------------------------------------------------------
-			 FILE MANAGER : 1.0.3 : 2014-11-04
-			 ----------------------------------------------------------------
-			 SETUP:
-			 chmod 777 ./media/upload/
-			 ----------------------------------------------------------------
-			 */
-			
-			$basedir = "/media/upload";
-			$userdir = "media"; // logged in username
-			//$document = "mydocument"; // document name
-			$document = sha1(uniqid(mt_rand(), true));
-			$targetdir = "{$userdir}";
-			$created = Array();
-			//
-			@mkdir("{$targetdir}"); // create target dir}
-			
-			/* MIME TYPES (supported formats)
-			 -------------------------------------------------------- */
-			$mime = Array(
-					"sketch"=> "application/zip",
-					"json"=> "application/json",
-					"svg"=> "image/svg+xml",
-					"thumb.gif"=> "image/gif",
-					"thumb.jpeg"=> "image/jpeg",
-					"thumb.png"=> "image/png",
-					"gif"=> "image/gif",
-					"jpeg"=> "image/jpeg",
-					"png"=> "image/png"
-			);
-			
-			/* $_FILES (Binary upload)
-			 -------------------------------------------------------- */
-			$useFILES = isset($_FILES) && count($_FILES);
-			if ($useFILES) { // blob
-			
-				foreach ($_FILES as $key=>$value) {
-					$name = str_replace("_", ".", $key);
-					$ext = array_pop((explode(".", $name)));
-					if (!isset($mime[$ext])) continue;
-					$tmp_name = $_FILES[$key]["tmp_name"];
-					$md5 = md5_file($tmp_name);
-					$filepath = "{$targetdir}/{$document}.{$ext}";
-					//$filepath = "{$targetdir}/{$md5}.{$ext}";
-					$created[] = $filepath;
-					move_uploaded_file($tmp_name, $filepath);
-				}
-			}
-			
-			/* $_POST (UTF-8 upload)
-			 -------------------------------------------------------- */
-			$usePOST = isset($_POST) && count($_POST);
-				
-			if ($usePOST) { // string
-				foreach ($_POST as $key=>$value) {
-					$ext = str_replace("_", ".", $key);
-					if (!isset($mime[$ext])) continue;
-					list($type, $extension) = explode("/", $mime[$ext]);
-					/// Base64 decode.
-					if ($type === "image" && $ext !== "svg") {
-						$split = explode(",", $value);
-						$value = base64_decode($split[1]);
-					}
-					/// Put image data.
-					$md5 = md5($value);
-					$filepath = "{$targetdir}/{$document}.{$ext}";
-					$filepath = "{$targetdir}/{$md5}.{$ext}";
-					$created[] = $filepath;
-					file_put_contents($filepath, $value);
-				}
-			}
-			
-			
-			/* filesystem.php?type=sketch&file=drawing
-			 -------------------------------------------------------- */
-			
-			
-			
-			
-			
-			$file = new File();
-			
-			//if ($form->isValid()) {
-			
-			$em = $this->getDoctrine()->getManager();
-			$user_class = $this->container->getParameter('user_class');
-			$user = $em->getRepository($user_class)->findOneById($userId);
-			if (!$user) {
-				exit;
-			}
-			$file->setUser($user);
-			$file->setName($nameImage);
-			$file->setDescription($descriptionImage);
-			$file->setRoot('media');
-			$file->setPath($document);
-				
-			//---
-			//var_dump($file->getUser());die;
-			$em = $this->getDoctrine() ->getManager();
-			
-
-			$em->persist($file);
-			$em->flush();
-			$response = new Response(json_encode(array('Term' => 'termToFixError')));
-			$response->headers->set('Content-Type', 'application/json');
-	
-			return $response;
-		}	
 	}
 
 	public function downloadAction()
@@ -248,12 +242,13 @@ class DefaultController extends Controller
 		
 		$nameImage = $_GET['nameImage'];
 		$nameDescription = $_GET['descriptionImage'];
+		$isExist = $_GET['isExist'];
 		$session = $this->getRequest()->getSession();
 		$session->set('nameImage', $nameImage);
 		$session->set('descriptionImage', $nameDescription);
+		$session->set('isExist', $isExist);
 		$response = new Response(json_encode(array('existName' => $nameImage)));
 		$response->headers->set('Content-Type', 'application/json');
-
 		return $response;
 	}
 	/**

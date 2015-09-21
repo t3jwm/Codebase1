@@ -157,9 +157,8 @@
 {% block addJava %}
 {% if code != '' %}
 	<script>
-	var isExist = true; 
-	var fileName = "";
-	var description = "";   	
+	var isExist = true;
+	var IdImage = {{ idImage }};    	
 	$(document).ready(function(){
 		setTimeout(function (){
 			sk.open.json('{{ code }}');
@@ -168,8 +167,7 @@
 	</script>
 {% else %}
 	<script>
-	var isExist = false;
-		
+	var isExist = false; 	
 	</script>
 {% endif %}
 {% endblock %}

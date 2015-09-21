@@ -228,16 +228,13 @@ class WelcomeController extends Controller
     		
     		//var_dump($filepath_dash);die;
     	
-    	
-    	
-    	
     	//---------------------------//
     	 
     	$session = $this->getRequest()->getSession();
     	if ($session->has('login')) {
     		$login = $session->get('login');
     		$userName = $login->getUsername();
-    		return $this->render('AcmeDemoBundle:Demo:app.html.twig', array('name' => $userName,'filePaths' => $filePaths, 'numImage' => $numImage, 'nameImages' => $nameImages, 'code' =>$filepath_dash ));
+    		return $this->render('AcmeDemoBundle:Demo:app.html.twig', array('name' => $userName,'filePaths' => $filePaths, 'numImage' => $numImage, 'nameImages' => $nameImages, 'code' =>$filepath_dash, 'idImage' => $code ));
     		 
     	}
     	return $this->render(
