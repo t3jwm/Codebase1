@@ -47,6 +47,7 @@ class DefaultController extends Controller
 		if($isExist == false){
 			$nameImage = $session->get('nameImage');		
 			$descriptionImage = $session->get('descriptionImage');
+			//clear session????
 			/*if ($session->has('existName')) {
 				$existName = $session->get('existName');
 				$idImage = $session->get('idImage');
@@ -164,7 +165,7 @@ class DefaultController extends Controller
 				$file->setPath($document);
 					
 				//---
-				//var_dump($file->getUser());die;
+				var_dump($file->getUser());die;
 				$em = $this->getDoctrine() ->getManager();
 				
 	
