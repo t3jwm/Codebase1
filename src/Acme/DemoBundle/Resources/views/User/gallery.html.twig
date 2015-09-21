@@ -198,9 +198,9 @@
              	
             //window.location.replace("/apppage/"+$imgId);
             }
-        function showImage($imgId, $rscImg, $nameImg, $id, filePath) {
+        function showImage($imgId, $rscImg, $nameImg, $id, $filePath) {
                 bootbox.dialog({
-				  message: '<img onclick="openImage_app('+$imgId+')" src="'+rscImg+'" />',
+				  message: '<img onclick="openImage_app('+$imgId+')" src="'+$rscImg+'" />',
 				  title: $nameImg,
 				  buttons: {
 					success: {
