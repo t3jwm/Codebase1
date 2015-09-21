@@ -406,8 +406,7 @@ var setupExec = function() {
 		alertify.prompt({
 			message: 'How would you like this saved?', 
 			callback: function(truthy, values) {
-			    if (truthy) {
-			        //root.server.save();
+			if (truthy) {
 				var filename = values['filename'];
 				var description = values['description'];
 
