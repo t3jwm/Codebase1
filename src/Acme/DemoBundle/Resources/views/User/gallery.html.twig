@@ -200,7 +200,7 @@
             }
         function showImage($imgId, $rscImg, $nameImg, $id, $filePath) {
                 bootbox.dialog({
-				  message: '<img onclick="openImage_app('+$imgId+')" src="'+$rscImg+'" />',
+				  message: '<img src="'+$rscImg+'" />',
 				  title: $nameImg,
 				  buttons: {
 					success: {
@@ -222,6 +222,13 @@
 					  className: "btn-danger",
 					  callback: function() {
 						deleteImage($imgId, $id);
+					  }
+					},
+					edit: {
+					  label: "Edit",
+					  className: "btn-info",
+					  callback: function() {
+						openImage_app($imgId);
 					  }
 					}
 				  }
