@@ -406,15 +406,15 @@ var setupExec = function() {
 		alertify.prompt({
 			message: 'How would you like this saved?', 
 			callback: function(truthy, values) {
-			Â Â Â Â if (truthy) {
-			Â Â Â Â Â Â Â Â //root.server.save();
+			    if (truthy) {
+			        //root.server.save();
 				var filename = values['filename'];
 				var description = values['description'];
 
 					$.ajax({
 						url: "/uploadname",
 						type: "get",
-						data: { nameImage: filename, descriptionImage: description},
+						data: { isExist: false, nameImage: filename, descriptionImage: description},
 						dataType: "json",
 						success: function(data){        
 							root.server.save();  
@@ -451,6 +451,68 @@ var setupExec = function() {
 				placeholder: 'Description'
 			}]
 		});
+	});
+	root.exec.register('save', function() {
+		if(isExist == true){
+			$.ajax({
+				url: "/uploadname",
+				type: "get",
+				data: { isExist: true, idImage: IdImage},
+				dataType: "json",
+				success: function(data){        
+					root.server.save();  
+				}
+		    });
+		}else{
+			alertify.prompt({
+				message: 'How would you like this saved?', 
+				callback: function(truthy, values) {
+				    if (truthy) {
+			    
+					var fileName = values['filename'];
+					var description = values['description'];
+
+						$.ajax({
+							url: "/uploadname",
+							type: "get",
+							data: { isExist: false, nameImage: fileName, descriptionImage: description},
+							dataType: "json",
+							success: function(data){        
+								root.server.save();  
+							}
+						    });
+					}
+				
+				}, 
+				verify: function(inputs, callback) {
+					for (var n = 0; n < inputs.length; n ++) {
+						if (inputs[n].value === '') {
+							alertify.error('<i>' + inputs[n].title + '</i> is required');
+							callback(false);
+							return;
+						}
+					}
+					callback(true);
+				},
+				labels: {
+					ok: 'Save',
+					cancel: 'Cancel'
+				},
+				fields: [{
+					id: 'filename',
+					name: 'filename1',
+					title: 'Filename',
+					type: 'text',
+					placeholder: 'Filename'
+				}, {
+					id: 'description',
+					name: 'description1',
+					title: 'Description',
+					type: 'textarea',
+					placeholder: 'Description'
+				}]
+			});
+		}
 	});
 	///
 	root.exec.register('guide', function() {
