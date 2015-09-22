@@ -453,15 +453,47 @@ var setupExec = function() {
 	});
 	root.exec.register('save', function() {
 		if(isExist == true){
-			$.ajax({
-				url: "/uploadname",
-				type: "get",
-				data: { isExist: true, idImage: IdImage},
-				dataType: "json",
-				success: function(data){        
-					root.server.save();  
-				}
-		    });
+//			$.ajax({
+//				url: "/uploadname",
+//				type: "get",
+//				data: { isExist: true, idImage: IdImage},
+//				dataType: "json",
+//				success: function(data){        
+//					root.server.save();  
+//				}
+//		    });
+			alertify.prompt({
+				message: 'Are you sure to save this', 
+				callback: function(truthy, values) {
+			
+					if (truthy) {					
+						$.ajax({
+							url: "/uploadname",
+							type: "get",
+							data: { isExist: true, idImage: IdImage},
+							dataType: "json",
+							success: function(data){        
+								root.server.save();  
+							}
+						    });
+					}
+				
+				}, 
+				verify: function(inputs, callback) {
+					for (var n = 0; n < inputs.length; n ++) {
+						if (inputs[n].value === '') {
+							alertify.error('<i>' + inputs[n].title + '</i> is required');
+							callback(false);
+							return;
+						}
+					}
+					callback(true);
+				},
+				labels: {
+					ok: 'Save',
+					cancel: 'Cancel'
+				}				
+			});
 		}else{
 			alertify.prompt({
 				message: 'How would you like this saved?', 
@@ -470,7 +502,6 @@ var setupExec = function() {
 					if (truthy) {
 					var fileName = values['filename'];
 					var description = values['description'];
-
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
