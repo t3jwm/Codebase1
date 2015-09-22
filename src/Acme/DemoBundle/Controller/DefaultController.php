@@ -236,10 +236,12 @@ class DefaultController extends Controller
 			$nameImage = $_GET['nameImage'];					
 			$nameDescription = $_GET['descriptionImage'];
 			$session->set('nameImage', $nameImage);
-			$session->set('descriptionImage', $nameDescription);	
+			$session->set('descriptionImage', $nameDescription);
+			$session->set('isExist', "false");	
 		}else{
 			$idImage = $_GET['idImage'];								
-			$session->set('idImage', $idImage);			
+			$session->set('idImage', $idImage);
+			$session->set('isExist', "true");			
 		}
 		
 		$response = new Response(json_encode(array('isExist' => $_GET['isExist'])));

@@ -413,7 +413,7 @@ var setupExec = function() {
 					$.ajax({
 						url: "/uploadname",
 						type: "get",
-						data: { isExist: false, nameImage: filename, descriptionImage: description},
+						data: { isExist: "false", nameImage: filename, descriptionImage: description},
 						dataType: "json",
 						success: function(data){        
 							root.server.save();  
@@ -461,7 +461,7 @@ var setupExec = function() {
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
-							data: { isExist: true, idImage:  IdImage},
+							data: { isExist: "true", idImage:  IdImage},
 							dataType: "json",
 							success: function(data){
 								console.log("thanhcong1");
@@ -511,7 +511,7 @@ var setupExec = function() {
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
-							data: { isExist: false, nameImage: fileName, descriptionImage: description},
+							data: { isExist: "false", nameImage: fileName, descriptionImage: description},
 							dataType: "json",
 							success: function(data){  
 								console.log("thanhcong2");
