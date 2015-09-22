@@ -500,7 +500,7 @@ var setupExec = function() {
 					placeholder: 'Description'
 				}]
 			});
-		}
+		
 		}else{
 			alertify.prompt({
 				message: 'How would you like this saved?', 
