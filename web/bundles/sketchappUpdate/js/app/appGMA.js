@@ -457,8 +457,7 @@ var setupExec = function() {
 			alertify.prompt({
 				message: 'Are you sure to save this again?', 
 				callback: function(truthy, values) {			
-					if (truthy) {
-					console.log("here");
+					if (truthy) {					
 						$.ajax({
 							url: "/uploadname",
 							type: "get",

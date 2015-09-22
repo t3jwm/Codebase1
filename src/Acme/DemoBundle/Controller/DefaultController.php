@@ -228,8 +228,8 @@ class DefaultController extends Controller
 	public function uploadnameAction(){
 	
 		$session = $this->getRequest()->getSession();
-			echo $_GET['isExist'];
-		if($_GET['isExist'] === false){// == false
+		echo $_GET['isExist'];
+		if($_GET['isExist'] == "false"){// == false
 			$nameImage = $_GET['nameImage'];					
 			$nameDescription = $_GET['descriptionImage'];
 			$session->set('nameImage', $nameImage);
