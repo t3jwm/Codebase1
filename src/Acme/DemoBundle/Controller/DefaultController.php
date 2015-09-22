@@ -114,9 +114,9 @@ class DefaultController extends Controller
 							$value = base64_decode($split[1]);
 						}
 						/// Put image data.
-						$md5 = md5($value);
-						//$filepath = "{$targetdir}/{$document}.{$ext}";
-						$filepath = "{$targetdir}/{$md5}.{$ext}";
+						//$md5 = md5($value);
+						$filepath = "{$targetdir}/{$document}.{$ext}";
+						//$filepath = "{$targetdir}/{$md5}.{$ext}";
 						//$created[] = $filepath;
 						file_put_contents($filepath, $value);
 					}
