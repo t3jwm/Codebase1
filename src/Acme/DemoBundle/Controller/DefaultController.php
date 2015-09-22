@@ -158,7 +158,9 @@ class DefaultController extends Controller
 		}else{			
 			
         	$idImage = $session->get('idImage');
-        	$id = $_POST['id'];
+        	echo "ImageID: ";
+        	echo $idImage;
+        	//$id = $_POST['id'];
 	        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
     	    //$products = $repository->findByUser($id);
         	$product = $repository->findById($idImage);
