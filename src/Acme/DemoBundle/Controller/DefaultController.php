@@ -162,9 +162,10 @@ class DefaultController extends Controller
         	$product = $repository->findById($idImage);
         	echo "<pre>"; var_dump($product); die;
 
-        if($product == 0){
-            return $this->render('AcmeDemoBundle:User:emptygallery.html.twig');
-        }		
+	        if($product == 0){
+	            return $this->render('AcmeDemoBundle:User:emptygallery.html.twig');
+	        }		
+		}
 	}
 
 	public function downloadAction()
