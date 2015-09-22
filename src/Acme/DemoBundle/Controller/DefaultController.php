@@ -49,24 +49,6 @@ class DefaultController extends Controller
 			$nameImage = $session->get('nameImage');		
 			$descriptionImage = $session->get('descriptionImage');
 			//clear session????
-			/*if ($session->has('existName')) {
-				$existName = $session->get('existName');
-				$idImage = $session->get('idImage');
-				//var_dump($idImage); die;
-			} else {
-				$existName = false;
-			}*/
-			$existName = false;
-			if ($session->has('existPath')) {
-				$existPath = $session->get('existPath');
-			
-				//var_dump($idImage); die;
-			} else {
-				$existPath = sha1(uniqid(mt_rand(), true));
-			}
-			
-			
-			if ($existName == false) {//do all normal
 				
 				/*
 				 ----------------------------------------------------------------
@@ -79,10 +61,9 @@ class DefaultController extends Controller
 				
 				$basedir = "/media/upload";
 				$userdir = "media"; // logged in username
-				//$document = "mydocument"; // document name
 				$document = sha1(uniqid(mt_rand(), true));
 				$targetdir = "{$userdir}";
-				$created = Array();
+				//$created = Array();
 				//
 				@mkdir("{$targetdir}"); // create target dir}
 				
@@ -110,10 +91,10 @@ class DefaultController extends Controller
 						$ext = array_pop((explode(".", $name)));
 						if (!isset($mime[$ext])) continue;
 						$tmp_name = $_FILES[$key]["tmp_name"];
-						$md5 = md5_file($tmp_name);
+						//$md5 = md5_file($tmp_name);
 						$filepath = "{$targetdir}/{$document}.{$ext}";
 						//$filepath = "{$targetdir}/{$md5}.{$ext}";
-						$created[] = $filepath;
+						//$created[] = $filepath;
 						move_uploaded_file($tmp_name, $filepath);
 					}
 				}
@@ -134,9 +115,9 @@ class DefaultController extends Controller
 						}
 						/// Put image data.
 						$md5 = md5($value);
-						$filepath = "{$targetdir}/{$document}.{$ext}";
+						//$filepath = "{$targetdir}/{$document}.{$ext}";
 						$filepath = "{$targetdir}/{$md5}.{$ext}";
-						$created[] = $filepath;
+						//$created[] = $filepath;
 						file_put_contents($filepath, $value);
 					}
 				}
@@ -144,10 +125,6 @@ class DefaultController extends Controller
 				
 				/* filesystem.php?type=sketch&file=drawing
 				 -------------------------------------------------------- */
-				
-				
-				
-				
 				
 				$file = new File();
 				
@@ -166,7 +143,7 @@ class DefaultController extends Controller
 				$file->setPath($document);
 					
 				//---
-				var_dump($file->getUser());die;
+				
 				$em = $this->getDoctrine() ->getManager();
 				
 	
@@ -176,9 +153,9 @@ class DefaultController extends Controller
 				$response->headers->set('Content-Type', 'application/json');
 		
 				return $response;
-			}	
+		
 		}else{
-			var_dump("here");
+			var_dump("here1");
 			var_dump($isExist); die;
 		}
 		
