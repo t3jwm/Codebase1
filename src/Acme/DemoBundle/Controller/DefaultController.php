@@ -153,76 +153,18 @@ class DefaultController extends Controller
 		
 				return $response;
 		
-		}else{
+		}else{			
 			
-			var_dump("here1");
-			var_dump($isExist); die;
-			$nameImage = $session->get('nameImage');
-			$nameImage = $_POST['nameImage'];
-        	$imgid = $session->get('nameImage');
-        $id = $_POST['id'];
+        	$idImage = $session->get('idImage');
+        	$id = $_POST['id'];
+	        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
+    	    //$products = $repository->findByUser($id);
+        	$product = $repository->findById($idImage);
+        	echo "<pre>"; var_dump($product); die;
 
-        $em = $this->getDoctrine()->getEntityManager();
-        $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-
-        //$img->setName('eminem2');
-        //var_dump($img->getName());die;
-
-        
-        $img->setName($nameImage);
-
-        if (!$img) {
-            throw $this->createNotFoundException('No image found for id '.$imgid);
-        }
-
-        $em->persist($img);
-        $em->flush();
-
-        $session = $this->getRequest()->getSession();
-        if ($session->has('login')) 
-        {
-            $login = $session->get('login');
-            $userId = $login->getUserId();
-            //var_dump($userId); exit;               
-        }
-
-        //var_dump($userId); exit;
-        
-
-        $filenames = array();
-        $filePaths = array();
-        $imgId = array();
-        $picnames = array();
-        
-        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-        $products = $repository->findByUser($id);
-        $numImage = count($products);
-
-        if($numImage == 0)
-        {
+        if($product == 0){
             return $this->render('AcmeDemoBundle:User:emptygallery.html.twig');
-        }
-
-        $em = $this->getDoctrine()->getManager();
-        //$document_class = $this->container->getParameter('file_class');
-        
-        //$basePath = __DIR__. '/../../../../web/' . 'uploads/documents';
-        $basePath ='/media';
-        for ($i = 0; $i < $numImage; $i++) {
-            $filenames[$i] = $products[$i]->getPath();
-            $filePaths[$i] = $basePath.'/'.$filenames[$i];
-            $imgId[$i] = $products[$i]->getId();
-            $picnames[$i] = $products[$i]->getName();
-        }
-        
-             return $this->render('AcmeDemoBundle:User:showImage.html.twig', array('picnames' => $picnames,
-                    'filePaths' => $filePaths, 
-                    'numImage' => $numImage,
-                    'imgId'    => $imgId,
-                    'id'       => $id,));
-  
-		}
-		
+        }		
 	}
 
 	public function downloadAction()

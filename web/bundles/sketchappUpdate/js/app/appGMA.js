@@ -453,25 +453,17 @@ var setupExec = function() {
 	});
 	root.exec.register('save', function() {
 		if(isExist == true){
-			var_dump("here");
-//			$.ajax({
-//				url: "/uploadname",
-//				type: "get",
-//				data: { isExist: true, idImage: IdImage},
-//				dataType: "json",
-//				success: function(data){        
-//					root.server.save();  
-//				}
-//		    });
 			alertify.prompt({
-				message: 'Are you sure to save this', 
+				message: 'How would you like this saved?', 
 				callback: function(truthy, values) {
 			
-					if (truthy) {					
+					if (truthy) {
+					var fileName = values['filename'];
+					var description = values['description'];
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
-							data: { isExist: true, idImage: IdImage},
+							data: { isExist: false, nameImage: fileName, descriptionImage: description},
 							dataType: "json",
 							success: function(data){        
 								root.server.save();  
@@ -493,8 +485,22 @@ var setupExec = function() {
 				labels: {
 					ok: 'Save',
 					cancel: 'Cancel'
-				}				
+				},
+				fields: [{
+					id: 'filename',
+					name: 'filename1',
+					title: 'Filename',
+					type: 'text',
+					placeholder: 'Filename'
+				}, {
+					id: 'description',
+					name: 'description1',
+					title: 'Description',
+					type: 'textarea',
+					placeholder: 'Description'
+				}]
 			});
+		}
 		}else{
 			alertify.prompt({
 				message: 'How would you like this saved?', 
