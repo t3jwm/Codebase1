@@ -452,11 +452,11 @@ var setupExec = function() {
 		});
 	});
 	root.exec.register('save', function() {
+		
 		if(isExist == true){
 			alertify.prompt({
 				message: 'How would you like this saved?', 
-				callback: function(truthy, values) {
-			
+				callback: function(truthy, values) {			
 					if (truthy) {
 					var fileName = values['filename'];
 					var description = values['description'];
