@@ -458,7 +458,7 @@ var setupExec = function() {
 				message: 'Are you sure to save this again?', 
 				callback: function(truthy, values) {			
 					if (truthy) {
-					
+					echo "here!!!!!!";
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
