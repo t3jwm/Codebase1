@@ -42,9 +42,11 @@ class DefaultController extends Controller
 			$login = $session->get('login');
 			$userId = $login->getUserId();
 			//var_dump($userId); exit;
-		} 
+		}
+		 
 		$isExist = $session->get('isExist');		
-		if($isExist == 0){
+		
+		if($isExist == "false"){
 			$nameImage = $session->get('nameImage');		
 			$descriptionImage = $session->get('descriptionImage');
 			//clear session????
@@ -160,6 +162,7 @@ class DefaultController extends Controller
 	        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
     	    //$products = $repository->findByUser($id);
         	$product = $repository->findById($idImage);
+        	echo "chuanbi";
         	echo "<pre>"; var_dump($product); die;
 
 	        if($product == 0){
@@ -228,7 +231,7 @@ class DefaultController extends Controller
 	public function uploadnameAction(){
 	
 		$session = $this->getRequest()->getSession();
-		echo $_GET['isExist'];
+		
 		if($_GET['isExist'] == "false"){// == false
 			$nameImage = $_GET['nameImage'];					
 			$nameDescription = $_GET['descriptionImage'];

@@ -463,7 +463,8 @@ var setupExec = function() {
 							type: "get",
 							data: { isExist: true, idImage:  IdImage},
 							dataType: "json",
-							success: function(data){        
+							success: function(data){
+								console.log("thanhcong1");
 								root.server.save();  
 							}
 						    });
@@ -512,7 +513,8 @@ var setupExec = function() {
 							type: "get",
 							data: { isExist: false, nameImage: fileName, descriptionImage: description},
 							dataType: "json",
-							success: function(data){        
+							success: function(data){  
+								console.log("thanhcong2");
 								root.server.save();  
 							}
 						    });
