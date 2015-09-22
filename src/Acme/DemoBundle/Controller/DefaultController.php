@@ -43,8 +43,7 @@ class DefaultController extends Controller
 			$userId = $login->getUserId();
 			//var_dump($userId); exit;
 		} 
-		$isExist = $session->get('isExist');
-		echo $isExist;
+		$isExist = $session->get('isExist');		
 		if($isExist == 0){
 			$nameImage = $session->get('nameImage');		
 			$descriptionImage = $session->get('descriptionImage');
@@ -155,8 +154,73 @@ class DefaultController extends Controller
 				return $response;
 		
 		}else{
+			
 			var_dump("here1");
 			var_dump($isExist); die;
+			$nameImage = $session->get('nameImage');
+			$nameImage = $_POST['nameImage'];
+        	$imgid = $session->get('nameImage');
+        $id = $_POST['id'];
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
+
+        //$img->setName('eminem2');
+        //var_dump($img->getName());die;
+
+        
+        $img->setName($nameImage);
+
+        if (!$img) {
+            throw $this->createNotFoundException('No image found for id '.$imgid);
+        }
+
+        $em->persist($img);
+        $em->flush();
+
+        $session = $this->getRequest()->getSession();
+        if ($session->has('login')) 
+        {
+            $login = $session->get('login');
+            $userId = $login->getUserId();
+            //var_dump($userId); exit;               
+        }
+
+        //var_dump($userId); exit;
+        
+
+        $filenames = array();
+        $filePaths = array();
+        $imgId = array();
+        $picnames = array();
+        
+        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
+        $products = $repository->findByUser($id);
+        $numImage = count($products);
+
+        if($numImage == 0)
+        {
+            return $this->render('AcmeDemoBundle:User:emptygallery.html.twig');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        //$document_class = $this->container->getParameter('file_class');
+        
+        //$basePath = __DIR__. '/../../../../web/' . 'uploads/documents';
+        $basePath ='/media';
+        for ($i = 0; $i < $numImage; $i++) {
+            $filenames[$i] = $products[$i]->getPath();
+            $filePaths[$i] = $basePath.'/'.$filenames[$i];
+            $imgId[$i] = $products[$i]->getId();
+            $picnames[$i] = $products[$i]->getName();
+        }
+        
+             return $this->render('AcmeDemoBundle:User:showImage.html.twig', array('picnames' => $picnames,
+                    'filePaths' => $filePaths, 
+                    'numImage' => $numImage,
+                    'imgId'    => $imgId,
+                    'id'       => $id,));
+  
 		}
 		
 	}
@@ -218,16 +282,19 @@ class DefaultController extends Controller
 	
 	
 	
-	public function uploadnameAction(){	
+	public function uploadnameAction(){
+		$session = $this->getRequest()->getSession();	
+		if($_GET['isExist'] == 0){
+			$nameImage = $_GET['nameImage'];					
+			$nameDescription = $_GET['descriptionImage'];
+			$session->set('nameImage', $nameImage);
+			$session->set('descriptionImage', $nameDescription);	
+		}else{
+			$idImage = $_GET['idImage'];								
+			$session->set('idImage', $idImage);			
+		}
 		
-		$nameImage = $_GET['nameImage'];
-		$nameDescription = $_GET['descriptionImage'];
-		$isExist = $_GET['isExist'];
-		$session = $this->getRequest()->getSession();
-		$session->set('nameImage', $nameImage);
-		$session->set('descriptionImage', $nameDescription);
-		$session->set('isExist', $isExist);
-		$response = new Response(json_encode(array('existName' => $nameImage)));
+		$response = new Response(json_encode(array('isExist' => $_GET['isExist'])));
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
 	}
