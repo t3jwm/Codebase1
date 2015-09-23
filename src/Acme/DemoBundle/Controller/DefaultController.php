@@ -40,10 +40,9 @@ class DefaultController extends Controller
 		$session = $this->getRequest()->getSession();
 		if ($session->has('login')) {
 			$login = $session->get('login');
-			$userId = $login->getUserId();
-			//var_dump($userId); exit;
+			$userId = $login->getUserId();			
 		}
-		 
+		
 		$isExist = $session->get('isExist');		
 		
 		if($isExist == "false"){
@@ -152,19 +151,14 @@ class DefaultController extends Controller
 				$em->persist($file);
 				$em->flush();
 				$imgid = $file->getId();				
-				
+				$session->set('idImage',$imgid);				    
 		}else{			
 			
         	$imgid = $session->get('idImage');        	
         	
         	$em = $this->getDoctrine()->getEntityManager();
         	$img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-			echo "save::";
-        	
-        	
-        	
-        	
-
+			
 		/*
 				 ----------------------------------------------------------------
 				 FILE MANAGER : 1.0.3 : 2014-11-04
@@ -237,7 +231,7 @@ class DefaultController extends Controller
 					}
 				}	        		
 		}
-				$response = new Response(json_encode(array('imgId' => $imgid)));
+				$response = new Response(json_encode(array('IdImage' => $imgid)));
 				$response->headers->set('Content-Type', 'application/json');		
 				return $response;
 	}
@@ -300,25 +294,31 @@ class DefaultController extends Controller
 	
 	
 	public function uploadnameAction(){
-	
-		$session = $this->getRequest()->getSession();
-		
-		if($_GET['isExist'] == "false"){// == false
-			$nameImage = $_GET['nameImage'];					
-			$nameDescription = $_GET['descriptionImage'];
-			$session->set('nameImage', $nameImage);
-			$session->set('descriptionImage', $nameDescription);
-			$session->set('isExist', "false");	
+		if($_GET['getLastIdImage'] == "true"){
+			$session = $this->getRequest()->getSession();
+			$response = new Response(json_encode(array('IdImage' => $session->get('IdImage')));
+			$response->headers->set('Content-Type', 'application/json');
+			return $response;
 		}else{
-			$idImage = $_GET['idImage'];								
-			$session->set('idImage', $idImage);
-			$session->set('isExist', "true");					
-		}
-		
-		$response = new Response(json_encode(array('isExist' => 'readyExist')));
-		$response->headers->set('Content-Type', 'application/json');
-		return $response;
-	}
+			$session = $this->getRequest()->getSession();
+			
+			if($_GET['isExist'] == "false"){// == false
+				$nameImage = $_GET['nameImage'];					
+				$nameDescription = $_GET['descriptionImage'];
+				$session->set('nameImage', $nameImage);
+				$session->set('descriptionImage', $nameDescription);
+				$session->set('isExist', "false");	
+			}else{
+				$idImage = $_GET['idImage'];								
+				$session->set('idImage', $idImage);
+				$session->set('isExist', "true");					
+			}	
+			$response = new Response(json_encode(array('isExist' => 'readyExist')));
+			$response->headers->set('Content-Type', 'application/json');
+			return $response;
+		}				
+	}	
+	
 	/**
      * @Route("/admin")
      */

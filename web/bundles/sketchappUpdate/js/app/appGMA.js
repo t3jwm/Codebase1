@@ -413,13 +413,21 @@ var setupExec = function() {
 					$.ajax({
 						url: "/uploadname",
 						type: "get",
-						data: { isExist: "false", nameImage: filename, descriptionImage: description},
+						data: { getLastIdImage: "false", isExist: "false", nameImage: filename, descriptionImage: description},
 						dataType: "json",
 						success: function(data){        
 							root.server.save();
-							isExist = true;
-							console.log(data);
-							IdImage = data['imgId'];
+							$.ajax({
+								url: "/uploadname",
+								type: "get",
+								data: { getLastIdImage: "true"},
+								dataType: "json",
+								success: function(data){  
+									isExist = true;		
+									consolog('data:  ',data);
+									IdImage = data['IdImage'];																								
+								}
+						    });
 						}
 					    });
 				}
@@ -461,11 +469,10 @@ var setupExec = function() {
 				$.ajax({
 					url: "/uploadname",
 					type: "get",
-					data: { isExist: "true", idImage:  IdImage},
+					data: { getLastIdImage: "false", isExist: "true", idImage:  IdImage},
 					//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
 					dataType: "json",
-					success: function(data){
-						console.log("thanhcong1");
+					success: function(data){						
 						root.server.save();  
 					}
 				    });
@@ -505,13 +512,32 @@ var setupExec = function() {
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
-							data: { isExist: "false", nameImage: fileName, descriptionImage: description},
+							data: { getLastIdImage: "false", isExist: "false", nameImage: fileName, descriptionImage: description},
 							dataType: "json",
 							success: function(data){  
 								root.server.save();
-								isExist = true;
-								console.log(data);
-								IdImage = data['imgId'];  
+								$.ajax({
+									url: "/uploadname",
+									type: "get",
+									data: { getLastIdImage: "true"},
+									dataType: "json",
+									success: function(data){  
+										root.server.save();																				
+										$.ajax({
+											url: "/uploadname",
+											type: "get",
+											data: { getLastIdImage: "true"},
+											dataType: "json",
+											success: function(data){  
+												isExist = true;
+												consolog('data:  ',data);
+												IdImage = data['IdImage'];																								
+											}
+									    });
+										
+									}
+							    });
+								  
 							}
 						    });
 					}
