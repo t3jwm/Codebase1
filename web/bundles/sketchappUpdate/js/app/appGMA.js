@@ -416,7 +416,10 @@ var setupExec = function() {
 						data: { isExist: "false", nameImage: filename, descriptionImage: description},
 						dataType: "json",
 						success: function(data){        
-							root.server.save();  
+							root.server.save();
+							isExist = true;
+							console.log(data);
+							idImage = data['imgId'];
 						}
 					    });
 				}
@@ -454,29 +457,42 @@ var setupExec = function() {
 	root.exec.register('save', function() {
 		
 		if(isExist == true){
-			alertify.prompt({
-				message: 'Are you sure you want to overwrite this sketch?', 
-				callback: function(truthy) {			
-					if (truthy) {												
-						$.ajax({
-							url: "/uploadname",
-							type: "get",
-							data: { isExist: "true", idImage:  IdImage},
-							//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
-							dataType: "json",
-							success: function(data){
-								console.log("thanhcong1");
-								root.server.save();  
-							}
-						    });
+			bootbox.confirm("Are you sure you want to overwrite this sketch?", function(result) {
+				$.ajax({
+					url: "/uploadname",
+					type: "get",
+					data: { isExist: "true", idImage:  IdImage},
+					//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
+					dataType: "json",
+					success: function(data){
+						console.log("thanhcong1");
+						root.server.save();  
 					}
-				
-				},
-				labels: {
-					ok: 'Save',
-					cancel: 'Cancel'
-				}
-			});
+				    });
+			}); 
+//			alertify.prompt({
+//				message: 'Are you sure you want to overwrite this sketch?', 
+//				callback: function(truthy) {			
+//					if (truthy) {												
+//						$.ajax({
+//							url: "/uploadname",
+//							type: "get",
+//							data: { isExist: "true", idImage:  IdImage},
+//							//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
+//							dataType: "json",
+//							success: function(data){
+//								console.log("thanhcong1");
+//								root.server.save();  
+//							}
+//						    });
+//					}
+//				
+//				},
+//				labels: {
+//					ok: 'Save',
+//					cancel: 'Cancel'
+//				}
+//			});
 		
 		}else{
 			alertify.prompt({
@@ -492,8 +508,10 @@ var setupExec = function() {
 							data: { isExist: "false", nameImage: fileName, descriptionImage: description},
 							dataType: "json",
 							success: function(data){  
-								console.log("thanhcong2");
-								root.server.save();  
+								root.server.save();
+								isExist = true;
+								console.log(data);
+								idImage = data['imgId'];  
 							}
 						    });
 					}

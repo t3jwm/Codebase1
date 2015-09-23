@@ -151,7 +151,8 @@ class DefaultController extends Controller
 	
 				$em->persist($file);
 				$em->flush();
-		
+				$imgid = $file->getId();				
+				
 		}else{			
 			
         	$imgid = $session->get('idImage');        	
@@ -236,7 +237,7 @@ class DefaultController extends Controller
 					}
 				}	        		
 		}
-				$response = new Response(json_encode(array('Term' => 'termToFixError')));
+				$response = new Response(json_encode(array('imgId' => $imgid)));
 				$response->headers->set('Content-Type', 'application/json');		
 				return $response;
 	}
