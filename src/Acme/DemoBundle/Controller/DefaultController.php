@@ -155,10 +155,13 @@ class DefaultController extends Controller
 		}else{			
 			
         	$imgid = $session->get('idImage');        	
-        	echo $imgid;
-    	    $em = $this->getDoctrine()->getEntityManager();
+        	
+        	$em = $this->getDoctrine()->getEntityManager();
         	$img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-			var_dump($img); die;
+			echo "save::";
+        	var_dump($imgid);
+	        var_dump($img); die;
+        	
         	
         	
 
