@@ -296,7 +296,7 @@ class DefaultController extends Controller
 	public function uploadnameAction(){
 		if($_GET['getLastIdImage'] == "true"){
 			$session = $this->getRequest()->getSession();
-			$response = new Response(json_encode(array('IdImage' => $session->get('IdImage')));
+			$response = new Response(json_encode(array('IdImage' => $session->get('IdImage'))));
 			$response->headers->set('Content-Type', 'application/json');
 			return $response;
 		}else{
