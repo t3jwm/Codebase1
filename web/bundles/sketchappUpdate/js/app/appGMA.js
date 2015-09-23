@@ -460,11 +460,12 @@ var setupExec = function() {
 					if (truthy) {
 						var fileName = values['filename'];
 						var description = values['description'];
+						console.log("IdImage:", IdImage);
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
-							//data: { isExist: "true", idImage:  IdImage},
-							data: { isExist: "false", nameImage: fileName, descriptionImage: description},
+							data: { isExist: "true", idImage:  IdImage},
+							//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
 							dataType: "json",
 							success: function(data){
 								console.log("thanhcong1");

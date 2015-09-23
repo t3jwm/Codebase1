@@ -45,7 +45,7 @@ class DefaultController extends Controller
 		}
 		 
 		$isExist = $session->get('isExist');		
-		
+		var_dump($isExist);
 		if($isExist == "false"){
 			$nameImage = $session->get('nameImage');		
 			$descriptionImage = $session->get('descriptionImage');
@@ -153,9 +153,8 @@ class DefaultController extends Controller
 		
 		}else{			
 			
-        	$idImage = $session->get('idImage');
-        	echo "ImageID: ";
-        	echo $idImage;
+        	$idImage = $session->get('idImage');        	
+        	echo $idImage; die;
         	//$id = $_POST['id'];
 	        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
     	    //$products = $repository->findByUser($id);
@@ -311,10 +310,11 @@ class DefaultController extends Controller
 		}else{
 			$idImage = $_GET['idImage'];								
 			$session->set('idImage', $idImage);
-			$session->set('isExist', "true");			
+			$session->set('isExist', "true");
+			var_dump($idImage);			
 		}
 		
-		$response = new Response(json_encode(array('isExist' => $_GET['isExist'])));
+		$response = new Response(json_encode(array('isExist' => 'readyExist')));
 		$response->headers->set('Content-Type', 'application/json');
 		return $response;
 	}
