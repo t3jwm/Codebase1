@@ -153,7 +153,7 @@ class DefaultController extends Controller
 				$imgid = $file->getId();				
 				$session->set('idImage',$imgid);				    
 		}else{			
-			$session->set('idImage','1001');
+			
         	$imgid = $session->get('idImage');        	
         	
         	$em = $this->getDoctrine()->getEntityManager();
