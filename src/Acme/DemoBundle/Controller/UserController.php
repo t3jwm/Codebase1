@@ -723,10 +723,10 @@ class UserController extends Controller
     public function renameImgAction(Request $request, $imgid, $id)
     {
         //var_dump($imgid);die;
-        
+        echo $imgid;
         $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-
+		var_dump($img); die;
         //$img->setName('eminem2');
         //var_dump($img->getName());die;
 

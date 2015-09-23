@@ -146,7 +146,7 @@ class DefaultController extends Controller
 					
 				//---
 				
-				$em = $this->getDoctrine() ->getManager();
+				$em = $this->getDoctrine()->getManager();
 				
 	
 				$em->persist($file);
@@ -155,16 +155,12 @@ class DefaultController extends Controller
 		}else{			
 			
         	$imgid = $session->get('idImage');        	
-        	
-        	//$id = $_POST['id'];
-	        //$repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-    	    //$products = $repository->findByUser($id);
+        	echo $imgid;
     	    $em = $this->getDoctrine()->getEntityManager();
         	$img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-        	//$product = $repository->findById($idImage);
-        	echo "chuanbi";
-        	echo "<pre>"; 
-        	var_dump($img); die;
+			var_dump($img); die;
+        	
+        	
 
 		/*
 				 ----------------------------------------------------------------
