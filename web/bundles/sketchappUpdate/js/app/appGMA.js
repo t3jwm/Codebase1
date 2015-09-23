@@ -419,7 +419,7 @@ var setupExec = function() {
 							root.server.save();
 							isExist = true;
 							console.log(data);
-							idImage = data['imgId'];
+							IdImage = data['imgId'];
 						}
 					    });
 				}
@@ -457,7 +457,7 @@ var setupExec = function() {
 	root.exec.register('save', function() {
 		
 		if(isExist == true){
-			bootbox.confirm("Are you sure you want to overwrite this sketch?", function(result) {
+			alertify.confirm("Are you sure you want to overwrite this sketch?", function(result) {
 				$.ajax({
 					url: "/uploadname",
 					type: "get",
@@ -511,7 +511,7 @@ var setupExec = function() {
 								root.server.save();
 								isExist = true;
 								console.log(data);
-								idImage = data['imgId'];  
+								IdImage = data['imgId'];  
 							}
 						    });
 					}
