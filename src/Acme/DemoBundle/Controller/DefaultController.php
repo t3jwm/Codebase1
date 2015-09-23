@@ -159,8 +159,7 @@ class DefaultController extends Controller
         	$em = $this->getDoctrine()->getEntityManager();
         	$img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
 			echo "save::";
-        	var_dump($imgid);
-	        var_dump($img); die;
+        	
         	
         	
         	
@@ -176,7 +175,7 @@ class DefaultController extends Controller
 				
 				$basedir = "/media/upload";
 				$userdir = "media"; // logged in username
-				$document = $product->path;
+				$document = $img->getPath();
 				$targetdir = "{$userdir}";
 				//$created = Array();
 				//
@@ -238,8 +237,7 @@ class DefaultController extends Controller
 				}	        		
 		}
 				$response = new Response(json_encode(array('Term' => 'termToFixError')));
-				$response->headers->set('Content-Type', 'application/json');
-		
+				$response->headers->set('Content-Type', 'application/json');		
 				return $response;
 	}
 
