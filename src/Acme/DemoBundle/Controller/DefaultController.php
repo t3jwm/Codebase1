@@ -45,9 +45,11 @@ class DefaultController extends Controller
 		}
 		 
 		$isExist = $session->get('isExist');		
-		var_dump($isExist);
+		
 		if($isExist == "false"){
-			$nameImage = $session->get('nameImage');		
+			
+			$nameImage = $session->get('nameImage');
+			echo $nameImage; die;		
 			$descriptionImage = $session->get('descriptionImage');
 			//clear session????
 				
@@ -310,8 +312,7 @@ class DefaultController extends Controller
 		}else{
 			$idImage = $_GET['idImage'];								
 			$session->set('idImage', $idImage);
-			$session->set('isExist', "true");
-			var_dump($idImage);			
+			$session->set('isExist', "true");					
 		}
 		
 		$response = new Response(json_encode(array('isExist' => 'readyExist')));

@@ -459,8 +459,7 @@ var setupExec = function() {
 				callback: function(truthy, values) {			
 					if (truthy) {
 						var fileName = values['filename'];
-						var description = values['description'];
-						console.log("IdImage:", IdImage);
+						var description = values['description'];						
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
