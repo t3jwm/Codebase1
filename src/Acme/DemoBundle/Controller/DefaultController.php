@@ -48,8 +48,7 @@ class DefaultController extends Controller
 		
 		if($isExist == "false"){
 			
-			$nameImage = $session->get('nameImage');
-			echo $nameImage; die;		
+			$nameImage = $session->get('nameImage');					
 			$descriptionImage = $session->get('descriptionImage');
 			//clear session????
 				
@@ -156,13 +155,14 @@ class DefaultController extends Controller
 		}else{			
 			
         	$idImage = $session->get('idImage');        	
-        	echo $idImage; die;
+        	
         	//$id = $_POST['id'];
 	        $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
     	    //$products = $repository->findByUser($id);
         	$product = $repository->findById($idImage);
         	echo "chuanbi";
-        	echo "<pre>"; var_dump($product); die;
+        	echo "<pre>"; 
+        	var_dump($product); die;
 
 		/*
 				 ----------------------------------------------------------------
