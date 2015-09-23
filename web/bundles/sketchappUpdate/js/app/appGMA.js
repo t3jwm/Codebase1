@@ -423,8 +423,7 @@ var setupExec = function() {
 								data: { getLastIdImage: "true"},
 								dataType: "json",
 								success: function(data){  
-									isExist = true;		
-									console.log('data:  ',data);
+									isExist = true;											
 									IdImage = data['IdImage'];																								
 								}
 						    });
@@ -522,15 +521,14 @@ var setupExec = function() {
 									data: { getLastIdImage: "true"},
 									dataType: "json",
 									success: function(data){  
-										root.server.save();																				
+																													
 										$.ajax({
 											url: "/uploadname",
 											type: "get",
 											data: { getLastIdImage: "true"},
 											dataType: "json",
 											success: function(data){  
-												isExist = true;
-												console.log('data:  ',data);
+												isExist = true;												
 												IdImage = data['IdImage'];																								
 											}
 									    });
