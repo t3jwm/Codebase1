@@ -456,7 +456,7 @@ var setupExec = function() {
 		if(isExist == true){
 			alertify.prompt({
 				message: 'Are you sure you want to overwrite this sketch?', 
-				callback: function(truthy, values) {			
+				callback: function(truthy) {			
 					if (truthy) {												
 						$.ajax({
 							url: "/uploadname",
@@ -471,16 +471,6 @@ var setupExec = function() {
 						    });
 					}
 				
-				}, 
-				verify: function(inputs, callback) {
-					for (var n = 0; n < inputs.length; n ++) {
-						if (inputs[n].value === '') {
-							alertify.error('<i>' + inputs[n].title + '</i> is required');
-							callback(false);
-							return;
-						}
-					}
-					callback(true);
 				},
 				labels: {
 					ok: 'Save',

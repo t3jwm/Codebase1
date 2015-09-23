@@ -769,8 +769,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-        echo "rename::";
-		die;
+        
         //$img->setName('eminem2');
         //var_dump($img->getName());die;
 
