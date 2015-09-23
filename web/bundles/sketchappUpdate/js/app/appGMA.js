@@ -455,11 +455,9 @@ var setupExec = function() {
 		
 		if(isExist == true){
 			alertify.prompt({
-				message: 'Are you sure to save this again?', 
+				message: 'Are you sure you want to overwrite this sketch?', 
 				callback: function(truthy, values) {			
-					if (truthy) {
-						var fileName = values['filename'];
-						var description = values['description'];						
+					if (truthy) {												
 						$.ajax({
 							url: "/uploadname",
 							type: "get",
@@ -487,20 +485,7 @@ var setupExec = function() {
 				labels: {
 					ok: 'Save',
 					cancel: 'Cancel'
-				},
-				fields: [{
-					id: 'filename',
-					name: 'filename1',
-					title: 'Filename',
-					type: 'text',
-					placeholder: 'Filename'
-				}, {
-					id: 'description',
-					name: 'description1',
-					title: 'Description',
-					type: 'textarea',
-					placeholder: 'Description'
-				}]
+				}
 			});
 		
 		}else{
