@@ -424,7 +424,7 @@ var setupExec = function() {
 								dataType: "json",
 								success: function(data){  
 									isExist = true;		
-									consolog('data:  ',data);
+									console.log('data:  ',data);
 									IdImage = data['IdImage'];																								
 								}
 						    });
@@ -530,7 +530,7 @@ var setupExec = function() {
 											dataType: "json",
 											success: function(data){  
 												isExist = true;
-												consolog('data:  ',data);
+												console.log('data:  ',data);
 												IdImage = data['IdImage'];																								
 											}
 									    });

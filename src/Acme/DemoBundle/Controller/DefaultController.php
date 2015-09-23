@@ -153,7 +153,7 @@ class DefaultController extends Controller
 				$imgid = $file->getId();				
 				$session->set('idImage',$imgid);				    
 		}else{			
-			
+			$session->set('idImage','1001');
         	$imgid = $session->get('idImage');        	
         	
         	$em = $this->getDoctrine()->getEntityManager();
@@ -296,7 +296,7 @@ class DefaultController extends Controller
 	public function uploadnameAction(){
 		if($_GET['getLastIdImage'] == "true"){
 			$session = $this->getRequest()->getSession();
-			$response = new Response(json_encode(array('IdImage' => $session->get('IdImage'))));
+			$response = new Response(json_encode(array('IdImage' => $session->get('idImage'))));
 			$response->headers->set('Content-Type', 'application/json');
 			return $response;
 		}else{
