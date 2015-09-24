@@ -465,16 +465,19 @@ var setupExec = function() {
 		
 		if(isExist == true){
 			alertify.confirm("Are you sure you want to overwrite this sketch?", function(result) {
-				$.ajax({
-					url: "/uploadname",
-					type: "get",
-					data: { getLastIdImage: "false", isExist: "true", idImage:  IdImage},
-					//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
-					dataType: "json",
-					success: function(data){						
-						root.server.save();  
-					}
-				    });
+				console.log(result);
+				if(result){
+					$.ajax({
+						url: "/uploadname",
+						type: "get",
+						data: { getLastIdImage: "false", isExist: "true", idImage:  IdImage},
+						//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
+						dataType: "json",
+						success: function(data){						
+							root.server.save();  
+						}
+					    });
+				}				
 			}); 
 //			alertify.prompt({
 //				message: 'Are you sure you want to overwrite this sketch?', 
