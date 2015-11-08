@@ -1,0 +1,67 @@
+/* selectmenu */
+.sk-selectmenu {
+	margin-top: 4px;
+	border: 1px solid #222;
+	background: #414141;
+	background-image: -webkit-linear-gradient(90deg, #1a1a1a, #1f1f1f, #111);
+	background-image: linear-gradient(0deg, #1a1a1a, #1f1f1f, #111);
+}
+.sk-selectmenu-break {
+	height: 2px;
+	background: rgba(255,255,255,0.12);
+}
+.sk-selectmenu > li > span {
+	border-bottom: 1px solid rgba(0,0,0,0.5);
+	color: #eee;
+	background: #171717;
+	background-image: url(../media/ux/interlace-diagonal-light.png);	
+}
+.sk-selectmenu > li > span.sk-hovered {
+	background: #444;
+	background-image: url(../media/ux/interlace-diagonal-light.png);	
+}
+.sk-selectmenu > li > span.sk-selected {
+	color: #000;
+	font-weight: bold;
+	text-shadow: none;
+	background: rgba(0, 227, 89, 0.85);
+	background-image: url(../media/ux/interlace-diagonal-light.png);	
+}
+.sk-selectmenu > li > span.sk-selected .arrow {
+	color: #000;
+}
+.sk-selectmenu-backdrop {
+	background: rgba(255,255,255,0.1);
+}
+.sk-selectmenu-backdrop .arrow {
+	background: #333;
+	color: #555;
+}
+.sk-selectmenu-backdrop .arrow.active:hover {
+	color: rgba(0, 227, 89, 1);
+}
+.sk-selectmenu-backdrop .arrow.active {
+	background: #333;
+	color: #fff;
+}
+.sk-selectmenu > .optgroup {
+	background: #666;
+	color: #000;
+}
+
+
+/* contextmenu */
+.sk-selectmenu.sk-contextmenu > li > span {
+	padding: 5px 10px;
+	background-image: url(../media/ux/interlace-diagonal-light.png);
+}
+.sk-selectmenu.sk-contextmenu > li > span.sk-hovered {
+	color: #000;
+	text-shadow: none;
+	background-color: rgba(0, 227, 89, 0.85);
+	background-image: url(../media/ux/interlace-diagonal-light.png);
+}
+.sk-selectmenu.sk-contextmenu > li > span.sk-hovered span.code,
+.sk-selectmenu.sk-contextmenu > li > span.sk-hovered span.icon {
+	color: #000;
+}
