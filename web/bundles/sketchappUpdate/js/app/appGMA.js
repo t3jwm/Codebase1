@@ -26,7 +26,7 @@ var docWidth = 816; // equivalent to 8.5 x 11 inches in pixels at 72DPI
 var docHeight = 1056;
 
 eventjs.add(window, 'load', function() {
-	var query = root.loc.getSearch();
+	var query = root.loc.search;
 	///
 	root.construct({
 		container: '.sk-canvas', // DOM element where sketchpad lives
@@ -100,8 +100,8 @@ eventjs.add(window, 'load', function() {
 			tools: { // default tool setup
 				defaultTool: 'pencil',
 				defaults: {
-					addByDrag: true,
-					addByClick: true,
+					useAddByDrag: true,
+					useAddByClick: true,
 					maxHeight: 4096, // maximum height of placed item
 					maxWidth: 4096, // maximum width of placed item
 					minHeight: 3, // minimum height of placed item
@@ -190,10 +190,6 @@ eventjs.add(window, 'load', function() {
 			placement: {
 				mediaClick: false, // enable click on media in tool pane to add to canvas.
 				mediaDrag: true // enable drag media in tool pane into canvas.
-			},
-			vector: {
-				record: true, // record vector data
-				edit: true // enable data for editing
 			},
 			history: {
 				autoSelect: true, // auto-select elements changed by undo or redo
@@ -321,7 +317,7 @@ var setupSidebar = function() {
 	sidebarRight.on('open', onSidebar);
 	sidebarRight.on('close', onSidebar);
 	///
-	util.getItem('show-sidebar-left', function(value) {
+	util.cookie.get('show-sidebar-left', function(value) {
 		if (value !== false) {
 			sidebar.open();
 		}
@@ -344,9 +340,8 @@ var setupToolbar = function() {
 			el.style.display = '';
 		} else {
 			var el = dom.append(parent, '<span class="sk-tool" data-tool="redo" data-title="redo"><span class="sk-tool-title">Redo</span><span class="sk-icon icon-redo"></span></span>');
-			if (ui.tooltip) {
-				ui.tooltip.add(el, 'redo');
-			}
+			ui.tooltip.add(el, 'redo');
+			///
 			eventjs.add(target, 'mousedown', eventjs.stop);
 			eventjs.add(el, 'mousedown', eventjs.stop);
 			eventjs.add(el, 'click', function() {
@@ -363,10 +358,10 @@ var setupToolbar = function() {
 	/// Tooltips
 	var data = dom.$$('[data-title]');
 	util.each(data, function(el) {
-		if (ui.tooltip) {
 			ui.tooltip.add(el, el.getAttribute('data-title'));
-		}
 	});	
+	///
+	ui.tooltip.add('sk-fileInput', 'Attachment');
 	///
 	function addContextMenu(target, menu) {
 		eventjs.add(target, 'click', function(event, self) {
@@ -395,8 +390,7 @@ var setupExec = function() {
 			sidebar.open();
 			dom.setClass({
 				target: target,
-				className: 'selected',
-				on: true,
+				name: 'selected',
 				list: 'div'
 			});
 		}
@@ -647,7 +641,7 @@ var addPageMarker = function() {
 var onReady = function(_doc) {
 	doc = _doc;
 	///
-	doc.config.arrow.curved.checked = true;
+	doc.toolkitConfig.arrow.curved.checked = true;
 	///
 	setupAddPage();
 	setupExec();
@@ -660,9 +654,7 @@ var onReady = function(_doc) {
 	/// Tooltips
 	var data = dom.$$('[data-title]');
 	util.each(data, function(el) {
-		if (ui.tooltip) {
-			ui.tooltip.add(el, el.getAttribute('data-title'));
-		}
+		ui.tooltip.add(el, el.getAttribute('data-title'));
 	});	
 
 	/// Fastclick
@@ -684,7 +676,7 @@ var onReady = function(_doc) {
 	/// Open Document
 	var hash = root.loc.getSketchID();
 	if (hash) {
-		return root.open.json('./media/upload/username/' + hash + '.json?' + util.timestamp(), function() {
+		return root.open.json('./media/upload/username/' + hash + '.json?' + util.now(), function() {
 // 			console.log('loaded!');
 		});
 	} else {
