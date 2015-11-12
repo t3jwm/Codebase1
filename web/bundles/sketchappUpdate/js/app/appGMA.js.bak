@@ -358,10 +358,10 @@ var setupToolbar = function() {
 	/// Tooltips
 	var data = dom.$$('[data-title]');
 	util.each(data, function(el) {
-		ui.tooltip.add(el, el.getAttribute('data-title'));
+			ui.tooltip.add(el, el.getAttribute('data-title'));
 	});	
 	///
-	ui.tooltip.add('.sk-fileInput', 'Attachment');
+	ui.tooltip.add('sk-fileInput', 'Attachment');
 	///
 	function addContextMenu(target, menu) {
 		eventjs.add(target, 'click', function(event, self) {
