@@ -1,28 +1,29 @@
 {% extends "AcmeDemoBundle::Baselayout.html.twig" %}
 {% block CssPlus %}
 
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-	<!-- SketchAPI v3.7.7.408 -->
-	<link href="min/sketch-api.min.css" type="text/css" rel="stylesheet" />
-	<script src="min/sketch-api.min.js" type="text/javascript"></script>
+	<!-- SketchAPI v3.7.4.24 -->
+	<link href="{{asset('bundles/sketchappUpdate/min/sketch-api.min.css')}}" type="text/css" rel="stylesheet" />
+	<script src="{{asset('bundles/sketchappUpdate/min/sketch-api.min.js')}}" type="text/javascript"></script>
 
 	<!-- JS-->
-	<script src="js/app/AppConfigure.js" type="text/javascript"></script>
-	<script src="js/lib/clipart.js" type="text/javascript"></script>
-	<script src="js/lib/text.js" type="text/javascript"></script>
-	<script src="js/lib/color.js" type="text/javascript"></script>
-	<script src="js/lib/gradient.js" type="text/javascript"></script>
-	<script src="js/lib/pattern.js" type="text/javascript"></script>
-	<script src="js/app/appGMA.js" type="text/javascript"></script>
-	<script src="js/app/appContextMenu.js" type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/app/AppConfigure.js')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/lib/clipart.js')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/lib/text.js')}}" type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/lib/color.js')}}" type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/lib/pattern.js')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/lib/gradient.js')}}"  type="text/javascript"></script>
+	
+	<script src="{{asset('bundles/sketchappUpdate/js/app/appGMA.js?2409')}}"  type="text/javascript"></script>
+	<script src="{{asset('bundles/sketchappUpdate/js/app/appContextMenu.js')}}"  type="text/javascript"></script>
 
 	<!-- CSS-->
-	<link href="css/sk-selectmenu-dark.css" type="text/css" rel="stylesheet" />
-	<link href="css/appGMA.css" type="text/css" rel="stylesheet" />
+	<link href="{{asset('bundles/sketchappUpdate/css/sk-selectmenu-dark.css')}}" type="text/css" rel="stylesheet" />
+	<link href="{{asset('bundles/sketchappUpdate/css/appGMA.css')}}" type="text/css" rel="stylesheet" />
 {% endblock %}
 {% block body %}
 	<div class="sketch-api">
@@ -107,7 +108,7 @@
 			</div>
 
 			<!--- LAYERS -->
-			<div id="sk-layers" class="sk-pane" style="padding-top: 50px;">
+			<div id="sk-layers" class="sk-pane">
 				<div class="sk-row-head">layers</div>		
 				<ul class="sk-pane-content sk-tree"></ul>
 			</div>
@@ -128,13 +129,14 @@
 				<button data-tool="select" class="sk-tool icon-select" data-title="select"></button>
 				<button data-tool="text" class="sk-tool icon-text" data-title="text"></button>
 				<button data-tool="pencil" class="sk-tool icon-pencil" data-title="Pencil"></button>
-				<button data-tool="path" class="sk-tool icon-polyline" data-title="Path"></button>
+				<button data-tool="path" class="sk-tool icon-path" data-title="Path"></button>
+				<button data-tool="polyline" class="sk-tool icon-polyline" data-title="Path"></button>
 				<button data-tool="arrow" class="sk-tool icon-arrow" data-title="Arrow"></button>
 				<button data-tool="highlighter" data-toolFormula="type:highlighter;shortcut:paintbrush;fill:yellow;composite:multiply,destination-over;" class="sk-tool icon-highlight" data-title="Highlighter"></button>
 				<button data-tool="triangle" data-toolkit="shape" class="sk-tool icon-triangle" data-title="shape"></button>
 				<button data-tool="eraser" class="sk-tool icon-eraser" data-title="Eraser"></button>
-				<button data-tool="attach" class="sk-tool sk-icon icon-attachment" data-title="attachment" style="display: inline"></button>
-				<button data-tool="undo" class="sk-tool icon-undo" data-title="undo"></button>
+				<button data-tool="attach" class="sk-tool sk-icon icon-attachment" data-title="Attachment" style="display: inline"></button>
+				<button data-tool="undo" class="sk-tool icon-undo" data-title="Undo"></button>
 			</div>
 			<div class="right">
 				<button data-tool="guide" class="sk-tool icon-compass" data-title="Guide"></button>
