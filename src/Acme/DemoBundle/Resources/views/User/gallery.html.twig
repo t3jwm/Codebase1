@@ -106,7 +106,7 @@
                 },
                 
                 attornyReview: function ($filePath) {
-                     bootbox.confirm("You are being redirected to an affiliated patent attorney in your area to potentially evaluate your invention, please click "OK" to continue", function (result) {
+                     bootbox.confirm('You are being redirected to an affiliated patent attorney in your area to potentially evaluate your invention, please click "OK" to continue', function (result) {
                         if (result == true) {
                            bootbox.alert("You choose OK!");
                         }
@@ -117,7 +117,7 @@
                     window.location.replace("/apppage/" + $imgId);
                 },
                 
-                showLargeImage: function ($imgId, $rscImg, $nameImg, $id, $filePath) {
+                showLargeImg: function ($imgId, $rscImg, $nameImg, $id, $filePath) {
                     bootbox.dialog({
                         message: '<img class="large-img" onclick="ImageSketchapp.openImageOnSketchApp(' + $imgId + ')" src="' + $rscImg + '" />',
                         title: $nameImg,
@@ -273,7 +273,7 @@
                                             {% if numImage >= 0 %}
                                                 {% for i in 0..numImage-1 %}
                                                     <li class="thumbnail">
-                                                        <img onclick="showImage({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
+                                                        <img class="small-img" onclick="ImageSketchapp.showLargeImg({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
                                                         <p class="name-img" style= "text-align: center;">{{ picnames[i] }}</p>
                                                         <p class="btn-group">
                                                             <button onclick =  "ImageSketchapp.renameImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-xs btn-default fa fa-pencil" title="Rename" ></button>

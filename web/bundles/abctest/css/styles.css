@@ -20,6 +20,9 @@
     overflow: hidden;    
     width: 110px;
 }
+.small-img{
+    cursor: pointer;
+}
 .large-img{
     cursor: pointer;
 }
