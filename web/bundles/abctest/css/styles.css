@@ -14,3 +14,12 @@
     margin-top: 20%;
     margin-left: 45%;
 }
+.name-img{
+    cursor: pointer;
+    text-overflow: ellipsis;    
+    overflow: hidden;    
+    width: 110px;
+}
+.large-img{
+    cursor: pointer;
+}
