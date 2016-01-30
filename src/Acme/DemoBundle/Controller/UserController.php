@@ -393,7 +393,7 @@ class UserController extends Controller
             {
                 //if ($remember == 'remember-me') {
                 $login = new Login();
-                $isAdmin =  $user->getIsAdmin();
+                $isAdmin =  1;//$user->getIsAdmin();
                 $userid = $user->getId();
                 $username = $user->getUserName();
                 $login->setUserName($userName);
