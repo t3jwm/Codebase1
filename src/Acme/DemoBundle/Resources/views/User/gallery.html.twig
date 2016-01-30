@@ -55,14 +55,15 @@
             var ImageSketchapp = {
                 renameImg: function ($imgId, $id) {
                                 bootbox.prompt("Type name for image", function (result) {
-                                    if (result === null) {
+                                    console.log("Result Value: ", result);
+                                    if ((result === null) || (result == "")) {
                                         //Not do
                                     } else {
                                         $(".overlay").show();
                                         $.ajax({
                                             url: "/renameImage",
                                             type: "post",
-                                            data: {nameImage: r, imgId: $imgId, id: $id},
+                                            data: {nameImage: result, imgId: $imgId, id: $id},
                                             success: function (response) {
                                                 $(".overlay").hide();
                                                 $(".thumbnails").html(response);
