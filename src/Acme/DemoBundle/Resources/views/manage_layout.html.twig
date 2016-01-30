@@ -26,6 +26,7 @@
     </head>
 
     <body>
+
         <!-- topbar starts -->
         <div class="navbar navbar-default" role="navigation" style="background-color: #ffffff;">
 
@@ -38,7 +39,10 @@
                 </button>
                 <a class="navbar-brand" href="/" style="padding-left: 40px; padding-top: 5px;">
                     <img src="/bundles/landing_page/img/patentthat-logo.png">
-                </a>               
+                </a>
+                <!--<a class="navbar-brand" href="index.html">
+                    <span> SketchApp </span></a>-->
+                <!-- user dropdown starts -->
                 <div class="btn-group pull-right">
                     <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                         <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">{% if app.session.get('isAdmin') == 1 %} Account {% else %} Account {% endif %}</span>
@@ -81,7 +85,7 @@
                                 <li class="nav-header">Main</li>                              
                                 <li>
                                     <a class="ajax-link" href="{{ path('pnc_management_userprofile') }}">
-                                        <i class="glyphicon glyphicon-edit"></i>
+                                        <i class="fa fa-user"></i>
                                         <span> Profile</span>
                                     </a>
                                 </li>
@@ -89,27 +93,32 @@
                                 {% if   app.session.get('isAdmin') == 1 %}            
                                     <li>
                                         <a class="ajax-link" href="{{ path('admin_gallery') }}">
-                                            <i class="glyphicon glyphicon-picture"></i>
+                                            <i class="fa fa-picture-o"></i>
                                             <span> Portfolio</span>
                                         </a>
                                     </li>
                                 {% else %}
                                     <li>
                                         <a class="ajax-link" href="{{ path('pnc_management_usergallery') }}">
-                                            <i class="glyphicon glyphicon-picture"></i>
+                                            <i class="fa fa-picture-o"></i>
                                             <span> Portfolio</span>
                                         </a>
                                     </li>
                                 {% endif %}
 
                                 {% if   app.session.get('isAdmin') == 1 %}
-                                    <li><a class="ajax-link" href="{{ path('admin_table') }}">
-                                            <i class="glyphicon glyphicon-align-justify"></i>
-                                            <span> Users Table </span>
+                                    <li>
+                                        <a class="ajax-link" href="{{ path('admin_table') }}">
+                                            <i class="fa fa-users"></i>
+                                            <span> Manage Users </span>
                                         </a>
                                     </li>
                                 {% endif %}
-                                <li><a href="{{ path('pnc_management_logout') }}"><i class="glyphicon glyphicon-lock"></i><span> Logout </span></a>
+                                <li>
+                                    <a href="{{ path('pnc_management_logout') }}">
+                                        <i class="fa fa-unlock"></i>
+                                        <span> Logout </span>
+                                    </a>
                                 </li>
                             </ul>
 

@@ -27,7 +27,8 @@
                                 <th>Email</th>                                
                                 <th>LastName</th>
                                 <th>FirstName</th>
-                                <th>Language</th>                                
+                                <th>Language</th>    
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,14 +42,14 @@
                                     <td class="center">{{entity.language}}</td>
                                     
                                     <td class="center">                                   
-                                        <a class="btn btn-info" href="{{ path('admin_edit', { 'id': entity.id }) }}">
+                                        <a class="btn btn-info btn-xs" href="{{ path('admin_edit', { 'id': entity.id }) }}">
                                             <i class="glyphicon glyphicon-edit icon-white" title="Edit"></i>                                            
                                         </a>
-                                        <a class="btn btn-danger" href="{{ path('admin_delete', {'id': entity.id }) }}" 
+                                        <a class="btn btn-danger btn-xs" href="{{ path('admin_delete', {'id': entity.id }) }}" 
                                            onclick="return confirm('Are you sure you want to delete this user ?')" >
                                             <i class="glyphicon glyphicon-trash icon-white" title="Delete"></i>                                            
                                         </a>
-                                        <a class="btn btn-success" href="{{ path('admin_manageGallery', { 'id': entity.id }) }}">
+                                        <a class="btn btn-success btn-xs" href="{{ path('admin_manageGallery', { 'id': entity.id }) }}">
                                             <i class="glyphicon glyphicon-picture" title="View Image"></i>                                            
                                         </a>
                                     </td>
