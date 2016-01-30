@@ -1,5 +1,7 @@
 {% extends "AcmeDemoBundle::manage_layout.html.twig" %}        
-
+{% block page_css %}
+    <link href="{{ asset('bundles/abctest/bower_components/responsive-tables/responsive-tables.css') }}" rel="stylesheet"/>
+{% endblock %}
 {% block content %}
     <div class="row">
         <div class="box col-md-12">
@@ -40,7 +42,7 @@
                                     <td class="center">{{entity.lastName}}</td>
                                     <td class="center">{{entity.firstName}}</td>
                                     <td class="center">{{entity.language}}</td>
-                                    
+
                                     <td class="center">                                   
                                         <a class="btn btn-info btn-xs" href="{{ path('admin_edit', { 'id': entity.id }) }}">
                                             <i class="glyphicon glyphicon-edit icon-white" title="Edit"></i>                                            
@@ -68,6 +70,10 @@
         </div>  
     </div>
 {% endblock %}
+{% block foot_page_js %}
+    <script src="{{ asset('bundles/abctest/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/abctest/bower_components/responsive-tables/responsive-tables.js') }}"></script>      
+{% endblock %} 
 
 
 
