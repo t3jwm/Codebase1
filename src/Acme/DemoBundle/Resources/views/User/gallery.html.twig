@@ -1,314 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>        
-        <meta charset="utf-8">        
-        <title>Patent That - Dashboard</title>        
-        <meta name="viewport" content="width=device-width, initial-scale=1">        
-        <meta name="author" content="Miratik">
+{% extends "AcmeDemoBundle::manage_layout.html.twig" %}
+{% block page_js %}    
+    <script src="{{ asset('bundles/abctest/js/bootbox.js') }}"></script>
+    <script src="{{ asset('bundles/abctest/js/imgSketchAppHandel.js') }}"></script>      
+{% endblock %}  
 
-        <link rel="stylesheet" href="{{ asset('bundles/abctest/css/styles.css') }}">   
-        <!-- The Font-Awesome -->        
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">        
-        <link rel="stylesheet" href="{{ asset('bundles/abctest/css/bootstrap-cerulean.min.css') }}" />
-        <link href="{{ asset('bundles/abctest/css/charisma-app.css') }}" rel="stylesheet"/>       
-        <link href="{{ asset('bundles/abctest/bower_components/responsive-tables/responsive-tables.css') }}" rel="stylesheet"/>
-        <link href="{{ asset('bundles/abctest/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css') }}" rel="stylesheet"/>              
-        <script src="{{ asset('bundles/abctest/bower_components/jquery/jquery.min.js') }}"></script>
-
-        <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    
-        <![endif]-->
-        <!-- The fav icon -->
-        <!-- <link rel="shortcut icon" href="img/favicon.ico"> -->
-        <link href="{{ asset('bundles/abctest/img/favicon.ico') }}" rel="shortcut icon"/>
-        <script src="{{ asset('bundles/abctest/js/bootbox.js') }}"></script>
-
-        <script>
-            var ImageSketchapp = {
-                renameImg: function ($imgId, $id) {
-                    bootbox.prompt("Type name for image", function (result) {
-                        if ((result === null) || (result == "")) {
-                            //Not do
-                        } else {
-                            $(".overlay").show();
-                            $.ajax({
-                                url: "/renameImage",
-                                type: "post",
-                                data: {nameImage: result, imgId: $imgId, id: $id},
-                                success: function (response) {
-                                    $(".overlay").hide();
-                                    $(".thumbnails").html(response);
-                                },
-                                error: function () {
-                                    $(".overlay").hide();
-                                    bootbox.alert("Rename error, please reload this page and try again.");
-                                }
-                            });
-                        }
-                    });
-                },
-                deleteImg: function ($imgId, $id) {
-                    bootbox.confirm("Do you want to delete this image?", function (result) {
-                        if (result == true) {
-                            $(".overlay").show();
-                            $.ajax({
-                                url: "/deleteImage",
-                                type: "post",
-                                data: {imgId: $imgId, id: $id},
-                                success: function (response) {
-                                    $(".overlay").hide();
-                                    $(".thumbnails").html(response);
-                                },
-                                error: function () {
-                                    $(".overlay").hide();
-                                    bootbox.alert("Delete fail!");
-                                }
-                            });
-                        }
-                    });
-                },
-                sendViaMail: function ($imgId, $filePath) {
-                    bootbox.prompt("Warning: Disclosure of your invention to a third-party can impact your patent rights. Contact our partner, Dunkiel Saunders, or your patent attorney for guidance:", function (result) {
-                        if ((result === null) || (result == "")) {
-                            //Not do
-                        } else {
-                            $(".overlay").show();
-                            $.ajax({
-                                url: "/sendImage",
-                                type: "post",
-                                data: {email: result, imgId: $imgId},
-                                success: function (response) {
-                                    $(".overlay").hide();
-                                    bootbox.alert("Send email success");
-                                },
-                                error: function () {
-                                    $(".overlay").hide();
-                                    bootbox.alert("Send email fail");
-                                }
-                            });
-                        }
-                    });
-                },
-                attornyReview: function ($filePath) {
-                    bootbox.confirm('You are being redirected to an affiliated patent attorney in your area to potentially evaluate your invention, please click "OK" to continue', function (result) {
-                        if (result == true) {
-                            bootbox.alert("You choose OK!");
-                        }
-                    });
-                },
-                openImageOnSketchApp: function ($imgId) {
-                    window.location.replace("/apppage/" + $imgId);
-                },
-                showLargeImg: function ($imgId, $rscImg, $nameImg, $id, $filePath) {
-                    bootbox.dialog({
-                        message: '<img class="large-img" onclick="ImageSketchapp.openImageOnSketchApp(' + $imgId + ')" src="' + $rscImg + '" />',
-                        title: $nameImg,
-                        buttons: {
-                            rename_img: {
-                                label: " Rename",
-                                className: "btn btn-xs btn-default fa fa-pencil",
-                                callback: function () {
-                                    ImageSketchapp.renameImg($imgId, $id);
-                                }
-                            },
-                            send_email: {
-                                label: " Send",
-                                className: "btn btn-success btn-xs fa fa-envelope",
-                                callback: function () {
-                                    ImageSketchapp.sendViaMail($imgId, $filePath);
-                                }
-                            },
-                            delete_img: {
-                                label: " Delete",
-                                className: "btn btn-danger btn-xs fa fa-trash",
-                                callback: function () {
-                                    ImageSketchapp.deleteImg($imgId, $id);
-                                }
-                            },
-                            attorney_review: {
-                                label: " Attorney Review",
-                                className: "btn btn-warning btn-xs fa fa-legal",
-                                callback: function () {
-                                    ImageSketchapp.attornyReview($filePath);
-                                }
-                            },
-                            open_image_on_sketch_app: {
-                                label: " Open in Sketchapp",
-                                className: "btn btn-info btn-xs fa fa-paint-brush",
-                                callback: function () {
-                                    ImageSketchapp.openImageOnSketchApp($imgId);
-                                }
-                            }
-                        }
-                    });
-                }
-            }
-        </script>      
-    </head>
-
-    <body>
-        <div class="overlay">            
-            <img class="load-waiting" width="150px" height="150px" src="/bundles/abctest/img/ajax-loader.gif">            
-        </div>
-        <!-- topbar starts -->
-        <div class="navbar navbar-default" role="navigation">
-
-            <div class="navbar-inner">
-                <button type="button" class="navbar-toggle pull-left animated flip">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/" style="padding-left: 40px; padding-top: 5px;">
-                    <img src="/bundles/landing_page/img/patentthat-logo.png">
-                </a>
-
-                <!-- user dropdown starts -->
-                <div class="btn-group pull-right">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs">{% if   app.session.get('isAdmin') == 1 %} Account {% else %} Account {% endif %}</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{ path('pnc_management_userprofile') }}">Profile</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ path('pnc_management_logout') }}">Logout</a></li>
+{% block content %}
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                    <h2><i class="glyphicon glyphicon-picture"></i> Portfolio</h2>
+                </div>
+                <div class="box-content">
+                    <br>
+                    <ul class="thumbnails">
+                        {% if filePaths is defined %}
+                            {% if numImage >= 0 %}
+                                {% for i in 0..numImage-1 %}
+                                    <li class="thumbnail">
+                                        <img class="small-img" onclick="ImageSketchapp.showLargeImg({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
+                                        <p class="name-img" style= "text-align: center;">{{ picnames[i] }}</p>
+                                        <p class="btn-group">
+                                            <button onclick =  "ImageSketchapp.renameImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-xs btn-default fa fa-pencil" title="Rename" ></button>
+                                            <button onclick =  "ImageSketchapp.sendViaMail('{{ imgId[i] }}', '{{ filePaths[i] }}')" class="btn btn-success btn-xs fa fa-envelope" title="Send to email"></button>
+                                            <button onclick =  "ImageSketchapp.deleteImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-danger btn-xs fa fa-trash" title="Delete"></button>
+                                            <button onclick =  "ImageSketchapp.attornyReview('{{ imgId[i]}}', '{{ id }}')" class="btn btn-warning btn-xs fa fa-legal" title="Submit for Attorney Review"></button>
+                                            <button onclick =  "ImageSketchapp.openImageOnSketchApp('{{ imgId[i]}}', '{{ id }}')" class="btn btn-info btn-xs fa fa-paint-brush" title="Open in sketchapp"></button>
+                                        </p>
+                                    </li>
+                                {% endfor %}
+                            {% else %}
+                                <p style="font-style:italic">Your portfolio is empty </p>
+                            {% endif %}
+                        {% endif %}
                     </ul>
+                    <a class="btn btn-primary" href="{{ path('page_app') }}">           
+                        <i class="glyphicon glyphicon-edit"></i>
+                        Create New
+                    </a>
                 </div>
-                <!-- user dropdown ends -->
-                <!-- navbar -->
-                <div>
-
-                    <ul class="nav navbar-nav navbar-right" style ="padding-top: 0px; padding-right: 20px;">
-                        <li><a href="{{path('page_landing')}}">Home</a></li>
-                        <li><a href="{{path('page_app') }}">Sketch</a></li>
-                        <li><a href="#">  FAQS</a></li>
-                        <li><a href="/contactus">  Contact Us</a></li>
-                        <li><a href="{{path('pnc_management_usergallery')}}" style = "margin-right: 270px;">  Dashboard</a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
-                        </li>                   
-                </div>
-                <!-- /navbar -->
             </div>
         </div>
-        <!-- topbar ends -->
-        <div class="ch-container">
-            <div class="row">
-
-                <!-- left menu starts -->
-                <div class="col-sm-2 col-lg-2">
-                    <div class="sidebar-nav">
-                        <div class="nav-canvas">
-                            <div class="nav-sm nav nav-stacked">
-                            </div>
-                            <ul class="nav nav-pills nav-stacked main-menu">
-                                <li class="nav-header">Main</li>
-                                <!--
-                                {% if   app.session.get('isAdmin') == 1 %}
-                                <li><a class="ajax-link" href="{{ path('admin_home') }}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
-                                </li>                       
-                                {% else %}
-                                <li><a class="ajax-link" href="{{ path('pnc_management_userhome') }}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
-                                </li>
-                                {% endif %}
-                                -->
-                                <li><a class="ajax-link" href="{{ path('pnc_management_userprofile') }}"><i
-                                            class="glyphicon glyphicon-edit"></i><span> Profile</span></a></li>
-
-                                {% if   app.session.get('isAdmin') == 1 %}            
-                                    <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
-                                    </li>
-                                {% else %}
-                                    <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
-                                    </li>
-                                {% endif %}
-                                {% if   app.session.get('isAdmin') == 1 %}
-                                    <li><a class="ajax-link" href="{{ path('admin_table') }}"><i
-                                                class="glyphicon glyphicon-align-justify"></i><span> Users Table </span></a></li>
-                                            {% endif %}
-                                <li><a href="{{ path('pnc_management_logout') }}"><i class="glyphicon glyphicon-lock"></i><span> Logout </span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!--/span-->
-                <!-- left menu ends -->
-
-                <div id="content" class="col-lg-10 col-sm-10">
-                    <!-- content starts -->
-                    <div class="row">
-                        <div class="box col-md-12">
-                            <div class="box-inner">
-                                <div class="box-header well" data-original-title="">
-                                    <h2><i class="glyphicon glyphicon-picture"></i> Portfolio</h2>
-                                </div>
-                                <div class="box-content">
-                                    <br>
-                                    <ul class="thumbnails">
-                                        {% if filePaths is defined %}
-                                            {% if numImage >= 0 %}
-                                                {% for i in 0..numImage-1 %}
-                                                    <li class="thumbnail">
-                                                        <img class="small-img" onclick="ImageSketchapp.showLargeImg({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
-                                                        <p class="name-img" style= "text-align: center;">{{ picnames[i] }}</p>
-                                                        <p class="btn-group">
-                                                            <button onclick =  "ImageSketchapp.renameImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-xs btn-default fa fa-pencil" title="Rename" ></button>
-                                                            <button onclick =  "ImageSketchapp.sendViaMail('{{ imgId[i] }}', '{{ filePaths[i] }}')" class="btn btn-success btn-xs fa fa-envelope" title="Send to email"></button>
-                                                            <button onclick =  "ImageSketchapp.deleteImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-danger btn-xs fa fa-trash" title="Delete"></button>
-                                                            <button onclick =  "ImageSketchapp.attornyReview('{{ imgId[i]}}', '{{ id }}')" class="btn btn-warning btn-xs fa fa-legal" title="Submit for Attorney Review"></button>
-                                                            <button onclick =  "ImageSketchapp.openImageOnSketchApp('{{ imgId[i]}}', '{{ id }}')" class="btn btn-info btn-xs fa fa-paint-brush" title="Open in sketchapp"></button>
-                                                        </p>
-                                                    </li>
-                                                {% endfor %}
-                                            {% else %}
-                                                <p style="font-style:italic">Your portfolio is empty </p>
-                                            {% endif %}
-                                        {% endif %}
-                                    </ul>
-                                    <a class="btn btn-primary" href="{{ path('page_app') }}">           
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        Create New
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div><!--/row-->
-                    <!-- content ends -->
-                </div><!--/#content.col-md-0-->
-            </div><!--/fluid-row-->
-
-            <footer class="row footer navbar-fixed-bottom">
-                <p style = "text-align: center;" class="col-md-12 col-sm-12 col-xs-12 copyright">Powered by <a href="http://Miratik.com">Miratik</a></p>
-            </footer>
-
-        </div><!--/.fluid-container-->
-
-        <!-- external javascript -->
-
-        <script src="{{ asset('bundles/abctest/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-
-        <!-- library for cookie management -->
-        <script src="{{ asset('bundles/abctest/js/jquery.cookie.js') }}"></script>
-
-        <!-- data table plugin -->
-        <!-- <script src='js/jquery.dataTables.min.js'></script> -->
-        <script src="{{ asset('bundles/abctest/js/jquery.dataTables.min.js') }}"></script>
-
-        <!-- select or dropdown enhancer -->
-        
-        <!-- plugin for gallery image view -->
-        <!-- library for making tables responsive -->
-        <!-- <script src="bower_components/responsive-tables/responsive-tables.js"></script> -->
-        <script src="{{ asset('bundles/abctest/bower_components/responsive-tables/responsive-tables.js') }}"></script>      
-
-    </body>
-</html>
+        <!--/span-->
+    </div><!--/row-->
+{% endblock %}

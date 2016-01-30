@@ -1,227 +1,146 @@
 {% extends "AcmeDemoBundle::manage_layout.html.twig" %}
+{% block content %}
+    <div class="row">
+        <div class="box col-md-12">
+            <div class="box-inner">
+                <div class="box-header well" data-original-title="">
+                </div>
+                <div class="box-content">
+                    <!-- put your content here -->
+                    <!-- START -->
+                    <div class="row">
+                        <div class="box col-md-6">
+                            <div class="box-inner">
+                                <div class="box-header well" data-original-title="">
+                                    <h2>Your Profile</h2>
+                                </div>
+                                <div class="box-content">
 
+                                    {{ form_start(edit_form) }}
+                                    <table class="table table-striped">                       
+                                        <tr hidden>
+                                            <th>Username</th>
+                                                {% if   app.session.get('isAdmin') == 1 %}
+                                                <td>{{ form_errors(edit_form.userName) }}</td>
+                                                <td>{{ form_widget(edit_form.userName) }}</td>
+                                            {% else %}
+                                                <td>{{ form_errors(edit_form.userName) }}</td>
+                                                <td>{{ form_widget(edit_form.userName, {'attr' : {'hidden' : true }}) }}</td>
+                                            {% endif %}
 
+                                        </tr>
+                                        <tr>
+                                            <th>Username</th>
+                                            <td></td>
+                                            <td><input type="text" value="{{entity.userName}}"  disabled  /></td>
+                                        </tr>
+                                        <tr hidden>
+                                            <th>Email</th>
+                                            <td>{{ form_errors(edit_form.email) }}</td>
+                                            <td>{{ form_widget(edit_form.email) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td></td>
+                                            <td><input type="text" value="{{entity.email}}"  disabled  /></td>
+                                        </tr>
+                                        <tr hidden>
+                                            <th>Password</th>
+                                            <td>{{ form_errors(edit_form.password) }}</td>
+                                            <td>{{ form_widget(edit_form.password, {value : entity.password }) }}</td>
+                                        </tr>
 
+                                        <tr hidden>
+                                            <th>Password</th>
+                                            <td></td>
+                                            <td><input type="password" value="{{entity.password}}"  disabled  /></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Lastname</th>
+                                            <td>{{ form_errors(edit_form.lastName) }}</td>
+                                            <td>{{ form_widget(edit_form.lastName) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Firstname</th>
+                                            <td>{{ form_errors(edit_form.firstName) }}</td>
+                                            <td>{{ form_widget(edit_form.firstName) }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Language</th>
+                                            <td>{{ form_errors(edit_form.language) }}</td>
+                                            <td>{{ form_widget(edit_form.language) }}</td>
+                                        </tr>
+                                        <tr hidden>
+                                            <th>isAdmin</th>
+                                                {% if   app.session.get('isAdmin') == 1 %}
+                                                <td>{{ form_errors(edit_form.isAdmin) }}</td>
+                                                <td>{{ form_widget(edit_form.isAdmin) }}</td> 
+                                            {% else %}
+                                                <td>{{ form_errors(edit_form.isAdmin) }}</td>
+                                                <td>{{ form_widget(edit_form.isAdmin, {'attr' : {'hidden' : true }}) }}</td>           
+                                            {% endif %}
+                                        </tr>
+                                    </table>                              
+                                    <br>           
+                                    {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-primary btn-mn active btnRegister'} }) }}      
+                                    {{ form_end(edit_form) }}
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                        <div class="box col-md-6">
+                            <div class="box-inner">
+                                <div class="box-header well" data-original-title="">
+                                    <h2>Change your password</h2>
+                                </div>
+                                <div class="box-content">
+                                    <form method="POST" action="{{ path('mana_change_password', { 'id': entity.id }) }}">
+                                        <table class="table table-striped"> 
+                                            <tr>
+                                                <th>Password</th>
+                                                <td><input type="password" placeholder="Password" required="" id="password" name ="password"/></td>
+                                                <td style = "color :red">
+                                                    {% if errorLength is defined %}
+                                                        {{ errorLength }}
+                                                    {% endif %}
 
-        
-        {% block leftmenu %}
-        <div class="col-sm-2 col-lg-2">
-            <div class="sidebar-nav">
-                <div class="nav-canvas">
-                    <div class="nav-sm nav nav-stacked">
-                    </div>
-                    <ul class="nav nav-pills nav-stacked main-menu">
-                        <li class="nav-header">Main</li>
-                        <!--
-                        {% if   app.session.get('isAdmin') == 1 %}
-                        <li><a class="ajax-link" href="{{ path('admin_home') }}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
-                        </li>
-                        {% else %}
-                        <li><a class="ajax-link" href="{{ path('pnc_management_userhome') }}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
-                        </li>
-                        {% endif %}                       
-                        -->
+                                                </td>
+                                            </tr>
 
-                        <li><a class="ajax-link" href="{{ path('pnc_management_userprofile') }}"><i
-                                    class="glyphicon glyphicon-edit"></i><span> Profile</span></a></li>
-                        
-                        {% if   app.session.get('isAdmin') == 1 %}            
-                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
-                        </li>
-                        {% else %}
-                        <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Portfolio</span></a>
-                        </li>
-                        {% endif %}
-
-                        
-
-                        {% if   app.session.get('isAdmin') == 1 %}
-                        <li><a class="ajax-link" href="{{ path('admin_table') }}"><i
-                                    class="glyphicon glyphicon-align-justify"></i><span> Users Table </span></a></li>
-                        {% endif %}
-
-                                                                                                                                         
-                        <li><a href="{{ path('pnc_management_logout') }}"><i class="glyphicon glyphicon-lock"></i><span> Logout </span></a>
-                        </li>
-                    </ul>
-                    
+                                            <tr>
+                                                <th>Confirm</th>
+                                                <td><input type="password" placeholder="Password" required="" id="confirm" name ="confirm"/></td>
+                                                <td style = "color :red">
+                                                    {% if errorSame is defined %}
+                                                        {{ errorSame }}
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% if msg is defined %}
+                                                <tr>
+                                                    <td></td>
+                                                    <td style = "color :green">
+                                                        {{ msg }}
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
+                                        </table> 
+                                        <div id = "btnLogin">
+                                            <!--<input type="submit" value="Submit" style=" margin-bottom: 5px;  margin-top: 10px;"/>-->
+                                            <input type="submit" value="Submit" class="btn btn-primary btn-mn active btnRegister"/>
+                                        </div>
+                                    </form><!-- form -->    
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div><!--/row-->
+                    <!-- END -->
                 </div>
             </div>
         </div>
-        {% endblock %}
-        
-        {% block content %}
-        <div class="row">
-            <div class="box col-md-12">
-                <div class="box-inner">
-                    <div class="box-header well" data-original-title="">
-                        
-                    </div>
-                    <div class="box-content">
-                        <!-- put your content here -->
-
-                        <!-- START -->
-                        
-                        <div class="row">
-                            <div class="box col-md-6">
-                            <div class="box-inner">
-                            <div class="box-header well" data-original-title="">
-                                <h2>Your Profile</h2>
-
-                                </div>
-                            <div class="box-content">
-
-                            {{ form_start(edit_form) }}
-                            <table class="table table-striped">                       
-                                <tr hidden>
-                                    <th>Username</th>
-                                    {% if   app.session.get('isAdmin') == 1 %}
-                                    <td>{{ form_errors(edit_form.userName) }}</td>
-                                    <td>{{ form_widget(edit_form.userName) }}</td>
-                                    {% else %}
-                                    <td>{{ form_errors(edit_form.userName) }}</td>
-                                    <td>{{ form_widget(edit_form.userName, {'attr' : {'hidden' : true }}) }}</td>
-                                    {% endif %}
-
-                                </tr>
-                                <tr>
-                                    <th>Username</th>
-                                    <td></td>
-                                    <td><input type="text" value="{{entity.userName}}"  disabled  /></td>
-                                </tr>
-                                <tr hidden>
-                                    <th>Email</th>
-                                    <td>{{ form_errors(edit_form.email) }}</td>
-                                    <td>{{ form_widget(edit_form.email) }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <td></td>
-                                    <td><input type="text" value="{{entity.email}}"  disabled  /></td>
-                                </tr>
-                                <tr hidden>
-                                    <th>Password</th>
-                                    <td>{{ form_errors(edit_form.password) }}</td>
-                                    <td>{{ form_widget(edit_form.password, {value : entity.password }) }}</td>
-                                </tr>
-                                
-                                <tr hidden>
-                                    <th>Password</th>
-                                    <td></td>
-                                    <td><input type="password" value="{{entity.password}}"  disabled  /></td>
-                                </tr>
-                                <tr>
-                                    <th>Lastname</th>
-                                    <td>{{ form_errors(edit_form.lastName) }}</td>
-                                    <td>{{ form_widget(edit_form.lastName) }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Firstname</th>
-                                    <td>{{ form_errors(edit_form.firstName) }}</td>
-                                    <td>{{ form_widget(edit_form.firstName) }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Language</th>
-                                    <td>{{ form_errors(edit_form.language) }}</td>
-                                    <td>{{ form_widget(edit_form.language) }}</td>
-                                </tr>
-                                <tr hidden>
-                                    <th>isAdmin</th>
-                                    {% if   app.session.get('isAdmin') == 1 %}
-                                    <td>{{ form_errors(edit_form.isAdmin) }}</td>
-                                    <td>{{ form_widget(edit_form.isAdmin) }}</td> 
-                                    {% else %}
-                                    <td>{{ form_errors(edit_form.isAdmin) }}</td>
-                                    <td>{{ form_widget(edit_form.isAdmin, {'attr' : {'hidden' : true }}) }}</td>           
-                                    {% endif %}
-                                </tr>
-                            </table>                              
-                            <br>           
-                            {{ form_widget(edit_form.submit, { 'attr': {'class': 'btn btn-primary btn-mn active btnRegister'} }) }}      
-                            {{ form_end(edit_form) }}
-
-                            <br>
-                            
-                            <br>
-                            
-                            
-                            </div>
-                            </div>
-                            </div>
-                            <!--/span-->
-
-
-
-
-
-                            <div class="box col-md-6">
-                            <div class="box-inner">
-                            <div class="box-header well" data-original-title="">
-                                <h2>Change your password</h2>
-
-                                </div>
-                            <div class="box-content">
-
-                            
-                            <form method="POST" action="{{ path('mana_change_password', { 'id': entity.id }) }}">
-                            
-                       
-                            <table class="table table-striped"> 
-                            <tr>
-                                    <th>Password</th>
-                                    <td><input type="password" placeholder="Password" required="" id="password" name ="password"/></td>
-                                    <td style = "color :red">
-                                        {% if errorLength is defined %}
-                                            {{ errorLength }}
-                                        {% endif %}
-
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <th>Confirm</th>
-                                    <td><input type="password" placeholder="Password" required="" id="confirm" name ="confirm"/></td>
-                                    <td style = "color :red">
-                                        {% if errorSame is defined %}
-                                            {{ errorSame }}
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% if msg is defined %}
-                                <tr>
-                                    <td></td>
-                                    <td style = "color :green">
-                                        
-                                            {{ msg }}
-                                        
-                                    </td>
-                                </tr>
-                                {% endif %}
-                            </table> 
-                            <div id = "btnLogin">
-                                <!--<input type="submit" value="Submit" style=" margin-bottom: 5px;  margin-top: 10px;"/>-->
-                                <input type="submit" value="Submit" class="btn btn-primary btn-mn active btnRegister"/>
-                            </div>
-                        </form><!-- form -->    
-                         
-
-                            <br>
-                            
-                            
-                            
-                            </div>
-                            </div>
-                            </div>
-                            <!--/span-->
-
-                        </div><!--/row-->
-
-                        <!-- END -->
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endblock %}
+    </div>
+{% endblock %}
