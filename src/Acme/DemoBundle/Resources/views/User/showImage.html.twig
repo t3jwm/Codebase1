@@ -1,33 +1,20 @@
-  {% if filePaths is defined %}
-                        {% if numImage > 0 %}
-                            {% for i in 0..numImage-1 %}
+{% if filePaths is defined %}
+    {% if numImage > 0 %}
+        {% for i in 0..numImage-1 %}
+            <li class="thumbnail">
+                <img onclick="showImage({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
 
-
-                            <li class="thumbnail">
-                                <a style="background:url({{asset(filePaths[i]~'.jpeg')}} );"
-                                   title="Image 1" href="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}">
-                                   <img src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
-                                </a>
-                                <p style= "text-align: center;">{{ picnames[i] }}</p>
-                                <p class="btn-group">
-
-                                    <button onclick =  "renameImage('{{ imgId[i]}}','{{ id }}')" class="btn btn-xs btn-info" >Rename</button>
-
-                                    <button onclick =  "sendImage('{{ imgId[i]}}')" class="btn btn-success btn-xs" >Send</button>
-
-
-                                    <button onclick =  "deleteImage('{{ imgId[i]}}','{{ id }}')" class="btn btn-danger btn-xs" >Delete</button>
-                                    
-
-                                </p>
-                            </li>
-
-
-
-                            
-
-                            {% endfor %}
-                        {% else %}
-                            <p style="font-style:italic">Your Portfolio is Empty !</p>
-                        {% endif %}
-                        {% endif %}
+                <p style= "text-align: center;">{{ picnames[i] }}</p>
+                <p class="btn-group">
+                    <button onclick =  "ImageSketchapp.renameImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-xs btn-default fa fa-pencil" title="Rename" ></button>
+                    <button onclick =  "ImageSketchapp.sendViaMail('{{ imgId[i] }}', '{{ filePaths[i] }}')" class="btn btn-success btn-xs fa fa-envelope" title="Send to email"></button>
+                    <button onclick =  "ImageSketchapp.deleteImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-danger btn-xs fa fa-trash" title="Delete"></button>
+                    <button onclick =  "ImageSketchapp.attornyReview('{{ imgId[i]}}', '{{ id }}')" class="btn btn-warning btn-xs fa fa-legal" title="Submit for Attorney Review"></button>
+                    <button onclick =  "ImageSketchapp.openImageOnSketchApp('{{ imgId[i]}}', '{{ id }}')" class="btn btn-info btn-xs fa fa-paint-brush" title="Open in sketchapp"></button>
+                </p>
+            </li>
+        {% endfor %}
+    {% else %}
+        <p style="font-style:italic">Your Portfolio is Empty !</p>
+    {% endif %}
+{% endif %}
