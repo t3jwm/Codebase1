@@ -393,7 +393,7 @@ class UserController extends Controller
             {
                 //if ($remember == 'remember-me') {
                 $login = new Login();
-                $isAdmin =  1;//$user->getIsAdmin();
+                $isAdmin =  $user->getIsAdmin();
                 $userid = $user->getId();
                 $username = $user->getUserName();
                 $login->setUserName($userName);
@@ -405,10 +405,11 @@ class UserController extends Controller
                 $session->set('userid', $userid); 
                 $session->set('username', $username);
                 //}
-                if($isAdmin)
+                if($isAdmin){
                     return $this->redirect($this->generateUrl('admin_home'));
-                else
+                }else{
                     return $this->redirect($this->generateUrl('pnc_management_userhome'));
+                }
             } 
             else 
             {//-login fail
