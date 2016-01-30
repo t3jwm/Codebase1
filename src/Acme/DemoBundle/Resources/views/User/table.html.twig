@@ -1,4 +1,43 @@
-{% extends "AcmeDemoBundle::manage_layout.html.twig" %}        
+{% extends "AcmeDemoBundle::manage_layout.html.twig" %}
+
+
+    
+
+        
+        {% block leftmenu %}
+        <div class="col-sm-2 col-lg-2">
+            <div class="sidebar-nav">
+                <div class="nav-canvas">
+                    <div class="nav-sm nav nav-stacked">
+                    </div>
+                    <ul class="nav nav-pills nav-stacked main-menu">
+                        <li class="nav-header">Main</li>
+                        <!--
+                        <li><a class="ajax-link" href="{{ path('admin_home') }}"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
+                        </li>                       
+                        -->
+                        <li><a class="ajax-link" href="{{ path('pnc_management_usergallery') }}"><i
+                                    class="glyphicon glyphicon-edit"></i><span> Profile</span></a></li>
+                        
+                        <li><a class="ajax-link" href="{{ path('admin_gallery') }}"><i class="glyphicon glyphicon-picture"></i><span> Gallery</span></a>
+                        </li>
+
+                        
+                        {% if   app.session.get('isAdmin') == 1 %}
+                        <li><a class="ajax-link" href="{{ path('admin_table') }}"><i
+                                    class="glyphicon glyphicon-align-justify"></i><span> Users Table </span></a></li>
+                        {% endif %}
+
+                                                                                                                                          
+                        <li><a href="{{ path('pnc_management_logout') }}"><i class="glyphicon glyphicon-lock"></i><span> Logout </span></a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
         
     {% block content %}
     <div class="row">
@@ -64,6 +103,8 @@
             View Imgs
             </a>
             </td>
+
+
         </tr>
         {% endfor %}
 
@@ -75,7 +116,8 @@
             </a>
     </div>
     </div>
-    </div>  
+    </div>
+    
 
     </div>
     {% endblock %}
