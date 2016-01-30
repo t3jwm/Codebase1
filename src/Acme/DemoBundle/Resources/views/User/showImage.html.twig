@@ -2,7 +2,7 @@
     {% if numImage > 0 %}
         {% for i in 0..numImage-1 %}
             <li class="thumbnail">
-                <img onclick="showImage({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
+                <img onclick="ImageSketchapp.showLargeImg({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
 
                 <p style= "text-align: center;">{{ picnames[i] }}</p>
                 <p class="btn-group">
