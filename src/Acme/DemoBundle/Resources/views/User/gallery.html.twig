@@ -126,35 +126,35 @@
                                 label: " Rename",
                                 className: "btn btn-xs btn-default fa fa-pencil",
                                 callback: function () {
-                                    this.renameImg($imgId, $id);
+                                    ImageSketchapp.renameImg($imgId, $id);
                                 }
                             },
                             send_email: {
                                 label: " Send",
                                 className: "btn btn-success btn-xs fa fa-envelope",
                                 callback: function () {
-                                    this.sendViaMail($imgId, $filePath);
+                                    ImageSketchapp.sendViaMail($imgId, $filePath);
                                 }
                             },
                             delete_img: {
                                 label: " Delete",
                                 className: "btn btn-danger btn-xs fa fa-trash",
                                 callback: function () {
-                                    this.deleteImg($imgId, $id);
+                                    ImageSketchapp.deleteImg($imgId, $id);
                                 }
                             },                            
                             attorney_review: {
                                 label: " Attorney Review",
                                 className: "btn btn-warning btn-xs fa fa-legal",
                                 callback: function () {
-                                    this.attornyReview($filePath);
+                                    ImageSketchapp.attornyReview($filePath);
                                 }
                             },
                             open_image_on_sketch_app: {
                                 label: " Open in Sketchapp",
                                 className: "btn btn-info btn-xs fa fa-paint-brush",
                                 callback: function () {
-                                    this.openImageOnSketchApp($imgId);
+                                    ImageSketchapp.openImageOnSketchApp($imgId);
                                 }
                             }
                         }
