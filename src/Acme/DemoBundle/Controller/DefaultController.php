@@ -96,27 +96,31 @@ class DefaultController extends Controller {
         
         if ($usePOST) { // string
             foreach ($_POST as $key => $value) {
-                var_dump("Gia tri value:", $value);
+                
                 $ext = str_replace("_", ".", $key);
+                var_dump("0: ", $ext);
+                var_dump("1: ", $mime[$ext]);
                 if (!isset($mime[$ext]))
                     continue;
+                var_dump("2: ", $type);
+                var_dump("3: ", $extension);
                 list($type, $extension) = explode("/", $mime[$ext]);
                 /// Base64 decode.
-                if ($type === "image" && $ext !== "svg") {
+                if ($type === "image" && $ext !== "svg") {                    
                     $split = explode(",", $value);
                     $value = base64_decode($split[1]);
+                    var_dump("4: ", $value);
                 }
                 /// Put image data.
                 //$md5 = md5($value);
                 $filepath = "{$targetdir}/{$document}.{$ext}";
                 //$filepath = "{$targetdir}/{$md5}.{$ext}";
                 //$created[] = $filepath;
-                
+                var_dump("5: ", $filepath);
                 file_put_contents($filepath, $value);
             }
-        }
-        var_dump("value after: ", $value);
-        die("die here!!");
+        }        
+        die("Stop!!!");
 
 
         /* filesystem.php?type=sketch&file=drawing
