@@ -93,10 +93,10 @@ class DefaultController extends Controller {
         /* $_POST (UTF-8 upload)
           -------------------------------------------------------- */
         $usePOST = isset($_POST) && count($_POST);
-        var_dump($usePOST);
-        die;
+        
         if ($usePOST) { // string
             foreach ($_POST as $key => $value) {
+                var_dump($value);
                 $ext = str_replace("_", ".", $key);
                 if (!isset($mime[$ext]))
                     continue;
@@ -111,9 +111,11 @@ class DefaultController extends Controller {
                 $filepath = "{$targetdir}/{$document}.{$ext}";
                 //$filepath = "{$targetdir}/{$md5}.{$ext}";
                 //$created[] = $filepath;
+                var_dump("value after: ", $value);
                 file_put_contents($filepath, $value);
             }
         }
+        die("die here!!");
 
 
         /* filesystem.php?type=sketch&file=drawing
