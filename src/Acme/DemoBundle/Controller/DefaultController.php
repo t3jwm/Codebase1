@@ -96,7 +96,7 @@ class DefaultController extends Controller {
         
         if ($usePOST) { // string
             foreach ($_POST as $key => $value) {
-                var_dump($value);
+                var_dump("Gia tri value:", $value);
                 $ext = str_replace("_", ".", $key);
                 if (!isset($mime[$ext]))
                     continue;
