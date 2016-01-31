@@ -78,6 +78,7 @@ class DefaultController extends Controller {
         $useFILES = isset($_FILES) && count($_FILES);
         if ($useFILES) { // blob
             foreach ($_FILES as $key => $value) {
+                var_dump("value: ",$value);
                 $name = str_replace("_", ".", $key);
                 $ext = array_pop((explode(".", $name)));
                 if (!isset($mime[$ext])){                    
