@@ -103,8 +103,10 @@ class DefaultController extends Controller {
                 var_dump("0: ", $ext);
                 //var_dump("1: ", $mime[$ext]);
                 if (!isset($mime[$ext])){
+                    
+                    //continue;
+                }else{
                     var_dump('1: ',$mime[$ext]);
-                    continue;
                 }
                 var_dump("2: ", $type);
                 var_dump("3: ", $extension);
