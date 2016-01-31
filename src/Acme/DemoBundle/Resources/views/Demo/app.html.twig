@@ -157,22 +157,22 @@
     {% if code != '' %}
         <script>
             // Xử lí dựa trên URL
-            var SketchappImg = {
+            var SketchappImgObject = {
                     idImg :{{ idImage }},
-                    codeImg :{{ code }},
+                    codeImg :"{{ code }}",
                     init : function(){
-                    $(document).ready(function () {
-                    setTimeout(function () {
-                    sk.open.json('{{ SketchappImg.codeImg }}');
-                    }, 1000);
-                    });
+                        $(document).ready(function () {
+                            setTimeout(function () {
+                                sk.open.json(SketchappImgObject.codeImg);
+                            }, 1000);
+                        });
                     },
                     updateIdImg : function(){
                     //Lấy url /apppage/ de up date gia trị 
-                    SketchappImg.idImg = "11111";
+                    SketchappImgObject.idImg = "11111";
                     }
             }
-            SketchappImg.init();
+            SketchappImgObject.init();
         </script>
     {% else %}
 
