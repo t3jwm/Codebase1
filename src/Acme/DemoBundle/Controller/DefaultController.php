@@ -95,7 +95,7 @@ class DefaultController extends Controller {
         /* $_POST (UTF-8 upload)
           -------------------------------------------------------- */
         $usePOST = isset($_POST) && count($_POST);
-        var_dump("coutn: ",count($_POST));
+        var_dump("count: ",count($_POST));
         if ($usePOST) { // string
             foreach ($_POST as $key => $value) {
                 
@@ -104,7 +104,7 @@ class DefaultController extends Controller {
                 //var_dump("1: ", $mime[$ext]);
                 if (!isset($mime[$ext])){
                     var_dump('1: ',$mime[$ext]);
-                    //continue;
+                    continue;
                 }
                 var_dump("2: ", $type);
                 var_dump("3: ", $extension);
