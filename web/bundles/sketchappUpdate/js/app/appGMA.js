@@ -456,7 +456,10 @@
             });
         });
         root.exec.register('save', function () {
-            alert("save");
+            if(IdImage == ""){
+                console.log("Save-to-server");
+                
+            }    
         });        
         root.exec.register('guide', function () {
             setPane('guide');
