@@ -173,7 +173,7 @@
     {% if code != '' %} <!-- Edit Image -->
     <script>
         SketchappImgObject.idImg = {{ idImage }};
-        SketchappImgObject.codeImg = {{ code }};
+        SketchappImgObject.codeImg = "{{ code }}";
         SketchappImgObject.init();
     </script>
     {% else %} <!-- New Image -->

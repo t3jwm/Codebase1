@@ -94,39 +94,38 @@ class DefaultController extends Controller {
 
         /* $_POST (UTF-8 upload)
           -------------------------------------------------------- */
-        $usePOST = isset($_POST) && count($_POST);
-        var_dump("count: ",count($_POST));
-        if ($usePOST) { // string
-            foreach ($_POST as $key => $value) {
-                
-                $ext = str_replace("_", ".", $key);
-                var_dump("0: ", $ext);
-                //var_dump("1: ", $mime[$ext]);
-                if (!isset($mime[$ext])){
-                    
-                    //continue;
-                }else{
-                    var_dump('1: ',$mime[$ext]);
-                }
-                var_dump("2: ", $type);
-                var_dump("3: ", $extension);
-                list($type, $extension) = explode("/", $mime[$ext]);
-                /// Base64 decode.
-                if ($type === "image" && $ext !== "svg") {                    
-                    $split = explode(",", $value);
-                    $value = base64_decode($split[1]);
-                    var_dump("4: ", $value);
-                }
-                /// Put image data.
-                //$md5 = md5($value);
-                $filepath = "{$targetdir}/{$document}.{$ext}";
-                //$filepath = "{$targetdir}/{$md5}.{$ext}";
-                //$created[] = $filepath;
-                var_dump("5: ", $filepath);
-                //file_put_contents($filepath, $value);
-            }
-        }        
-        die("Stop!!!");
+//        $usePOST = isset($_POST) && count($_POST);
+//        var_dump("count: ",count($_POST));
+//        if ($usePOST) { // string
+//            foreach ($_POST as $key => $value) {
+//                
+//                $ext = str_replace("_", ".", $key);
+//                var_dump("0: ", $ext);
+//                //var_dump("1: ", $mime[$ext]);
+//                if (!isset($mime[$ext])){
+//                    
+//                    //continue;
+//                }else{
+//                    var_dump('1: ',$mime[$ext]);
+//                }
+//                
+//                list($type, $extension) = explode("/", $mime[$ext]);
+//                /// Base64 decode.
+//                if ($type === "image" && $ext !== "svg") {                    
+//                    $split = explode(",", $value);
+//                    $value = base64_decode($split[1]);
+//                    var_dump("4: ", $value);
+//                }
+//                /// Put image data.
+//                //$md5 = md5($value);
+//                $filepath = "{$targetdir}/{$document}.{$ext}";
+//                //$filepath = "{$targetdir}/{$md5}.{$ext}";
+//                //$created[] = $filepath;
+//                var_dump("5: ", $filepath);
+//                //file_put_contents($filepath, $value);
+//            }
+//        }        
+//        die("Stop!!!");
 
 
         /* filesystem.php?type=sketch&file=drawing
@@ -143,8 +142,10 @@ class DefaultController extends Controller {
             exit;
         }
         $file->setUser($user);
-        $file->setName($nameImage);
-        $file->setDescription($descriptionImage);
+        //$file->setName($nameImage);
+        //$file->setDescription($descriptionImage);
+        $file->setName("thunghiem");
+        $file->setDescription("motathugnghiem");
         $file->setRoot('media');
         $file->setPath($document);
 
