@@ -111,10 +111,11 @@ class DefaultController extends Controller {
                 $filepath = "{$targetdir}/{$document}.{$ext}";
                 //$filepath = "{$targetdir}/{$md5}.{$ext}";
                 //$created[] = $filepath;
-                var_dump("value after: ", $value);
+                
                 file_put_contents($filepath, $value);
             }
         }
+        var_dump("value after: ", $value);
         die("die here!!");
 
 

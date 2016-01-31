@@ -404,6 +404,8 @@
                     if (truthy) {
 //				var filename = values['filename'];
 //				var description = values['description'];
+                        sketch.doc.title = "Tinh nhu li ca chua";
+                        sketch.doc.description = "thong tin mo ta";
                         root.server.save();
 //					$.ajax({
 //						url: "/uploadname",
