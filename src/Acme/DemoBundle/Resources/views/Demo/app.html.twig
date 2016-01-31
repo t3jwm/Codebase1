@@ -154,27 +154,29 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>	
 {% endblock %}
 {% block addJava %}
-    {% if code != '' %}
-        <script>
-            // Xử lí dựa trên URL
-            var SketchappImgObject = {
-                    idImg :{{ idImage }},
-                    codeImg :"{{ code }}",
-                    init : function(){
-                        $(document).ready(function () {
-                            setTimeout(function () {
-                                sk.open.json(SketchappImgObject.codeImg);
-                            }, 1000);
-                        });
-                    },
-                    updateIdImg : function(){
-                    //Lấy url /apppage/ de up date gia trị 
-                    SketchappImgObject.idImg = "11111";
-                    }
+    <script>
+        var SketchappImgObject = {
+            idImg: "",
+            codeImg: "",
+            init: function () {
+                $(document).ready(function () {
+                    setTimeout(function () {
+                        sk.open.json(SketchappImgObject.codeImg);
+                    }, 1000);
+                });
+            },
+            updateURL: function () { //Updte new value for idImg depending URL(http://.../apppage/idImg);                
+                //update URL;
             }
-            SketchappImgObject.init();
-        </script>
-    {% else %}
-
+        }        
+    </script>
+    {% if code != '' %} <!-- Edit Image -->
+    <script>
+        SketchappImgObject.idImg = {{ idImage }};
+        SketchappImgObject.codeImg = {{ code }};
+        SketchappImgObject.init();
+    </script>
+    {% else %} <!-- New Image -->
+        
     {% endif %}
 {% endblock %}
