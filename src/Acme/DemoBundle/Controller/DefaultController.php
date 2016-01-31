@@ -69,7 +69,8 @@ class DefaultController extends Controller {
             "thumb.png" => "image/png",
             "gif" => "image/gif",
             "jpeg" => "image/jpeg",
-            "png" => "image/png"
+            "png" => "image/png",
+           // "fileName" => "fileName",
         );
 
         /* $_FILES (Binary upload)
@@ -79,8 +80,9 @@ class DefaultController extends Controller {
             foreach ($_FILES as $key => $value) {
                 $name = str_replace("_", ".", $key);
                 $ext = array_pop((explode(".", $name)));
-                if (!isset($mime[$ext]))
+                if (!isset($mime[$ext])){                    
                     continue;
+                }                    
                 $tmp_name = $_FILES[$key]["tmp_name"];
                 //$md5 = md5_file($tmp_name);
                 $filepath = "{$targetdir}/{$document}.{$ext}";
@@ -100,8 +102,10 @@ class DefaultController extends Controller {
                 $ext = str_replace("_", ".", $key);
                 var_dump("0: ", $ext);
                 //var_dump("1: ", $mime[$ext]);
-                if (!isset($mime[$ext]))
-                    continue;
+                if (!isset($mime[$ext])){
+                    var_dump('1: ',$mime[$ext]);
+                    //continue;
+                }
                 var_dump("2: ", $type);
                 var_dump("3: ", $extension);
                 list($type, $extension) = explode("/", $mime[$ext]);
@@ -117,7 +121,7 @@ class DefaultController extends Controller {
                 //$filepath = "{$targetdir}/{$md5}.{$ext}";
                 //$created[] = $filepath;
                 var_dump("5: ", $filepath);
-                file_put_contents($filepath, $value);
+                //file_put_contents($filepath, $value);
             }
         }        
         die("Stop!!!");
