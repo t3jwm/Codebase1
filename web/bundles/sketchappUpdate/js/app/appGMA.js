@@ -401,29 +401,28 @@ var setupExec = function() {
 			message: 'How would you like this saved?', 
 			callback: function(truthy, values) {
 			if (truthy) {
-				var filename = values['filename'];
-				var description = values['description'];
-                                root.server.save();
-                                
-					$.ajax({
-						url: "/uploadname",
-						type: "get",
-						data: { getLastIdImage: "false", isExist: "false", nameImage: filename, descriptionImage: description},
-						dataType: "json",
-						success: function(data){        
-							root.server.save();
-							$.ajax({
-								url: "/uploadname",
-								type: "get",
-								data: { getLastIdImage: "true"},
-								dataType: "json",
-								success: function(data){  
-									isExist = true;											
-									IdImage = data['IdImage'];																								
-								}
-						    });
-						}
-					    });
+//				var filename = values['filename'];
+//				var description = values['description'];
+                                root.server.save(values);                                
+//					$.ajax({
+//						url: "/uploadname",
+//						type: "get",
+//						data: { getLastIdImage: "false", isExist: "false", nameImage: filename, descriptionImage: description},
+//						dataType: "json",
+//						success: function(data){        
+//							root.server.save();
+//							$.ajax({
+//								url: "/uploadname",
+//								type: "get",
+//								data: { getLastIdImage: "true"},
+//								dataType: "json",
+//								success: function(data){  
+//									isExist = true;											
+//									IdImage = data['IdImage'];																								
+//								}
+//						    });
+//						}
+//					    });
 				}
 			
 			}, 
