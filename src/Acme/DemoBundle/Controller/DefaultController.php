@@ -77,8 +77,7 @@ class DefaultController extends Controller {
           -------------------------------------------------------- */
         $useFILES = isset($_FILES) && count($_FILES);
         if ($useFILES) { // blob
-            foreach ($_FILES as $key => $value) {
-                var_dump("value: ",$value);
+            foreach ($_FILES as $key => $value) {                
                 $name = str_replace("_", ".", $key);
                 $ext = array_pop((explode(".", $name)));
                 if (!isset($mime[$ext])){                    
@@ -89,6 +88,8 @@ class DefaultController extends Controller {
                 $filepath = "{$targetdir}/{$document}.{$ext}";
                 //$filepath = "{$targetdir}/{$md5}.{$ext}";
                 //$created[] = $filepath;
+                var_dump("Important: ",$filepath);
+                var_dump("tmp_name: ", $tmp_name);
                 move_uploaded_file($tmp_name, $filepath);
             }
         }
