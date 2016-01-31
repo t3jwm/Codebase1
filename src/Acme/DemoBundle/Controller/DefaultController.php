@@ -31,7 +31,7 @@ class DefaultController extends Controller {
      * @Template()
      */
     public function uploadAction() {
-        
+        var_dump("here now"); die;
         $session = $this->getRequest()->getSession();
         if ($session->has('login')) {
             $login = $session->get('login');

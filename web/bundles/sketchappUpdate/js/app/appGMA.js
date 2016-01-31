@@ -403,7 +403,7 @@ var setupExec = function() {
 			if (truthy) {
 //				var filename = values['filename'];
 //				var description = values['description'];
-                                root.server.save(values);                                
+                                root.server.save();                                
 //					$.ajax({
 //						url: "/uploadname",
 //						type: "get",
