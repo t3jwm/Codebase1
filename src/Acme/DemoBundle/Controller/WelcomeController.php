@@ -108,7 +108,7 @@ class WelcomeController extends Controller {
                         'AcmeDemoBundle:Demo:faq.html.twig', array('name' => ''));
     }
 
-    public function openImageDashAction($idImg) {
+    public function openImageDashAction($code) {
 
         $session = $this->getRequest()->getSession();
         if (!$session->has('login')) {
