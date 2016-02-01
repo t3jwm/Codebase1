@@ -399,7 +399,8 @@ class UserController extends Controller {
         $filePaths = array();
         $imgId = array();
         $picnames = array();
-
+        $descriptions = array();
+        
         $session = $this->getRequest()->getSession();
         if (!($session->has('userid'))) {
 
@@ -430,10 +431,12 @@ class UserController extends Controller {
             $filePaths[$i] = $basePath . '/' . $filenames[$i];
             $imgId[$i] = $products[$i]->getId();
             $picnames[$i] = $products[$i]->getName();
+            $descriptions[$i] = $products[$i]->getDescription();
         }
 
         return $this->render('AcmeDemoBundle:User:gallery.html.twig', array(
                     'picnames' => $picnames,
+                    'descriptions' => $descriptions,
                     'filePaths' => $filePaths,
                     'numImage' => $numImage,
                     'imgId' => $imgId,

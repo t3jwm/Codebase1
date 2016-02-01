@@ -1,7 +1,7 @@
 {% extends "AcmeDemoBundle::manage_layout.html.twig" %}
 {% block page_js %}    
     <script src="{{ asset('bundles/abctest/js/bootbox.js') }}"></script>
-    <script src="{{ asset('bundles/abctest/js/imgSketchAppHandel.js') }}"></script>      
+    <script src="{{ asset('bundles/abctest/js/img-sketchapp-handel.js') }}"></script>      
 {% endblock %}  
 
 {% block content %}
@@ -21,7 +21,7 @@
                             {% if numImage >= 0 %}
                                 {% for i in 0..numImage-1 %}
                                     <li class="thumbnail">
-                                        <img class="small-img" onclick="ImageSketchapp.showLargeImg({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " />
+                                        <img class="small-img" onclick="ImageSketchapp.showLargeImg({{ imgId[i]}}, '{{asset(filePaths[i])}}.jpeg?{{ random(1000) }}', '{{ picnames[i] }}',{{ id }} , '{{ filePaths[i] }}')" src="{{asset(filePaths[i])}}.jpeg?{{ random(1000) }} " title="{{ descriptions[i] }}"/>
                                         <p class="name-img" style= "text-align: center;">{{ picnames[i] }}</p>
                                         <p class="btn-group">
                                             <button onclick =  "ImageSketchapp.renameImg('{{ imgId[i]}}', '{{ id }}')" class="btn btn-xs btn-default fa fa-pencil" title="Rename" ></button>

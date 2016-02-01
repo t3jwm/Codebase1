@@ -166,15 +166,27 @@
                 });
             },
             updateURL: function () { //Updte new value for idImg depending URL(http://.../apppage/idImg);                
-                window.history.pushState("", "", "/apppage/"+SketchappImgObject.idImg);
+                window.history.pushState("", "", "/apppage/" + SketchappImgObject.idImg);
             }
-        }        
+        }
     </script>
     {% if code != '' %} <!-- Edit Image -->
-    <script>
+        <script>
         SketchappImgObject.idImg = {{ idImage }};
-        SketchappImgObject.codeImg = "{{ code }}";
+                SketchappImgObject.codeImg = "{{ code }}";
         SketchappImgObject.init();
-    </script>            
+        </script>            
     {% endif %}
+    <script>
+        window.onbeforeunload = function (e) {
+            e = e || window.event;
+            // For IE and Firefox prior to version 4
+            if (e) {
+                e.returnValue = 'Are you sure?';
+            }
+
+            // For Safari
+            return 'Are you sure?';
+        }
+    </script>
 {% endblock %}

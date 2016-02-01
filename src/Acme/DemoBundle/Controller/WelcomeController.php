@@ -31,62 +31,14 @@ class WelcomeController extends Controller
 
     public function appAction()
     {
-    	/*
-    	 * The action's view can be rendered using render() method
-    	 * or @Template annotation as demonstrated in DemoController.
-    	 *
-    	 */
-    	$code = "";
-    	$filenames = array();
     	$session = $this->getRequest()->getSession();
-    	if ($session->has('login')) {
-    		$login = $session->get('login');
-    		$userId = $login->getUserId();
-    		//var_dump($userId); exit;
-    	
-    	} else {
-    			return $this->redirect($this->generateUrl('account_register'));
-    	}
-    	$repository = $this->getDoctrine()
-    	->getRepository('AcmeDemoBundle:File');
-    	$products = $repository->findByUser($userId);
-    	//var_dump(count($products)); exit;
-    	
-    	
-    	$em = $this->getDoctrine()->getManager();
-    	$file_class = $this->container->getParameter('file_class');
-    	
-    	$basePath ='/media';
-    	//
-    	//$basePath ='/username';
-    	$filePaths = array();
-    	$nameImages = array();
-    	for ($i = 0; $i < count($products); $i++) {
-    		$filenames[$i] = $products[$i]->getPath();
-    		$filePaths[$i] = $basePath.'/'.$filenames[$i];
-    		$nameImages[$i] = $products[$i]->getName();
-    		//echo $filePaths[$i];
-    	}//exit;
-    	 
-    	$numImage = count($nameImages)-1;
-    	//var_dump($filePath); die;
-    	
-    	// check if file exists
-    	/*if (!file_exists($filePaths)) {
-    	 throw $this->createNotFoundException();
-    	 }*/
-    	
-    	$session = $this->getRequest()->getSession();
-    	if ($session->has('login')) {
-    		$login = $session->get('login');
-    		$userName = $login->getUsername();
-    	
-    	
-    		return $this->render('AcmeDemoBundle:Demo:app.html.twig', array('name' => $userName,'filePaths' => $filePaths, 'numImage' => $numImage, 'nameImages' => $nameImages,'code' =>$code ));
-    	
-    	}
-    	return $this->render(
-    			'AcmeDemoBundle:Demo:homepage.html.twig', array('name' => '', 'filePaths' => $filePaths, 'numImage' => $numImage,'code' =>$code ));
+        if ($session->has("login")) {
+            $login = $session->get("login");
+            $userName = $login->getUsername();
+            return $this->render("AcmeDemoBundle:Demo:app.html.twig", array("name" => $userName,"code" => "", "idImage" => ""));
+        }else{
+            return $this->render("AcmeDemoBundle:Demo:homepage.html.twig");
+        }        
     }
     
     public function contactusAction()
