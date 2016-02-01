@@ -24,7 +24,7 @@ public $id;
 * @ORM\ManyToOne(targetEntity="User", fetch="LAZY")
 * @ORM\JoinColumn(name="userId", referencedColumnName="id")
 */
-private $user;
+public $user;
 /**
 * @ORM\Column(type="string", length=255)
 */
