@@ -260,9 +260,9 @@
             ///
             hosts: {// paths to POST and GET and various servers
                 'localhost': {// my local testing environment [can be removed]
-                    HOST: 'localhost/patentthat/web/app_dev.php',
-                    GET: 'localhost/patentthat/web/app_dev.php/upload?sketch=',
-                    POST: 'localhost/patentthat/web/app_dev.php/upload',
+                    HOST: 'localhost/Symfony/patentthat2/web/app_dev.php',
+                    GET: 'localhost/Symfony/patentthat2/web/app_dev.php/upload?sketch=',
+                    POST: 'localhost/Symfony/patentthat2/web/app_dev.php/upload',
                     alias: ['mudcube.local']
                 },
                 'beta.patent-that.com': {// your web host
@@ -402,32 +402,24 @@
                 message: 'How would you like this saved?',
                 callback: function (truthy, values) {
                     if (truthy) {
-//				var filename = values['filename'];
-//				var description = values['description'];
-                        sketch.doc.title = "Tinh nhu li ca chua";
-                        sketch.doc.description = "thong tin mo ta";
+                        sketch.doc.title = values['filename'];
+                        sketch.doc.description = values['description'];
                         root.server.save();
-//					$.ajax({
-//						url: "/uploadname",
-//						type: "get",
-//						data: { getLastIdImage: "false", isExist: "false", nameImage: filename, descriptionImage: description},
-//						dataType: "json",
-//						success: function(data){        
-//							root.server.save();
-//							$.ajax({
-//								url: "/uploadname",
-//								type: "get",
-//								data: { getLastIdImage: "true"},
-//								dataType: "json",
-//								success: function(data){  
-//									isExist = true;											
-//									IdImage = data['IdImage'];																								
-//								}
-//						    });
-//						}
-//					    });
+                        //Get Id of New Image             
+                        setTimeout(function () {
+                            $.ajax({
+                                url: "/uploadname",
+                                type: "post",
+                                data: {optionAction: "getNewIdImg"},
+                                dataType: "json",
+                                success: function (data) {
+                                    //update URL and SketchappImgObject.idImg
+                                    SketchappImgObject.idImg = data.newIdImg;
+                                    SketchappImgObject.updateURL();
+                                }
+                            });
+                        }, 2500);
                     }
-
                 },
                 verify: function (inputs, callback) {
                     for (var n = 0; n < inputs.length; n++) {
@@ -444,21 +436,11 @@
                     cancel: 'Cancel'
                 },
                 fields: [{
-//				id: 'filename',
-//				name: 'filename',
-//				title: 'Filename',
-//				type: 'text',
-//				placeholder: 'Filename'                                
                         id: 'filename',
                         title: 'Filename',
                         type: 'text',
                         placeholder: 'Filename'
                     }, {
-//				id: 'description',
-//				name: 'description',
-//				title: 'Description',
-//				type: 'textarea',
-//				placeholder: 'Description'
                         id: 'description',
                         title: 'Description',
                         type: 'textarea',
@@ -466,120 +448,25 @@
                     }]
             });
         });
+
         root.exec.register('save', function () {
-
-            if (isExist == true) {
-                alertify.confirm("Are you sure you want to overwrite this sketch?", function (result) {
-                    console.log(result);
-                    if (result) {
-                        $.ajax({
-                            url: "/uploadname",
-                            type: "get",
-                            data: {getLastIdImage: "false", isExist: "true", idImage: IdImage},
-                            //data: { isExist: "false", nameImage: fileName, descriptionImage: description},
-                            dataType: "json",
-                            success: function (data) {
-                                root.server.save();
-                            }
-                        });
-                    }
-                });
-//			alertify.prompt({
-//				message: 'Are you sure you want to overwrite this sketch?', 
-//				callback: function(truthy) {			
-//					if (truthy) {												
-//						$.ajax({
-//							url: "/uploadname",
-//							type: "get",
-//							data: { isExist: "true", idImage:  IdImage},
-//							//data: { isExist: "false", nameImage: fileName, descriptionImage: description},
-//							dataType: "json",
-//							success: function(data){
-//								console.log("thanhcong1");
-//								root.server.save();  
-//							}
-//						    });
-//					}
-//				
-//				},
-//				labels: {
-//					ok: 'Save',
-//					cancel: 'Cancel'
-//				}
-//			});
-
+            if (SketchappImgObject.idImg == "") {
+                sk.exec("save-server");
             } else {
-                alertify.prompt({
-                    message: 'How would you like this saved?',
-                    callback: function (truthy, values) {
-
-                        if (truthy) {
-                            var fileName = values['filename'];
-                            var description = values['description'];
-                            $.ajax({
-                                url: "/uploadname",
-                                type: "get",
-                                data: {getLastIdImage: "false", isExist: "false", nameImage: fileName, descriptionImage: description},
-                                dataType: "json",
-                                success: function (data) {
-                                    root.server.save();
-                                    $.ajax({
-                                        url: "/uploadname",
-                                        type: "get",
-                                        data: {getLastIdImage: "true"},
-                                        dataType: "json",
-                                        success: function (data) {
-
-                                            $.ajax({
-                                                url: "/uploadname",
-                                                type: "get",
-                                                data: {getLastIdImage: "true"},
-                                                dataType: "json",
-                                                success: function (data) {
-                                                    isExist = true;
-                                                    IdImage = data['IdImage'];
-                                                }
-                                            });
-
-                                        }
-                                    });
-
-                                }
-                            });
-                        }
-
-                    },
-                    verify: function (inputs, callback) {
-                        for (var n = 0; n < inputs.length; n++) {
-                            if (inputs[n].value === '') {
-                                alertify.error('<i>' + inputs[n].title + '</i> is required');
-                                callback(false);
-                                return;
-                            }
-                        }
-                        callback(true);
-                    },
-                    labels: {
-                        ok: 'Save',
-                        cancel: 'Cancel'
-                    },
-                    fields: [{
-                            id: 'filename',
-                            name: 'filename1',
-                            title: 'Filename',
-                            type: 'text',
-                            placeholder: 'Filename'
-                        }, {
-                            id: 'description',
-                            name: 'description1',
-                            title: 'Description',
-                            type: 'textarea',
-                            placeholder: 'Description'
-                        }]
+                $.ajax({
+                    url: "/uploadname",
+                    type: "post",
+                    data: {optionAction : "updateContentWithIdImg", "currentIdImg" : SketchappImgObject.idImg},
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.status == "success"){
+                            root.server.save();
+                        }                        
+                    }
                 });
             }
         });
-        ///
+        
         root.exec.register('guide', function () {
             setPane('guide');
         });

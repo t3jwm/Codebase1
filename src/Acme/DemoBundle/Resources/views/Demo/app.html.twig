@@ -166,7 +166,7 @@
                 });
             },
             updateURL: function () { //Updte new value for idImg depending URL(http://.../apppage/idImg);                
-                //update URL;
+                window.history.pushState("", "", "/apppage/"+SketchappImgObject.idImg);
             }
         }        
     </script>
@@ -175,8 +175,6 @@
         SketchappImgObject.idImg = {{ idImage }};
         SketchappImgObject.codeImg = "{{ code }}";
         SketchappImgObject.init();
-    </script>
-    {% else %} <!-- New Image -->
-        
+    </script>            
     {% endif %}
 {% endblock %}
