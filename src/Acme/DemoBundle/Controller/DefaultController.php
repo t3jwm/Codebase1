@@ -122,6 +122,7 @@ class DefaultController extends Controller {
             $em->flush();
             
             $response = new Response(json_encode(array("IdImage" => $session->get("currentIdImg"))));
+            $session->set("currentIdImg","");
             $response->headers->set("Content-Type", "application/json");
             return $response;
         }
@@ -154,7 +155,7 @@ class DefaultController extends Controller {
 
         $basePath = "/media";
         //
-        //$basePath ="/username";
+        
         $filePaths = array();
         $nameImages = array();
         for ($i = 0; $i < count($products); $i++) {
