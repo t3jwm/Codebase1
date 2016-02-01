@@ -21,10 +21,9 @@ class File
 */
 public $id;
 /**
-* @ORM\ManyToOne(targetEntity="User", fetch="LAZY")
-* @ORM\JoinColumn(name="userId", referencedColumnName="id")
+* @ORM\Column(type="integer")
 */
-public $user;
+public $userId;
 /**
 * @ORM\Column(type="string", length=255)
 */
@@ -57,15 +56,15 @@ public function getId()
 	return $this->id;
 }
 
-public function setUser($user)
+public function setUserId($userId)
 {
-	$this->user = $user;
+	$this->userId = $userId;
 
 }
 
-public function getUser()
+public function getUserId()
 {
-	return $this->user;
+	return $this->userId;
 }
 
 public function getName()

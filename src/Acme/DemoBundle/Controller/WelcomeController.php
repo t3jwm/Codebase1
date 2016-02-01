@@ -117,7 +117,7 @@ class WelcomeController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository("AcmeDemoBundle:File");
         $file = $repository->findOneById($code);
-        if ((!$file == null) && ($file->userId == $session->get("login")->getUserId())) {            
+        if (($file != null) && ($file->userId == $session->get("login")->getUserId())) {            
             $filepath_dash = '/' . $file->root . '/' . $file->path . '.json';
             return $this->render('AcmeDemoBundle:Demo:app.html.twig', array('name' => $session->get("login")->getUserName(), 'code' => $filepath_dash, 'idImage' => $code));
         }else{

@@ -225,7 +225,7 @@ class UserController extends Controller {
      */
     public function directDeleteAction($id) {
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-        $products = $repository->findByUser($id);
+        $products = $repository->findByUserId($id);
         $numImage = count($products);
 
         if ($numImage == 0) {
@@ -413,7 +413,7 @@ class UserController extends Controller {
         }
 
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-        $products = $repository->findByUser($userId);
+        $products = $repository->findByUserId($userId);
         $numImage = count($products);
 
         $id = $userId;
@@ -583,7 +583,7 @@ class UserController extends Controller {
         $picnames = array();
 
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-        $products = $repository->findByUser($id);
+        $products = $repository->findByUserId($id);
         $numImage = count($products);
 
         if ($numImage == 0) {
@@ -717,7 +717,7 @@ class UserController extends Controller {
         $picnames = array();
 
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-        $products = $repository->findByUser($id);
+        $products = $repository->findByUserId($id);
         $numImage = count($products);
 
         if ($numImage == 0) {
@@ -775,7 +775,7 @@ class UserController extends Controller {
         $picnames = array();
 
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
-        $products = $repository->findByUser($id);
+        $products = $repository->findByUserId($id);
         $numImage = count($products);
 
         if ($numImage == 0) {
