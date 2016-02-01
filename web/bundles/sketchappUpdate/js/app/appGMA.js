@@ -418,7 +418,7 @@
                                     SketchappImgObject.updateURL();
                                 }
                             });
-                        }, 2500);
+                        }, 5000);
                     }
                 },
                 verify: function (inputs, callback) {
