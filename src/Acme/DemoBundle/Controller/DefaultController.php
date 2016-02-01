@@ -96,12 +96,8 @@ class DefaultController extends Controller {
         
         if ((!$session->has("currentIdImg")) || ($session->get("currentIdImg") == "")) { //New Image
             $file = new File();
-            $user_class = $this->container->getParameter("user_class");
-            $user = $em->getRepository($user_class)->findOneById($userId);
-            if (!$user) {
-                exit;
-            }
-            $file->setUser($user);
+            
+            $file->setUserId($userId);
             $file->setName($stringSketchJsonParse["metadata"]["title"]);
             $file->setDescription($stringSketchJsonParse["metadata"]["description"]);
             $file->setRoot("media");
@@ -146,7 +142,7 @@ class DefaultController extends Controller {
         }
         $repository = $this->getDoctrine()
                 ->getRepository("AcmeDemoBundle:File");
-        $products = $repository->findByUser($userId);
+        $products = $repository->findByUserId($userId);
         //var_dump(count($products)); exit;
 
 
