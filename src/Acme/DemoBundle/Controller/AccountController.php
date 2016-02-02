@@ -109,7 +109,7 @@ class AccountController extends Controller
 				//-----Check New or Old User ----//
                 $em = $this->getDoctrine()->getEntityManager();
                 $repository = $em->getRepository('AcmeDemoBundle:File');
-                $file = $repository->findOneBy(array('user' => $user->getId()));
+                $file = $repository->findOneBy(array('userId' => $user->getId()));
                 
                 if ( $file != NULL) {//If new user
                 	return $this->redirect($this->generateUrl('pnc_management_usergallery'));

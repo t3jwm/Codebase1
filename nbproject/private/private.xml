@@ -3,27 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/manage_layout.html.twig</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchappUpdate/min/sketch-api.min.js</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/media/0042bd29ca843f9fca4c38e4ba6aab57d7a0b07a.jpeg</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/media/upload/username/mydocument1.json</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/abctest/css/styles.css</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/User/showImage.html.twig</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/media/fddf42b2d970eff70376ad961b9b1ed5e4d21aaa.json</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchpad/min/sketchapi.min.js</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/Demo/app.html.twig</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/User/table.html.twig</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/manage_layout.html_bk_01_31_2016.twig</file>
+            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Entity/File.php</file>
             <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Controller/DefaultController.php</file>
             <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchappUpdate/js/app/appGMA.js</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchappUpdate/js/app/appGMA.js.bak</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/User/gallery.html.twig</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Resources/views/User/gallery.html_bk_01_31_2016.twig</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchpadNew/js/app/appGMA.js</file>
+            <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Controller/WelcomeController.php</file>
             <file>file:/C:/xampp/htdocs/Symfony/patentthat/src/Acme/DemoBundle/Controller/UserController.php</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchappUpdate/js/app/appContextMenu.js</file>
-            <file>file:/C:/xampp/htdocs/Symfony/patentthat/web/bundles/sketchappUpdate/media/upload/username/mydocument1.json</file>
         </group>
     </open-files>
 </project-private>
