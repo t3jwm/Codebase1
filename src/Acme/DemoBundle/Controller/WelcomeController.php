@@ -32,7 +32,7 @@ class WelcomeController extends Controller {
             $userName = $login->getUsername();
             return $this->render("AcmeDemoBundle:Demo:app.html.twig", array("name" => $userName, "code" => "", "idImage" => ""));
         } else {
-            return $this->render("AcmeDemoBundle:Demo:homepage.html.twig", array("name" => ""));
+            return $this->redirect($this->generateUrl('login_login_homepage'));            
         }
     }
 
