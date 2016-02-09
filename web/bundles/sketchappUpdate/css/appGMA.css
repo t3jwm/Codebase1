@@ -50,10 +50,10 @@ a:hover, a:active { outline: 0; }
 	padding-left: 0px;
 }
 .sketch-api.pad-left .sk-contents {
-	padding-left: 220px;
+	padding-left: 225px;
 }
 .sketch-api.pad-right .sk-contents {
-	padding-right: 220px;
+	padding-right: 225px;
 }
 
 
@@ -151,7 +151,7 @@ a:hover, a:active { outline: 0; }
 
 /* Guide
 -------------------------------------------------- */
-.sk-guide .sk-row-head {
+.sk-guide .sk-header {
 	margin-bottom: 4px;
 }
 .sk-guide .sk-divider div {

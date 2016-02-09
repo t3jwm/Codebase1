@@ -1,5 +1,5 @@
 // From: https://github.com/evanw/OES_texture_float_linear-polyfill
-var OES_texture_float_linear = function(gl) {
+function OES_texture_float_linear(gl) {
   // Uploads a 2x2 floating-point texture where one pixel is 2 and the other
   // three pixels are 0. Linear filtering is only supported if a sample taken
   // from the center of that texture is (2 + 0 + 0 + 0) / 4 = 0.5.

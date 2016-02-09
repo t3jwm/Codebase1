@@ -1,6 +1,6 @@
 /**
  * @license -------------------------------------------------------------------
- *    module: AnimationFrame shim
+ *    module: requestAnimationFrame (2015-03-04)
  *       src: https://github.com/kof/animationFrame
  *    author: Oleg Slobodskoi
  * copyright: (c) 2013 Oleg Slobodskoi
@@ -27,21 +27,30 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
+ 
+ if (!window.requestAnimationFrame) {
 
 !function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var n;"undefined"!=typeof window?n=window:"undefined"!=typeof global?n=global:"undefined"!=typeof self&&(n=self),n.AnimationFrame=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/**
+ * An even better animation frame.
+ *
+ * @copyright Oleg Slobodskoi 2015
+ * @website https://github.com/kof/animationFrame
+ * @license MIT
+ */
 
 module.exports = require('./lib/animation-frame')
 
 },{"./lib/animation-frame":2}],2:[function(require,module,exports){
 'use strict'
 
-var native = require('./native')
+var nativeImpl = require('./native')
 var now = require('./now')
 var performance = require('./performance')
 
 // Weird native implementation doesn't work if context is defined.
-var nativeRequest = native.request
-var nativeCancel = native.cancel
+var nativeRequest = nativeImpl.request
+var nativeCancel = nativeImpl.cancel
 
 /**
  * Animation frame constructor.
@@ -117,7 +126,7 @@ AnimationFrame.prototype.request = function(callback) {
     // Therefore on #cancel we do it for both.
     ++this._tickCounter
 
-    if (native.supported && this.options.useNative && !this._isCustomFrameRate) {
+    if (nativeImpl.supported && this.options.useNative && !this._isCustomFrameRate) {
         return nativeRequest(callback)
     }
 
@@ -138,7 +147,7 @@ AnimationFrame.prototype.request = function(callback) {
             self._callbacks = {}
             for (var id in callbacks) {
                 if (callbacks[id]) {
-                    if (native.supported && self.options.useNative) {
+                    if (nativeImpl.supported && self.options.useNative) {
                         nativeRequest(callbacks[id])
                     } else {
                         callbacks[id](performance.now())
@@ -161,7 +170,7 @@ AnimationFrame.prototype.request = function(callback) {
  * @api public
  */
 AnimationFrame.prototype.cancel = function(id) {
-    if (native.supported && this.options.useNative) nativeCancel(id)
+    if (nativeImpl.supported && this.options.useNative) nativeCancel(id)
     delete this._callbacks[id]
 }
 
@@ -245,24 +254,14 @@ var PerformanceTiming = require('./performance-timing')
  * @api public
  */
 exports.now = function () {
-    if (window.performance && window.performance.now) {
-    	return window.performance.now()
-    } else {
-		return now() - PerformanceTiming.navigationStart
-	}
+    if (window.performance && window.performance.now) return window.performance.now()
+    return now() - PerformanceTiming.navigationStart
 }
+
 
 },{"./now":4,"./performance-timing":5}]},{},[1])(1)
 });
 
-(function() {
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] 
-                                   || window[vendors[x] + 'CancelRequestAnimationFrame'];
-    }
-	if (!window.requestAnimationFrame || !window.cancelAnimationFrame) {
-		AnimationFrame.shim();
-	}
-})();
+AnimationFrame.shim();
+
+}

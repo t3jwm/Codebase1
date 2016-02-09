@@ -1,9 +1,9 @@
 if (typeof sketch === "undefined") sketch = {};
 
-(function(root) { "use strict";
+(function (root) { "use strict";
 
 root.lib = root.lib || {};
-root.lib.defaultGradients = function() {
+root.lib.defaultGradients = function () {
 	return [
 		"0.169429711,fff91d8a,0.583,ff7c0ebd,1,ff0000f0",
 		"0,ffff0000,0.25,ffffff00,0.5,ffffff00,0.75,ff00ff00,1,ff00ff00",

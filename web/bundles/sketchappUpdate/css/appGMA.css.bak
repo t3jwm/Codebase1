@@ -9,7 +9,9 @@ html, body {
 	width: 100%;
 	height: 100%;
 	padding: 0;
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "opensans", arial, sans-serif;
+    font-size: 13px;
+    line-height: 13px;
 }
 
 a,
@@ -22,8 +24,6 @@ a:hover, a:active { outline: 0; }
 /* Contents
 -------------------------------------------------- */
 .sketch-api {
-    font-size: 12px;
-    line-height: 12px;
 	position: relative;
 	min-width: 660px;
 }
@@ -50,10 +50,10 @@ a:hover, a:active { outline: 0; }
 	padding-left: 0px;
 }
 .sketch-api.pad-left .sk-contents {
-	padding-left: 300px;
+	padding-left: 220px;
 }
 .sketch-api.pad-right .sk-contents {
-	padding-right: 300px;
+	padding-right: 220px;
 }
 
 
@@ -100,7 +100,8 @@ a:hover, a:active { outline: 0; }
 /* Toolset
 -------------------------------------------------- */
 .sk-toolset {
-	background-image: url("../media/ux/bg_woodgrain_dark.png");
+	background: -webkit-linear-gradient(bottom, #3f3f3f, #333333);
+	background: linear-gradient(to top, #3f3f3f, #333333);
 	-webkit-transition: opacity, padding .35s;
 	        transition: opacity, padding .35s;
 	padding-left: 0;
@@ -126,7 +127,6 @@ a:hover, a:active { outline: 0; }
 /* Sidebar
 -------------------------------------------------- */
 .sk-sidebar {
-	width: 300px;
 	position: absolute;
 }
 .sk-sidebar-left {
