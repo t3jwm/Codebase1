@@ -11,7 +11,7 @@
     <script src="{{asset('bundles/sketchappUpdate/min/sketch-api.min.js')}}" type="text/javascript"></script>
 
     <!-- JS-->
-
+    <script src="{{asset('bundles/sketchappUpdate/js/app/AppConfigure.js')}}"  type="text/javascript"></script>
     <script src="{{asset('bundles/sketchappUpdate/js/lib/clipart.js')}}"  type="text/javascript"></script>
     <script src="{{asset('bundles/sketchappUpdate/js/lib/text.js')}}" type="text/javascript"></script>
     <script src="{{asset('bundles/sketchappUpdate/js/lib/color.js')}}" type="text/javascript"></script>
