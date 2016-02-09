@@ -274,17 +274,17 @@ eventjs.add(window, 'load', function () {
     });
 
 
-/* Setup
----------------------------------------------------------- */
-function setupAddPage() {
-	root.exec.register('add-page', function () {
-		addPage();
-		
-		ui.log('New page added!');
-		
-		console.log('height', doc.height);
-	});
-}
+    /* Setup
+     ---------------------------------------------------------- */
+    var setupAddPage = function () {
+        root.exec.register('add-page', function () {
+            addPage();
+            ///
+            ui.log('New page added!');
+            ///
+            console.log('height', doc.height);
+        });
+    };
 
     var setupIncludes = function () {
         if (window.PDFJS) { // setup worker for reading PDFs
@@ -292,108 +292,109 @@ function setupAddPage() {
         }
     };
 
-function setupSidebar() {
-	var onSidebar = function () {
-		setTimeout(function () {
-			var container = dom.$('.sketch-api');
-			var method = sidebar.opened ? 'add' : 'remove';
-			container.classList[method]('pad-left');
-			
-			var method = sidebarRight.opened ? 'add' : 'remove';
-			container.classList[method]('pad-right');
-			
-			doc.setCanvasSize();
-			doc.orient.reset();
-			doc.orient.render();
-		}, 350);
-	};
-	
-	var sidebar = root.sidebar;
-	sidebar.on('open', onSidebar);
-	sidebar.on('close', onSidebar);
-	
-	var sidebarRight = root.sidebarRight = new root.module.UISidebar(root, 'right');
-	sidebarRight.on('open', onSidebar);
-	sidebarRight.on('close', onSidebar);
-	
-	util.cookie.get('show-sidebar-left', function (value) {
-		if (value !== false) {
-			sidebar.open();
-		}
-	});
-}
+    var setupSidebar = function () {
+        var onSidebar = function () {
+            setTimeout(function () {
+                var container = dom.$('.sketch-api');
+                var method = sidebar.opened ? 'add' : 'remove';
+                container.classList[method]('pad-left');
+                ///
+                var method = sidebarRight.opened ? 'add' : 'remove';
+                container.classList[method]('pad-right');
+                ///
+                doc.setCanvasSize();
+                doc.orient.reset();
+                doc.orient.render();
+            }, 350);
+        };
+        ///
+        var sidebar = root.sidebar;
+        sidebar.on('open', onSidebar);
+        sidebar.on('close', onSidebar);
+        ///
+        var sidebarRight = root.sidebarRight = new root.module.UISidebar(root, 'right');
+        sidebarRight.on('open', onSidebar);
+        sidebarRight.on('close', onSidebar);
+        ///
+        util.cookie.get('show-sidebar-left', function (value) {
+            if (value !== false) {
+                sidebar.open();
+            }
+        });
+    };
 
-function setupToolbar() {
-	/// Attachments
-	root.uploader.addFileInput({
-		target: '.icon-attachment'
-	});
+    var setupToolbar = function () {
+        /// Attachments
+        root.uploader.addFileInput({
+            target: '.icon-attachment'
+        });
 
-	/// Undo/Redo
-	eventjs.add('.icon-undo', 'click', function (event, self) {
-		var target = self.target;
-		var parent = target.parentNode;
+        /// Undo/Redo
+        eventjs.add('.icon-undo', 'click', function (event, self) {
+            var target = self.target;
+            var parent = target.parentNode;
+            ///	
+            var el = dom.$('.icon-redo', parent);
+            if (el) {
+                el.style.display = '';
+            } else {
+                var el = dom.append(parent, '<span class="sk-tool" data-tool="redo" data-title="redo"><span class="sk-tool-title">Redo</span><span class="sk-icon icon-redo"></span></span>');
+                ui.tooltip.add(el, 'redo');
+                ///
+                eventjs.add(target, 'mousedown', eventjs.stop);
+                eventjs.add(el, 'mousedown', eventjs.stop);
+                eventjs.add(el, 'click', function () {
+                    root.exec('redo');
+                });
+            }
+            ///
+            var onMouseDown = eventjs.add(document.body, 'mousedown', function (event) {
+                el.style.display = 'none';
+                onMouseDown.remove();
+            });
+        });
 
-		var el = dom.$('.icon-redo', parent);
-		if (el) {
-			el.style.display = '';
-		} else {
-			var el = dom.append(parent, '<span class="sk-tool" data-tool="redo" data-title="redo"><span class="sk-tool-title">Redo</span><span class="sk-icon icon-redo"></span></span>');
-			ui.tooltip.add(el, 'redo');
-			
-			eventjs.add(parent, 'mousedown', eventjs.stop);
-			eventjs.add(el, 'click', function () {
-				root.exec('redo');
-			});
-		}
-		
-		var onMouseDown = eventjs.add(document.body, 'mousedown', function (event) {
-			el.style.display = 'none';
-			onMouseDown.remove();
-		});
-	});
+        /// Tooltips
+        var data = dom.$$('[data-title]');
+        util.each(data, function (el) {
+            ui.tooltip.add(el, el.getAttribute('data-title'));
+        });
+        ///
+        ui.tooltip.add('.sk-fileInput', 'Attachment');
+        ///
+        function addContextMenu(target, menu) {
+            eventjs.add(target, 'click', function (event, self) {
+                ui.contextMenu.show({
+                    menu: menu,
+                    at: {
+                        element: target,
+                        align: 'top left to bottom left'
+                    }
+                });
+            });
+        }
+        ;
+        ///
+        addContextMenu('.icon-file-new', 'file-new');
+        addContextMenu('.icon-save', 'file-save');
+    };
 
-	/// Tooltips
-	var data = dom.$$('[data-title]');
-	util.each(data, function (el) {
-		ui.tooltip.add(el, el.getAttribute('data-title'));
-	});	
-	
-	ui.tooltip.add('.sk-fileInput', 'Attachment');
-	
-	function addContextMenu(target, menu) {
-		eventjs.add(target, 'click', function (event, self) {
-			ui.contextMenu.show({
-				menu: menu, 
-				at: {
-					element: target,
-					align: 'top left to bottom left'
-				}
-			});
-		});	
-	}
-
-	addContextMenu('.icon-file-new', 'file-new');
-	addContextMenu('.icon-save', 'file-save');
-}
-
-function setupExec() {
-
-	function setPane(pane) {
-		var sidebar = root.sidebarRight;
-		var target = dom.$('.sk-' + pane);
-		var selected = target.classList.contains('selected');
-		if (selected && sidebar.opened) {
-			sidebar.close();
-		} else {
-			sidebar.open();
-			dom.setClass({
-				target: target,
-				name: 'selected',
-				list: 'div'
-			});
-		}
-	}
+    var setupExec = function () {
+        var setPane = function (pane) {
+            var sidebar = root.sidebarRight;
+            var target = dom.$('.sk-' + pane);
+            var selected = target.classList.contains('selected');
+            if (selected && sidebar.opened) {
+                sidebar.close();
+            } else {
+                sidebar.open();
+                dom.setClass({
+                    target: target,
+                    name: 'selected',
+                    list: 'div'
+                });
+            }
+        };
         ///
         root.exec.register('save-server', function () {
             alertify.prompt({
@@ -572,5 +573,54 @@ function addPageMarker() {
 	    duration: 350
 	});
 }
+     ---------------------------------------------------------- */
+    var onReady = function (_doc) {
+        doc = _doc;
+        ///
+        doc.toolkitConfig.arrow.curved.checked = true;
+        ///
+        setupAddPage();
+        setupExec();
+        setupIncludes();
+        setupSidebar();
+        setupToolbar();
+        ///
+        doc.toolkit.clone('highlighter', 'paintbrush');
+
+        /// Tooltips
+        var data = dom.$$('[data-title]');
+        util.each(data, function (el) {
+            ui.tooltip.add(el, el.getAttribute('data-title'));
+        });
+
+        /// Fastclick
+        ui.fastclick('.sk-sidebar-right a');
+        ui.fastclick('.sk-sidebar-right input[type="checkbox"]');
+        ui.fastclick('.sk-help input');
+        ui.fastclick('.sk-help textarea');
+
+        /// Guide descriptions (toggle)
+        var data = dom.$$('.sk-divider');
+        util.each(data, function (el) {
+            eventjs.add(dom.$('input', el), 'mousedown', eventjs.stop);
+            eventjs.add(el, 'click', function (event) {
+                eventjs.stop(event);
+                el.classList.toggle('sk-show');
+            });
+        });
+
+        /// Open Document
+        var hash = root.loc.getSketchID();
+        if (hash) {
+            return root.open.json('./media/upload/username/' + hash + '.json?' + util.now(), function () {
+// 			console.log('loaded!');
+            });
+        } else {
+            root.exec('new');
+            addPageMarker();
+        }
+        /// 
+        root.sidebarRight.open();
+    };
 
 })(sketch);
