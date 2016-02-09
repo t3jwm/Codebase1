@@ -7,12 +7,11 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-	<!-- SketchAPI v3.7.7.408 -->
+	<!-- SketchAPI v3.7.7.553 -->
 	<link href="min/sketch-api.min.css" type="text/css" rel="stylesheet" />
 	<script src="min/sketch-api.min.js" type="text/javascript"></script>
 
 	<!-- JS-->
-	<script src="js/app/AppConfigure.js" type="text/javascript"></script>
 	<script src="js/lib/clipart.js" type="text/javascript"></script>
 	<script src="js/lib/text.js" type="text/javascript"></script>
 	<script src="js/lib/color.js" type="text/javascript"></script>
@@ -29,7 +28,7 @@
 	<div class="sketch-api">
 		<div class="sk-sidebar sk-sidebar-right">
 			<div class="sk-guide sk-pane selected">
-				<div class="sk-row-head">guide</div>
+				<div class="sk-header">guide</div>
 				<div class="sk-divider">
 					<label><input type="checkbox"></label> Descriptive Title
 					<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
@@ -68,7 +67,7 @@
 				</div>
 			</div>
 			<div class="sk-search sk-pane">
-				<div class="sk-row-head">search</div>
+				<div class="sk-header">search</div>
 				<a href="http://google.com" target="_blank" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">Search for prior art</a>
 				<a href="http://google.com" target="_blank" data-title="Mel adhuc corrumpit ei, an sanctus recteque neglegentur pro">Searching Tips</a>
 				<a href="http://google.com" target="_blank" data-title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">Patent cost calculator</a>
@@ -77,7 +76,7 @@
 				<a href="http://google.com" target="_blank" data-title="Mel adhuc corrumpit ei, an sanctus recteque neglegentur pro">Patent filing documents</a>
 			</div>
 			<div class="sk-help sk-pane">
-				<div class="sk-row-head">help</div>
+				<div class="sk-header">help</div>
 				<div style="margin: 10px;">
 					<p>Subject</p>
 					<input name="subject" type="text" />
@@ -97,25 +96,25 @@
 
 			<!--- CONFIGURE: FILL -->
 			<div id="sk-configure-fill" class="sk-pane">
-				<div class="sk-row-head"><span class="icon-left to-configure"></span>fill</div>
+				<div class="sk-header"><span class="icon-left to-configure"></span>fill</div>
 				<div class="sk-pane-content"></div>
 			</div>
 
 			<!--- CONFIGURE: STROKE -->
 			<div id="sk-configure-stroke" class="sk-pane">
-				<div class="sk-row-head"><span class="icon-left to-configure"></span>stroke</div>
+				<div class="sk-header"><span class="icon-left to-configure"></span>stroke</div>
 				<div class="sk-pane-content"></div>
 			</div>
 
 			<!--- LAYERS -->
 			<div id="sk-layers" class="sk-pane">
-				<div class="sk-row-head">layers</div>		
+				<div class="sk-header">layers</div>		
 				<ul class="sk-pane-content sk-tree"></ul>
 			</div>
 
 			<!--- DOCUMENT: HISTORY -->
 			<div id="sk-history" class="sk-pane">
-				<div class="sk-row-head">History</div>
+				<div class="sk-header">History</div>
 				<ul class="sk-pane-content sk-tree"></ul>
 			</div>
 		</div>
@@ -132,7 +131,7 @@
 				<button data-tool="path" class="sk-tool icon-path" data-title="Path"></button>
 				<button data-tool="polyline" class="sk-tool icon-polyline" data-title="Path"></button>
 				<button data-tool="arrow" class="sk-tool icon-arrow" data-title="Arrow"></button>
-				<button data-tool="highlighter" data-toolFormula="type:highlighter;shortcut:paintbrush;fill:yellow;composite:multiply,destination-over;" class="sk-tool icon-highlight" data-title="Highlighter"></button>
+				<button data-tool="highlighter" class="sk-tool icon-highlight" data-title="Highlighter"></button>
 				<button data-tool="triangle" data-toolkit="shape" class="sk-tool icon-triangle" data-title="shape"></button>
 				<button data-tool="eraser" class="sk-tool icon-eraser" data-title="Eraser"></button>
 				<button data-tool="attach" class="sk-tool sk-icon icon-attachment" data-title="Attachment" style="display: inline"></button>
@@ -150,7 +149,7 @@
 
 		<!--- CONTENT -->
 		<div class="sk-contents">
-			<div class="sk-canvas" style="z-index: 0;"></div>
+			<div class="sk-doc" style="z-index: 0;"></div>
 		</div>
 	</div>
 </body>

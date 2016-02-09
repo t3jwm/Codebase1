@@ -1,6 +1,6 @@
 /**
  * @license -------------------------------------------------------------------
- *    module: Blob.js - Blob shim (2014-07-01)
+ *    module: Blob.js (2014-07-01)
  *       src: https://github.com/eligrey/Blob.js
  *    author: Eli Grey
  * copyright: (c) 2011 Eli Grey <http://eligrey.com>

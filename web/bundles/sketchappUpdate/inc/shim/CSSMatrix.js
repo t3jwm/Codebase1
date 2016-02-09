@@ -77,6 +77,8 @@ function CSSMatrix(string) {
 	return this.setMatrixValue(string);
 };
 
+var proto = CSSMatrix.prototype;
+
 // Transformations
 
 function rotate(rx, ry, rz) {
@@ -378,7 +380,7 @@ var setMatrix3d = function(m, parts) {
 	return m;
 };
 
-CSSMatrix.prototype.setMatrixValue = function(string) {
+proto.setMatrixValue = function(string) {
 	if (typeof string === 'string') {
 		setIdentity(this);
 
@@ -411,7 +413,7 @@ CSSMatrix.prototype.setMatrixValue = function(string) {
  * @param {CSSMatrix} m2
  * @return {CSSMatrix} The result matrix.
  */
-CSSMatrix.prototype.multiply = function(m2) {
+proto.multiply = function(m2) {
 	return multiply(this, m2);
 };
 
@@ -420,7 +422,7 @@ CSSMatrix.prototype.multiply = function(m2) {
  * The inverse method returns a new matrix which is the inverse of this matrix.
  * This matrix is not modified.
  */
-CSSMatrix.prototype.inverse = function() {
+proto.inverse = function() {
 	return inverse(this);
 };
 
@@ -436,7 +438,7 @@ CSSMatrix.prototype.inverse = function() {
  * @param {number=} z Z component of the translation value.
  * @return {CSSMatrix} The result matrix
  */
-CSSMatrix.prototype.translate = function(x, y, z) {
+proto.translate = function(x, y, z) {
 	z = z || 0;
 	var m = clone(this);
 	m.m41 = m.e = m.m11 * x + m.m21 * y + m.m31 * z + m.m41;
@@ -458,7 +460,7 @@ CSSMatrix.prototype.translate = function(x, y, z) {
  * @param {number=} z The Z component of the scale value.
  * @return {CSSMatrix} The result matrix
  */
-CSSMatrix.prototype.scale = function(x, y, z) {
+proto.scale = function(x, y, z) {
 	if (!(y === +y)) y = x;
 	if (!(z === +z)) z = 1;
 	return multiply(this, scale(x, y, z));
@@ -477,7 +479,7 @@ CSSMatrix.prototype.scale = function(x, y, z) {
  * @param {number=} rz The (optional) Z component of the rotation value.
  * @return {CSSMatrix} The result matrix
  */
-CSSMatrix.prototype.rotate = function(rx, ry, rz) {
+proto.rotate = function(rx, ry, rz) {
 	if (!(rx === +rx)) rx = 0;
 	if (!(ry === +ry) && !(rz === +rz)) {
 		rz = rx;
@@ -502,7 +504,7 @@ CSSMatrix.prototype.rotate = function(rx, ry, rz) {
  * @param {number} angle The angle of rotation about the axis vector, in degrees.
  * @return {CSSMatrix} The result matrix
  */
-CSSMatrix.prototype.rotateAxisAngle = function(x, y, z, angle) {
+proto.rotateAxisAngle = function(x, y, z, angle) {
 	if (!(y === +y)) y = x;
 	if (!(z === +z)) z = x;
 	return multiply(this, rotateAxisAngle(x, y, z, angle));
@@ -513,7 +515,7 @@ CSSMatrix.prototype.rotateAxisAngle = function(x, y, z, angle) {
  * Returns a string representation of the matrix.
  * @return {string}
  */
-CSSMatrix.prototype.toString = function() {
+proto.toString = function() {
 	var m = this;
 	var fix = function(val) {
 		return val.toFixed(6);
@@ -543,7 +545,7 @@ CSSMatrix.prototype.toString = function() {
  * @param {number} angle The angle amount in degrees to skew.
  * @return {CSSMatrix} The result matrix
  */
-CSSMatrix.prototype.skewX = function(angle) {
+proto.skewX = function(angle) {
 	return multiply(skewX(angle), this);
 };
 
@@ -553,7 +555,7 @@ CSSMatrix.prototype.skewX = function(angle) {
  * @param {number} angle The angle amount in degrees to skew.
  * @return {CSSMatrix} The result matrix
  */
-CSSMatrix.prototype.skewY = function(angle) {
+proto.skewY = function(angle) {
 	return multiply(skewY(angle), this);
 };
 

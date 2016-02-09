@@ -15,7 +15,7 @@ root.module.add(function(root, doc) {
 			root.save.confirm({
 				oncontinue: function() {
 					root.exec('new');
-					root.ui.log(lang.translate('new-doc-created'));
+					root.ui.log('new-doc-created');
 				},
 				onrequestsave: function() {
 					root.exec('save-server');
@@ -36,7 +36,7 @@ root.module.add(function(root, doc) {
 	/* Main menu
 	---------------------------------------------------- */
 	var items = [];
-	items.push({
+        items.push({
 		label: 'Save',
 		onclick: function() {
 			root.exec('save');

@@ -29,38 +29,37 @@ root.module.add(function(root, doc) {
 			root.exec('add-page');
 		}
 	});
-	///
+	
 	addContextMenu('file-new', items);
 
 
 	/* Main menu
 	---------------------------------------------------- */
 	var items = [];
-        items.push({
-		label: 'Save',
-		onclick: function() {
-			root.exec('save');
-		}
-	});
 	items.push({
-		label: 'Save to Server',
+		label: 'Save to server',
 		onclick: function() {
 			root.exec('save-server');
 		}
 	});
-	items.push({
-		label: 'Download PDF',
-		onclick: function() {
-			root.download.pdf();
-		}
-	});
+	
+	var a = document.createElement('a');
+	if (a.download !== undefined) { // disable download PDF when download not supported
+		items.push({
+			label: 'Download PDF',
+			onclick: function() {
+				root.download.pdf();
+			}
+		});
+	}
+
 	items.push({
 		label: 'Print',
 		onclick: function() {
 			root.print();
 		}
 	});
-	///
+	
 	addContextMenu('file-save', items);
 
 
@@ -105,7 +104,7 @@ root.module.add(function(root, doc) {
 			root.exec('redo');
 		}
 	});
-	///
+	
 	addContextMenu('selectDefault', items);
 
 
@@ -142,7 +141,7 @@ root.module.add(function(root, doc) {
 			root.exec('object-delete');
 		}
 	});
-	///
+	
 	addContextMenu('layers', items);
 
 	/* Select.js - Multiple Selections
@@ -202,7 +201,7 @@ root.module.add(function(root, doc) {
 			root.exec('object-delete');
 		}
 	});
-	///
+	
 	addContextMenu('selectSingle', items);
 	addContextMenu('selectMultiple', items);
 });

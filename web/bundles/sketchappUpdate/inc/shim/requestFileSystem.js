@@ -28,9 +28,9 @@
 (function(exports) { 'use strict';
 
 	// Bomb out if the Filesystem API is available natively.
-	if (exports.requestFileSystem || exports.webkitRequestFileSystem) {
-		return;
-	}
+// 	if (exports.requestFileSystem || exports.webkitRequestFileSystem) {
+// 		return;
+// 	}
 
 	// Bomb out if no indexedDB available
 	var indexedDB = exports.indexedDB || exports.mozIndexedDB || exports.msIndexedDB;
@@ -39,34 +39,39 @@
 	}
 
 	// Check to see if IndexedDB support blobs
-	var support = new function() {
-		var dbName = "blob-support";
+	(function() {
+		var dbName = 'blob-support-' + Math.random(); // .random() in case database is left open in another tab
 		indexedDB.deleteDatabase(dbName).onsuccess = function() {
-			var request = indexedDB.open(dbName, 1);
+			var request = indexedDB.open(dbName, 1.0);
 			request.onerror = function() {
-				support.blob = false;
+				shimBlob(true);
 			};
 			request.onsuccess = function() {
 				var db = request.result;
 				try {
-					var blob = new Blob(["test"], {type:"text/plain"});
-					var transaction = db.transaction("store", "readwrite");
-					transaction.objectStore("store").put(blob, "key");
-					support.blob = true;
-				} catch (err) {
-					support.blob = false;
+					var blob = new Blob([''], {
+					    type: 'text/plain'
+					});
+					var tx = db.transaction('store', 'readwrite');
+					tx.objectStore('store').put(blob, 'key');
+					shimBlob(false);
+				} catch(err) {
+					shimBlob(true);
 				} finally {
 					db.close();
 					indexedDB.deleteDatabase(dbName);
 				}
 			};
 			request.onupgradeneeded = function() {
-				request.result.createObjectStore("store");
+				request.result.createObjectStore('store');
 			};
 		};
-	};
+		function shimBlob(value) {
+			requestFileSystem.shimBlob = value;
+		};
+	})();
 
-	var Base64ToBlob = function(uri) {
+	function Base64ToBlob(uri) {
 		uri = uri.split(',');
 		var binary = atob(uri[1]);
 		var mime = uri[0].split(':')[1].split(';')[0];
@@ -75,11 +80,12 @@
 		for (var n = 0; n < binary.length; n++) {
 			uint[n] = binary.charCodeAt(n);
 		}
-		var blob = new Blob([buffer], {type: mime});
-		return blob;
+		return new Blob([buffer], {
+			type: mime
+		});
 	};
 
-	var BlobToBase64 = function(blob, onload) {
+	function BlobToBase64(blob, onload) {
 		var reader = new window.FileReader();
 		reader.readAsDataURL(blob);
 		reader.onloadend = function() {
@@ -363,10 +369,10 @@
 				}.bind(this), this.onerror);
 			}.bind(this);
 
-			if (support.blob) {
-				writeFile(blob_);
-			} else {
+			if (requestFileSystem.shimBlob) {
 				BlobToBase64(blob_, writeFile);
+			} else {
+				writeFile(blob_);
 			}
 		};
 	}
@@ -523,7 +529,7 @@
 			this.name = opt_fileEntry.name;
 			this.fullPath = opt_fileEntry.fullPath;
 			this.filesystem = opt_fileEntry.filesystem;
-			if (typeof(this.file_.blob_) === "string") {
+			if (typeof this.file_.blob_ === "string") {
 				this.file_.blob_ = Base64ToBlob(this.file_.blob_);
 			}
 		}
@@ -944,14 +950,13 @@
 	function onError(e) {
 		switch (e.target.errorCode) {
 			case 12:
-				console.log('Error - Attempt to open db with a lower version than the current one.');
+				console.error('Error - Attempt to open db with a lower version than the current one.');
 				break;
 			default:
-				console.log('errorCode: ' + e.target.errorCode);
+				console.error('errorCode: ' + e.target.errorCode);
 				break;
 		}
-		console.log(e, e.code, e.message);
-	}
+	};
 
 	// Clean up.
 	// TODO: decide if this is the best place for this. 
