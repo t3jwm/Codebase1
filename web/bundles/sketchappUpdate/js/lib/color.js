@@ -1,9 +1,9 @@
 if (typeof sketch === 'undefined') sketch = {};
 
-(function (root) { 'use strict';
+(function(root) { 'use strict';
 
 root.lib = root.lib || {};
-root.lib.defaultColors = function () {
+root.lib.defaultColors = function() {
 	return [
 		'#ffffff',
 		'#e2e2e2',

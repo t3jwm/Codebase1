@@ -1,9 +1,9 @@
 if (typeof sketch === "undefined") sketch = {};
 
-(function (root) { "use strict";
+(function(root) { "use strict";
 
 root.lib = root.lib || {};
-root.lib.defaultPatterns = function () {
+root.lib.defaultPatterns = function() {
 	return [
 		"pattern/HybridGenesis/24-original.png",
 		"pattern/HybridGenesis/3-original.png",
