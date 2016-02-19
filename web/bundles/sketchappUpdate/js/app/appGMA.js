@@ -1,32 +1,32 @@
-/*
- ----------------------------------------------------------
- GMA: EXTRAS
- ----------------------------------------------------------
- * PDF Export
- - fix pdf with new pages attribute... setSize should update page? how to work, meh?
- - export each page individually
- - find best fitting boundingBox for each page, crop, and place into document
- ----------------------------------------------------------
- * Scrolling
- - stylize scrollbars (perfect scroll?)
- ----------------------------------------------------------
- * doc.pages = [];
- ----------------------------------------------------------
- */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 (function (root) {
 
-    var doc;
-    var dom = root.dom;
-    var lang = root.lang;
-    var util = root.util;
-    var ui = root.ui;
-///
-    var docWidth = 816; // equivalent to 8.5 x 11 inches in pixels at 72DPI
-    var docHeight = 1056;
-/
+var doc;
+var dom = root.dom;
+var lang = root.lang;
+var util = root.util;
+var ui = root.ui;
 
-* onSupport */
+var docWidth = 816; // equivalent to 8.5 x 11 inches in pixels at 72DPI
+var docHeight = 1056;
+
+
+/* onSupport */
 
 function onSupport(doc) {
 	doc.toolkit.on('init', function () {
@@ -94,18 +94,18 @@ function onReady(_doc) {
 		});
 	});
 
-        /// Open Document
-        var hash = root.loc.getSketchID();
-        if (hash) {
-            return root.open.json('./media/upload/username/' + hash + '.json?' + util.now(), function () {
+	/// Open Document
+	var hash = root.loc.getSketchID();
+	if (hash) {
+		return root.open.json('./media/upload/username/' + hash + '.json?' + util.now(), function () {
 // 			console.log('loaded!');
-            });
-        } else {
-            root.exec('new');
-            addPageMarker();
-        }
- 
-        root.sidebarRight.open();
+		});
+	} else {
+		root.exec('new');
+		addPageMarker();
+	}
+
+	root.sidebarRight.open();
 
 }
 
@@ -272,8 +272,8 @@ eventjs.add(window, 'load', function () {
 				}
 			}
 		},
-  
-            hosts: {// paths to POST and GET and various servers
+		
+		hosts: {// paths to POST and GET and various servers
                 'localhost': {// my local testing environment [can be removed]
                     HOST: 'localhost/Symfony/patentthat2/web/app_dev.php',
                     GET: 'localhost/Symfony/patentthat2/web/app_dev.php/upload?sketch=',
@@ -286,8 +286,8 @@ eventjs.add(window, 'load', function () {
                     POST: 'beta.patent-that.com/upload'
                 }
             }
-        });
-    });
+	});
+});
 
 
 /* Setup
@@ -430,7 +430,7 @@ function setupExec() {
                     }
                 },
                 verify: function (inputs, callback) {
-                    for (var n = 0; n < inputs.length; n ++) {
+                    for (var n = 0; n < inputs.length; n++) {
                         if (inputs[n].value === '') {
                             alertify.error('<i>' + inputs[n].title + '</i> is required');
                             callback(false);
@@ -474,19 +474,21 @@ function setupExec() {
                 });
             }
         });
-        
-        root.exec.register('guide', function () {
-            setPane('guide');
-        });
-        root.exec.register('search', function () {
-            setPane('search');
-        });
-        root.exec.register('help', function () {
-            setPane('help');
-        });
-    }
+	
 
-   /* Add Page
+
+root.exec.register('guide', function () {
+		setPane('guide');
+	});
+	root.exec.register('search', function () {
+		setPane('search');
+	});
+	root.exec.register('help', function () {
+		setPane('help');
+	});
+}
+
+/* Add Page
 ---------------------------------------------------------- */
 function addPage() {
 

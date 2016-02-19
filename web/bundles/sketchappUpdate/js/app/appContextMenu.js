@@ -37,7 +37,14 @@ root.module.add(function(root, doc) {
 	---------------------------------------------------- */
 	var items = [];
         items.push({
-		label: 'Save to server',
+		label: 'Save',
+		onclick: function() {
+			root.exec('save');
+		}
+	});
+	
+	items.push({
+		label: 'Save to Server',
 		onclick: function() {
 			root.exec('save-server');
 		}

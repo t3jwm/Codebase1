@@ -29,21 +29,21 @@ root.module.add(function(root, doc) {
 			root.exec('add-page');
 		}
 	});
-	///
+	
 	addContextMenu('file-new', items);
 
 
 	/* Main menu
 	---------------------------------------------------- */
 	var items = [];
-        items.push({
+	items.push({
 		label: 'Save to server',
 		onclick: function() {
 			root.exec('save-server');
 		}
 	});
-
-var a = document.createElement('a');
+	
+	var a = document.createElement('a');
 	if (a.download !== undefined) { // disable download PDF when download not supported
 		items.push({
 			label: 'Download PDF',
