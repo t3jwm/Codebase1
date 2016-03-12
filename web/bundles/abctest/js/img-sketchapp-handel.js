@@ -64,9 +64,9 @@ var ImageSketchapp = {
         });
     },
     attornyReview: function ($filePath) {
-        bootbox.confirm('You are being redirected to an affiliated patent attorney in your area to potentially evaluate your invention, please click "OK" to continue', function (result) {
-            if (result == true) {
-                bootbox.alert("You choose OK!");
+        bootbox.confirm('By clicking "OK", you will be directed to patent firm affiliated with Patent That who may be able to assist you with your invention', function (result) {
+            if (result) {
+      window.open("http://www.dunkielsaunders.com/patent-form/");
             }
         });
     },
