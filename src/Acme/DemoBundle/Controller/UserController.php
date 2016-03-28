@@ -400,7 +400,7 @@ class UserController extends Controller {
         $imgId = array();
         $picnames = array();
         $descriptions = array();
-        
+
         $session = $this->getRequest()->getSession();
         if (!($session->has('userid'))) {
 
@@ -409,7 +409,6 @@ class UserController extends Controller {
         if ($session->has('login')) {
             $login = $session->get('login');
             $userId = $login->getUserId();
-            //var_dump($userId); exit;               
         }
 
         $repository = $this->getDoctrine()->getRepository('AcmeDemoBundle:File');
@@ -423,8 +422,6 @@ class UserController extends Controller {
         }
 
         $em = $this->getDoctrine()->getManager();
-        //$document_class = $this->container->getParameter('file_class');
-        //$basePath = __DIR__. '/../../../../web/' . 'uploads/documents';
         $basePath = '/media';
         for ($i = 0; $i < $numImage; $i++) {
             $filenames[$i] = $products[$i]->getPath();
@@ -493,22 +490,6 @@ class UserController extends Controller {
 
     public function adminIndexAction() {
         return $this->redirect($this->generateUrl('pnc_management_userprofile'));
-        /*
-          $session = $this->getRequest()->getSession();
-
-          if($session->get('isAdmin') == -1 || $session->get('isAdmin') == 0 )
-          {
-          return $this->render('AcmeDemoBundle:User:error.html.twig');
-          }
-
-          $em = $this->getDoctrine()->getManager();
-
-          $entities = $em->getRepository('AcmeDemoBundle:User')->findAll();
-
-          return $this->render('AcmeDemoBundle:User:index.html.twig', array(
-          'entities' => $entities,
-          ));
-         */
     }
 
     public function changepasswordAction(Request $request, $id) {
@@ -590,9 +571,7 @@ class UserController extends Controller {
             return $this->render('AcmeDemoBundle:User:emptygallery.html.twig');
         }
 
-        $em = $this->getDoctrine()->getManager();
-        //$document_class = $this->container->getParameter('file_class');
-        //$basePath = __DIR__. '/../../../../web/' . 'uploads/documents';
+        $em = $this->getDoctrine()->getManager();       
         $basePath = '/media';
         for ($i = 0; $i < $numImage; $i++) {
             $filenames[$i] = $products[$i]->getPath();
@@ -629,55 +608,15 @@ class UserController extends Controller {
         $session = $this->getRequest()->getSession();
         if ($session->has('login')) {
             $login = $session->get('login');
-            $userId = $login->getUserId();
-            //var_dump($userId); exit;               
+            $userId = $login->getUserId();                
         }
-
-        //var_dump($userId); exit;
 
         if ($id == $userId) {
             return $this->redirect($this->generateUrl('pnc_management_usergallery'));
         } else {
             return $this->redirect($this->generateUrl('admin_manageGallery', array('id' => $id)));
         }
-        //return $this->render('AcmeDemoBundle:User:error.html.twig');
-    }
-
-    public function renameImgAction(Request $request, $imgid, $id) {
-        //var_dump($imgid);die;
-        echo $imgid;
-        $em = $this->getDoctrine()->getEntityManager();
-        $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-        var_dump($img);
-        die;
-        //$img->setName('eminem2');
-        //var_dump($img->getName());die;
-
-        $newname = $request->get('newname');
-        $img->setName($newname);
-
-        if (!$img) {
-            throw $this->createNotFoundException('No image found for id ' . $imgid);
-        }
-
-        $em->persist($img);
-        $em->flush();
-
-        $session = $this->getRequest()->getSession();
-        if ($session->has('login')) {
-            $login = $session->get('login');
-            $userId = $login->getUserId();
-            //var_dump($userId); exit;               
-        }
-
-        //var_dump($userId); exit;
-
-        if ($id == $userId) {
-            return $this->redirect($this->generateUrl('pnc_management_usergallery'));
-        } else {
-            return $this->redirect($this->generateUrl('admin_manageGallery', array('id' => $id)));
-        }
-        //return $this->render('AcmeDemoBundle:User:error.html.twig');
+        
     }
 
     public function renameImageAction() {  //var_dump('test'); die;
@@ -687,10 +626,6 @@ class UserController extends Controller {
 
         $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-
-        //$img->setName('eminem2');
-        //var_dump($img->getName());die;
-
 
         $img->setName($nameImage);
 
@@ -704,12 +639,8 @@ class UserController extends Controller {
         $session = $this->getRequest()->getSession();
         if ($session->has('login')) {
             $login = $session->get('login');
-            $userId = $login->getUserId();
-            //var_dump($userId); exit;               
+            $userId = $login->getUserId();            
         }
-
-        //var_dump($userId); exit;
-
 
         $filenames = array();
         $filePaths = array();
@@ -725,8 +656,6 @@ class UserController extends Controller {
         }
 
         $em = $this->getDoctrine()->getManager();
-        //$document_class = $this->container->getParameter('file_class');
-        //$basePath = __DIR__. '/../../../../web/' . 'uploads/documents';
         $basePath = '/media';
         for ($i = 0; $i < $numImage; $i++) {
             $filenames[$i] = $products[$i]->getPath();
@@ -742,16 +671,11 @@ class UserController extends Controller {
                     'id' => $id,));
     }
 
-    public function deleteImageAction() {  //var_dump('test'); die;
+    public function deleteImageAction() { 
         $imgid = $_POST['imgId'];
         $id = $_POST['id'];
-
-
-
         $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
-
-        //var_dump($img);die;
 
         if (!$img) {
             throw $this->createNotFoundException('No image found for id ' . $imgid);
@@ -763,11 +687,8 @@ class UserController extends Controller {
         if ($session->has('login')) {
             $login = $session->get('login');
             $userId = $login->getUserId();
-            //var_dump($userId); exit;               
+
         }
-
-        //var_dump($userId); exit;
-
 
         $filenames = array();
         $filePaths = array();
@@ -786,9 +707,6 @@ class UserController extends Controller {
                         'id' => $id,));
         }
 
-
-        //$document_class = $this->container->getParameter('file_class');
-        //$basePath = __DIR__. '/../../../../web/' . 'uploads/documents';
         $basePath = '/media';
         for ($i = 0; $i < $numImage; $i++) {
             $filenames[$i] = $products[$i]->getPath();
@@ -804,10 +722,10 @@ class UserController extends Controller {
                     'id' => $id,));
     }
 
-    public function sendImageAction() { 
+    public function sendImageAction() {
         $imgid = $_POST['imgId'];
         $email = $_POST['email'];
-        
+
         $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
         $filePath = $img->getPath();
@@ -816,15 +734,14 @@ class UserController extends Controller {
         $site_email = $this->container->getParameter('site_email');
 
         $pathFile = 'media/' . $filePath . '.jpeg';
-        
+
         $mpdfService = $this->get('tfox.mpdfport');
 
         $html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><object data='hao.pdf' type='application/pdf' width='100%' height='100%'></object><img src='$pathFile'> </img></body></html>";
-        //$html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script>toi ngan nam doi <object data='http://joliclic.free.fr/html/object-tag/en/data/test.pdf' type='application/pdf' width='100%' height='100%'></object></body></html>";
         $response = $mpdfService->generatePdfResponse($html);
 
         $attachment = \Swift_Attachment::newInstance($response, 'sketchapp.pdf', 'application/pdf');
-        
+
         $message = \Swift_Message::newInstance()
                 ->setSubject('Image ')
                 ->setFrom($site_email, $site_name)
