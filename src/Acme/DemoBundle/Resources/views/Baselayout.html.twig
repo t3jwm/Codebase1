@@ -5,29 +5,28 @@
 
         {% endblock %}
         {% block head %}
-            <meta charset="utf-8">            
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <meta name="description" content="">            
-            <title>Patent That</title>
-            <!-- Bootstrap Core CSS -->
-            <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/bootstrap.min.css') }}" />
-            <!-- Custom CSS -->
-            <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/landing-page.css') }}" />
-            <!-- Custom Fonts -->
-            <link href="{{ asset('bundles/landing_page/font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
-            <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-            <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/basepage.css?432') }}" />      
-            <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/full-slider.css') }}" />   
-            <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/agency.css') }}">
+        <meta charset="utf-8">            
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">            
+        <title>Patent That</title>
+        <!-- Bootstrap Core CSS -->
+        <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/bootstrap.min.css') }}" />
+        <!-- Custom CSS -->
+        <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/landing-page.css') }}" />
+        <!-- Custom Fonts -->
+        <link href="{{ asset('bundles/landing_page/font-awesome-4.2.0/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
+        <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/basepage.css?432') }}" />      
+        <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/full-slider.css') }}" />   
+        <link rel="stylesheet" href="{{ asset('bundles/landing_page/css/agency.css') }}">
         {% endblock %}
-        <style>
-            {% block CSSForm %}
-            {% endblock %}
-        </style>
-        <script>
-            {% block Javascript %}
-            {% endblock %}
-        </script>
+
+        {% block CSSForm %}
+
+        {% endblock %}
+
+        {% block Javascript %}
+        {% endblock %}       
         {% block CssPlus %}
         {% endblock %}
     </head>
@@ -119,9 +118,9 @@
     <script src="{{asset('bundles/landing_page/js/bootstrap.min.js')}}"></script>
 
     <script>
-            $('.carousel').carousel({
-                interval: 600 //changes the speed
-            })
+        $('.carousel').carousel({
+            interval: 600 //changes the speed
+        })
     </script>
     {% block addJava %}
     {% endblock %}    
