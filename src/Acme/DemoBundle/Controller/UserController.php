@@ -804,10 +804,10 @@ class UserController extends Controller {
                     'id' => $id,));
     }
 
-    public function sendImageAction() {  //var_dump('test'); die;
+    public function sendImageAction() { 
         $imgid = $_POST['imgId'];
         $email = $_POST['email'];
-        //$filePath = $_POST['filePath'];
+        
         $em = $this->getDoctrine()->getEntityManager();
         $img = $em->getRepository('AcmeDemoBundle:File')->find($imgid);
         $filePath = $img->getPath();
@@ -816,20 +816,15 @@ class UserController extends Controller {
         $site_email = $this->container->getParameter('site_email');
 
         $pathFile = 'media/' . $filePath . '.jpeg';
-        //var_dump( $pathFile); die;
-        //substr($pathFile,1);
-        //$container = new LoggableGenerator();
-
+        
         $mpdfService = $this->get('tfox.mpdfport');
 
-        //$html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script><object data='hao.pdf' type='application/pdf' width='100%' height='100%'></object><img src=$pathFile> </img></body></html>";
-        $html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script>toi ngan nam doi <object data='http://joliclic.free.fr/html/object-tag/en/data/test.pdf' type='application/pdf' width='100%' height='100%'></object></body></html>";
+        $html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><object data='hao.pdf' type='application/pdf' width='100%' height='100%'></object><img src='$pathFile'> </img></body></html>";
+        //$html = "<html><body><script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'></script><script>console.log('here');</script>toi ngan nam doi <object data='http://joliclic.free.fr/html/object-tag/en/data/test.pdf' type='application/pdf' width='100%' height='100%'></object></body></html>";
         $response = $mpdfService->generatePdfResponse($html);
 
-        //var_dump(substr($pathFile,1)); die;
-        $attachment = \Swift_Attachment::newInstance($response, 'my-file.pdf', 'application/pdf');
-        //$attachment = \Swift_Attachment::fromPath(substr($pathFile,1));
-
+        $attachment = \Swift_Attachment::newInstance($response, 'sketchapp.pdf', 'application/pdf');
+        
         $message = \Swift_Message::newInstance()
                 ->setSubject('Image ')
                 ->setFrom($site_email, $site_name)
@@ -837,13 +832,13 @@ class UserController extends Controller {
                 ->setBody(
                         $this->renderView('AcmeDemoBundle:User:mail/sendImage.html.twig', array(
                             'site_name' => $site_name,
-                            'name' => 'tui',
+                            'name' => 'Sketchapp',
                         ))
                 )
                 ->attach($attachment);
         $this->get('mailer')->send($message);
 
-        return new Response('Hello world!');
+        return new Response('Success');
     }
 
 }
