@@ -153,8 +153,7 @@
             init: function () {
                 $(document).ready(function () {
                     SketchappImgObject.idImg = {{ idImage }};
-                    SketchappImgObject.codeImg = "{{ code }}";
-                    this.updateURL();
+                    SketchappImgObject.codeImg = "{{ code }}";                    
                     setTimeout(function () {
                         sk.open.json(SketchappImgObject.codeImg);
                     }, 1000);
