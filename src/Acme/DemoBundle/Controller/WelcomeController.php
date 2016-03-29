@@ -108,8 +108,8 @@ class WelcomeController extends Controller {
                         "AcmeDemoBundle:Demo:faq.html.twig", array("name" => ""));
     }
 
-    public function openImageDashAction($code) {
-
+    public function openImageDashAction($code) {        
+        $code =  intval(base64_decode($code));
         $session = $this->getRequest()->getSession();
         if (!$session->has("login")) {
             return $this->redirect($this->generateUrl("account_register"));
