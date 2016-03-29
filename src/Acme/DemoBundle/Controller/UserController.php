@@ -426,7 +426,7 @@ class UserController extends Controller {
         for ($i = 0; $i < $numImage; $i++) {
             $filenames[$i] = $products[$i]->getPath();
             $filePaths[$i] = $basePath . '/' . $filenames[$i];
-            $imgId[$i] = base64_encode ($products[$i]->getId());
+            $imgId[$i] = $products[$i]->getId();
             $picnames[$i] = $products[$i]->getName();
             $descriptions[$i] = $products[$i]->getDescription();
         }
