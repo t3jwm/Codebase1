@@ -152,20 +152,21 @@
             codeImg: "",
             init: function () {
                 $(document).ready(function () {
+                    SketchappImgObject.idImg = {{idImage }};
+                    SketchappImgObject.codeImg = "{{ code }}";
+                    this.updateURL();
                     setTimeout(function () {
                         sk.open.json(SketchappImgObject.codeImg);
                     }, 1000);
                 });
             },
-            updateURL: function () { //Updte new value for idImg depending URL(http://.../apppage/idImg);                
-                window.history.pushState("", "", "/apppage/" + SketchappImgObject.idImg);
+            updateURL: function () {
+                window.history.pushState("", "", "/apppage/" + window.btoa(SketchappImgObject.idImg));
             }
         }
     </script>
     {% if code != '' %} <!-- Edit Image -->
-        <script>
-            SketchappImgObject.idImg = {{ idImage }};
-                    SketchappImgObject.codeImg = "{{ code }}";
+        <script>            
             SketchappImgObject.init();
         </script>            
     {% endif %}
@@ -176,7 +177,6 @@
             if (e) {
                 e.returnValue = 'Are you sure?';
             }
-
             // For Safari
             return 'Are you sure?';
         }
