@@ -75,7 +75,7 @@ var ImageSketchapp = {
     },
     showLargeImg: function ($imgId, $rscImg, $nameImg, $id, $filePath) {
         bootbox.dialog({
-            message: '<img class="large-img" onclick="ImageSketchapp.openImageOnSketchApp(' + $imgId + ')" src="' + $rscImg + '" />',
+            message: '<img class="large-img" onclick="ImageSketchapp.openImageOnSketchApp(window.btoa(' + $imgId + '),'+ $imgId +' )" src="' + $rscImg + '" />',
             title: $nameImg,
             buttons: {
                 rename_img: {
