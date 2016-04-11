@@ -148,36 +148,41 @@
 {% block addJava %}
     <script>
         var SketchappImgObject = {
-            idImg: "",
-            codeImg: "",
-            init: function () {
+        idImg: "",
+                codeImg: "",
+                init: function () {
                 $(document).ready(function () {
-                    SketchappImgObject.idImg = {{ idImage }};
-                    SketchappImgObject.codeImg = "{{ code }}";                    
-                    setTimeout(function () {
+                    if (({{idImage}} != '') && ({{code}} != '')){
+                        SketchappImgObject.idImg = {{ idImage }};
+                        SketchappImgObject.codeImg = "{{ code }}";
+                        setTimeout(function () {
                         sk.open.json(SketchappImgObject.codeImg);
-                    }, 1000);
+                        }, 1000);
+                    } else {
+                        SketchappImgObject.idImg = '';
+                        SketchappImgObject.codeImg = '';
+                    }
                 });
-            },
-            updateURL: function () {
+                },
+                updateURL: function () {
                 window.history.pushState("", "", "/apppage/" + window.btoa(SketchappImgObject.idImg));
-            }
+                }
         }
     </script>
     {% if code != '' %} <!-- Edit Image -->
-        <script>            
+        <script>
             SketchappImgObject.init();
         </script>            
     {% endif %}
     <script>
         window.onbeforeunload = function (e) {
-            e = e || window.event;
-            // For IE and Firefox prior to version 4
-            if (e) {
-                e.returnValue = 'Are you sure?';
-            }
-            // For Safari
-            return 'Are you sure?';
+        e = e || window.event;
+        // For IE and Firefox prior to version 4
+        if (e) {
+        e.returnValue = 'Are you sure?';
+        }
+        // For Safari
+        return 'Are you sure?';
         }
     </script>
 {% endblock %}
