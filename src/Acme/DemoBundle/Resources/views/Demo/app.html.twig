@@ -152,8 +152,8 @@
                 codeImg: "",
                 init: function () {
                 $(document).ready(function () {
-                    if (({{ isNew }} === false)){
-                        SketchappImgObject.idImg = {{ idImage }};
+                    if (({{ isNew }} == false)){
+                        SketchappImgObject.idImg = "{{ idImage }}";
                         SketchappImgObject.codeImg = "{{ code }}";
                         setTimeout(function () {
                         sk.open.json(SketchappImgObject.codeImg);
