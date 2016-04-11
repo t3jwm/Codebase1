@@ -30,7 +30,7 @@ class WelcomeController extends Controller {
         if ($session->has("login")) {
             $login = $session->get("login");
             $userName = $login->getUsername();
-            return $this->render("AcmeDemoBundle:Demo:app.html.twig", array("name" => $userName, "code" => null, "idImage" => null));
+            return $this->render("AcmeDemoBundle:Demo:app.html.twig", array("name" => $userName, "code" => null, "idImage" => null, "isNew" => true));
         } else {
             return $this->redirect($this->generateUrl('login_login_homepage'));            
         }
@@ -119,7 +119,7 @@ class WelcomeController extends Controller {
         $file = $repository->findOneById($code);
         if (($file != null) && ($file->userId == $session->get("login")->getUserId())) {            
             $filepath_dash = "/" . $file->root . "/" . $file->path . ".json";
-            return $this->render("AcmeDemoBundle:Demo:app.html.twig", array("name" => $session->get("login")->getUserName(), "code" => $filepath_dash, "idImage" => $code));
+            return $this->render("AcmeDemoBundle:Demo:app.html.twig", array("name" => $session->get("login")->getUserName(), "code" => $filepath_dash, "idImage" => $code, "isNew" => false));
         }else{
             echo "You can not access this image"; exit;
         }

@@ -152,7 +152,7 @@
                 codeImg: "",
                 init: function () {
                 $(document).ready(function () {
-                    if (({{ idImage }} != null) && ({{ code }} != null)){
+                    if (({{ isNew }} === false)){
                         SketchappImgObject.idImg = {{ idImage }};
                         SketchappImgObject.codeImg = "{{ code }}";
                         setTimeout(function () {
