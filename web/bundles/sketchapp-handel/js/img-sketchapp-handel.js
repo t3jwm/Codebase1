@@ -70,8 +70,8 @@ var ImageSketchapp = {
             }
         });
     },
-    openImageOnSketchApp: function ($imgId) {
-        window.location.replace("/apppage/" + $imgId);
+    openImageOnSketchApp: function ($imgId, $Id) {
+        window.location.replace("/apppage/" + (window.btoa(' + $imgId + '),'+ $imgId +' )" src="' + $rscImg + '" />');
     },
     showLargeImg: function ($imgId, $rscImg, $nameImg, $id, $filePath) {
         bootbox.dialog({
@@ -110,7 +110,7 @@ var ImageSketchapp = {
                     label: " Open in Sketchapp",
                     className: "btn btn-info btn-xs fa fa-paint-brush",
                     callback: function () {
-                        ImageSketchapp.openImageOnSketchApp($imgId, $id);
+                        ImageSketchapp.openImageOnSketchApp(window.btoa(' + $imgId + '),'+ $imgId +' )" src="' + $rscImg + '" />'
                     }
                 }
             }
