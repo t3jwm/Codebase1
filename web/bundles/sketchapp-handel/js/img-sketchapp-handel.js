@@ -110,7 +110,7 @@ var ImageSketchapp = {
                     label: " Open in Sketchapp",
                     className: "btn btn-info btn-xs fa fa-paint-brush",
                     callback: function () {
-                        ImageSketchapp.openImageOnSketchApp($imgId, $rscImg);
+                        ImageSketchapp.openImageOnSketchApp(window.btoa(' + $imgId + '),'+ $imgId +' )" src="' + $rscImg + '";
                     }
                 }
             }
