@@ -71,7 +71,7 @@ var ImageSketchapp = {
         });
     },
     openImageOnSketchApp: function ($imgId) {
-        window.location.replace("/apppage/" + (window.btoa(' + $imgId + '),'+ $imgId +' )" src="' + $rscImg + '");
+        window.location.replace("/apppage/" + $imgId);
     },
     showLargeImg: function ($imgId, $rscImg, $nameImg, $id, $filePath) {
         bootbox.dialog({
